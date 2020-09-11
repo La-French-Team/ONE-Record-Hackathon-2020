@@ -1,0 +1,29 @@
+name: Build, test and deploy
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+env:
+  CI: true
+
+jobs:
+  build:
+    name: Build, test, Docker artifact and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./build
