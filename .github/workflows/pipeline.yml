@@ -4,6 +4,7 @@ on:
     paths-ignore:
       - '*.md'
 env:
+  DOCKER_REPOSITORY: acouvreur/one-record-frontend
   CI: true
 
 jobs:
@@ -22,8 +23,14 @@ jobs:
       - name: Test
         run: npm test
 
-      - name: Deploy to Github Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Docker build and push
+        uses: docker/build-push-action@v1
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ env.DOCKER_REPOSITORY }}
+          tag_with_ref: true
+          add_git_labels: true
+
+      - name: update service
+        run: curl -X POST ${{ secrets.PORTAINER_UPDATE_SERVICE_WEBHOOK }}
