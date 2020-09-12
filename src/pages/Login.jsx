@@ -1,12 +1,13 @@
-import { Button, Container, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import React from 'react';
+import Page from 'components/commons/Page/Page';
 
 export default () => {
   return (
-    <Container>
+    <Page pageName='Login'>
       <Grid container spacing={12}>
         <Grid item xs={4}>
-          <Button>
+          <Button href='/shipment/1'>
             <h2>Login as shipper</h2>
           </Button>
         </Grid>
@@ -26,6 +27,6 @@ export default () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </Page>
   );
 };
