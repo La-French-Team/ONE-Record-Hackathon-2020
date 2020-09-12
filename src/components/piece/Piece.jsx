@@ -1,4 +1,12 @@
-import { Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import box from 'assets/box.svg';
 import React from 'react';
 
@@ -19,7 +27,10 @@ export default function Piece() {
 
   return (
     <Card className={classes.root}>
-      <CardHeader avatar={<img src={box} alt='Box' height={30} />} title='Piece #pieceNumber' />
+      <CardHeader
+        avatar={<img src={box} alt='Box' height={30} />}
+        title='Piece #pieceNumber'
+      />
       <CardContent>
         <Typography variant='body2' component='p'>
           well meaning and kindly.
@@ -28,7 +39,7 @@ export default function Piece() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Learn More</Button>
+        <Button size='small'>Show details</Button>
       </CardActions>
     </Card>
   );

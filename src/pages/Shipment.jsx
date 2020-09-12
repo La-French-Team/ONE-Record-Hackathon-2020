@@ -15,7 +15,7 @@ const useStyle = makeStyles(() => ({
     height: '600px',
   },
   detailsContainer: {
-    height: '300px',
+    height: 'fit-content',
   },
   chartContainer: {
     margin: '10px 0',
