@@ -29,7 +29,7 @@
       "type": "Warehouse",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
       "latitude": "49.002843",
-      "longitude": "2,537995"
+      "longitude": "2.537995"
     }
   },
   {
@@ -78,6 +78,17 @@
   },
   {
     "point": "JFK",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "Truck",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  {
+    "point": "JFK",
     "actorType": "Agent",
     "actorName": "Bollore",
     "location": {
@@ -88,14 +99,25 @@
     }
   },
   {
+    "point": "JFK-New York",
+    "actorType": "Agent",
+    "actorName": "Bollore",
+    "location": {
+      "type": "Truck",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  {
     "point": "New York",
     "actorType": "Consignee",
     "actorName": "CVS Pharmacy",
     "location": {
       "type": "Warehouse",
       "address": "1 CVS Dr, Chemung, NY 14825, États-Unis",
-      "latitude": "39.958981",
-      "longitude": "-94.533603"
+      "latitude": "42.0090935",
+      "longitude": "-76.5653509"
     }
   }
 ]

@@ -9,6 +9,11 @@ import FlightPlaybackAF570 from './flight-playback-2576f644-af570-20200910.json'
 import FlightPlaybackKL643 from './flight-playback-257924d5-kl643-20200911.json';
 import FlightPlaybackLH8290 from './flight-playback-2575adf4-lh8290-20200910.json';
 
+import LeTraitCDG from './route-playback-le-trait-CDG.json';
+import CDGAMS from './route-playback-CDG-AMS.json';
+import JFKNewYork from './ors__v2_directions_get_1599934104836.json';
+import JFKJFK from './ors__v2_directions_get_1599934045185.json';
+
 export const BoxIcon = new Image();
 BoxIcon.height = 24;
 BoxIcon.width = 24;
@@ -45,4 +50,11 @@ const flights = {
   LH8290: FlightPlaybackLH8290,
 };
 
-export { flights };
+const routes = {
+  LeTraitCDG,
+  CDGAMS,
+  JFKNewYork,
+  JFKJFK,
+};
+
+export { flights, routes };

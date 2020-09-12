@@ -1,13 +1,13 @@
 // React
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // Packages
 import { NavigationControl, ScaleControl } from 'mapbox-gl';
 import { withTheme } from '@material-ui/core';
-import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 // Assets
-import { BoxIcon, PlaneIcon, StartEndIcon } from 'assets';
+import { BoxIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
@@ -18,8 +18,13 @@ const lineLayout = {
   'line-join': 'round',
 };
 
-const linePaint = {
+const flightLinePaint = {
   'line-color': '#4790E5',
+  'line-width': 12,
+};
+
+const routeLinePaint = {
+  'line-color': '#15b33f',
   'line-width': 12,
 };
 
@@ -32,13 +37,14 @@ class Map extends Component {
   };
 
   interests = this.props.interests || [];
-  routes = this.props.routes?.map((points) => ({
+  flights = this.props.flights?.map((points) => ({
     points:
       points.result.response.data.flight.track.map((point) => ({
         pos: [point.longitude, point.latitude],
         hdg: point.heading,
       })) || [],
   }));
+  routes = this.props.routes || [];
 
   handleStyleLoad = (map) => {
     map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
@@ -63,56 +69,29 @@ class Map extends Component {
           sourceLayer='building'
           filter={['==', 'extrude', 'true']}
           type='fill-extrusion'
-          minZoom={15}
+          minZoom={20}
           paint={this.buildingsLayerPaint}
+          tolerance={3.5}
         />
 
         <Routes routes={this.routes} />
+        <Flights flights={this.flights} />
         <PointsOfInterest interests={this.interests} />
       </MapboxGL>
     );
   }
 }
 
-const Routes = ({ routes }) => {
-  return routes.map(({ points }) => {
+const Flights = ({ flights }) => {
+  return flights.map(({ points }, index) => {
     return (
-      <>
-        <Layer type='line' layout={lineLayout} paint={linePaint}>
+      <Fragment key={index}>
+        <Layer type='line' layout={lineLayout} paint={flightLinePaint}>
           <Feature coordinates={points.map((p) => p.pos)} />
         </Layer>
+
         <Layer
-          id='box'
-          images={['box-marker', BoxIcon]}
-          layout={{
-            'icon-allow-overlap': true,
-            'icon-anchor': 'center',
-            'icon-image': 'box-marker',
-          }}
-          type='symbol'
-        >
-          <Feature coordinates={points[points.length - 1].pos} />
-        </Layer>
-        <MapContext.Consumer>
-          {(map) => (
-            <Layer
-              id='plane'
-              images={['plane-marker', PlaneIcon]}
-              layout={{
-                'icon-allow-overlap': true,
-                'icon-anchor': 'center',
-                'icon-image': 'plane-marker',
-                'icon-offset': [8, 8],
-                'icon-rotate': points[points.length - 1].hdg - 45 - map.getBearing(),
-              }}
-              type='symbol'
-            >
-              <Feature coordinates={points[points.length - 1].pos} />
-            </Layer>
-          )}
-        </MapContext.Consumer>
-        <Layer
-          id='start'
+          id={`flight-start-${index}`}
           images={['start-end-marker', StartEndIcon]}
           layout={{
             'icon-allow-overlap': true,
@@ -124,7 +103,33 @@ const Routes = ({ routes }) => {
           <Feature coordinates={points[0].pos} />
           <Feature coordinates={points[points.length - 1].pos} />
         </Layer>
-      </>
+      </Fragment>
+    );
+  });
+};
+
+const Routes = ({ routes }) => {
+  return routes.map(({ coordinates }, index) => {
+    console.log(coordinates[0]);
+    return (
+      <Fragment key={index}>
+        <Layer type='line' layout={lineLayout} paint={routeLinePaint}>
+          <Feature coordinates={coordinates} />
+        </Layer>
+        <Layer
+          id={`route-start-${index}`}
+          images={['warehouse-marker', StartEndIcon]}
+          layout={{
+            'icon-allow-overlap': true,
+            'icon-anchor': 'bottom',
+            'icon-image': 'warehouse-marker',
+          }}
+          type='symbol'
+        >
+          <Feature coordinates={coordinates[0]} />
+          <Feature coordinates={coordinates[coordinates.length - 1]} />
+        </Layer>
+      </Fragment>
     );
   });
 };
@@ -132,10 +137,12 @@ const Routes = ({ routes }) => {
 const PointsOfInterest = ({ interests }) => {
   console.table(interests);
   return interests
-    .filter((interest) => !!interest.location.latitude)
+    .filter((interest) => interest.location.latitude !== null)
     .map((interest, index) => {
+      console.log(interest, `${interest.point}-${index}`, interest.location.type);
       return (
         <Layer
+          key={`${interest.point}-${index}`}
           id={`${interest.point}-${index}`}
           images={['start-end-marker', StartEndIcon]}
           layout={{
