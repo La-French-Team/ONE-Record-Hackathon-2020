@@ -1,9 +1,15 @@
 import { Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
 import box from 'assets/box.svg';
 import React from 'react';
+import LoInfoButton from 'components/commons/LoInfoButton/LoInfoButton';
 
 const useStyles = makeStyles({
-  root: { height: '100%', width: '100%' },
+  root: {
+    height: '100%',
+    width: '100%',
+    'margin-bottom': '15px',
+    border: 'solid 1px lightgrey',
+  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -11,6 +17,12 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 14,
+  },
+  header: {
+    padding: '15px',
+    'font-weight': 600,
+    'font-size': '18px',
+    'border-bottom': 'solid 1px lightgrey',
   },
 });
 
@@ -22,30 +34,48 @@ export default function Piece({ piece }) {
   return (
     <Card className={classes.root}>
       <CardHeader
+        className={classes.header}
         avatar={<img src={box} alt='Box' height={30} />}
-        title={`Piece #${piece['https://onerecord.iata.org/Piece#upid']}`}
+        title={
+          <strong style={{ fontSize: '18px' }}>
+            {`Piece #${piece['https://onerecord.iata.org/Piece#upid']}`}
+            <LoInfoButton loUri={''}></LoInfoButton>
+          </strong>
+        }
       />
       <CardContent>
-        <Description
-          label={'Weight'}
-          value={`${piece['https://onerecord.iata.org/Piece#grossWeight']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#grossWeight']['https://onerecord.iata.org/Value#unit']}`}
-        />
-        <Description
-          label={'Height'}
-          value={`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#height']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#height']['https://onerecord.iata.org/Value#unit']}`}
-        />
-        <Description
-          label={'Length'}
-          value={`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#length']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#length']['https://onerecord.iata.org/Value#unit']}`}
-        />
-        <Description
-          label={'Volume'}
-          value={`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#volume']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#volume']['https://onerecord.iata.org/Value#unit']}`}
-        />
-        <Description
-          label={'Width'}
-          value={`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#width']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#width']['https://onerecord.iata.org/Value#unit']}`}
-        />
+        <table>
+          <tr>
+            <td>
+              <strong>{'Weight'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#grossWeight']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#grossWeight']['https://onerecord.iata.org/Value#unit']}`}</td>
+            <td>
+              <strong>{'Height'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#height']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#height']['https://onerecord.iata.org/Value#unit']}`}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{'Length'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#length']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#length']['https://onerecord.iata.org/Value#unit']}`}</td>
+            <td>
+              <strong>{'Volume'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#volume']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#volume']['https://onerecord.iata.org/Value#unit']}`}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{'Width'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#width']['https://onerecord.iata.org/Value#value']}${piece['https://onerecord.iata.org/Piece#dimensions']['https://onerecord.iata.org/Dimensions#width']['https://onerecord.iata.org/Value#unit']}`}</td>
+            <td>
+              <strong>{'SLAC'}:</strong>
+            </td>
+            <td>{`${piece['https://onerecord.iata.org/Piece#slac']}`}</td>
+          </tr>
+        </table>
       </CardContent>
     </Card>
   );
@@ -55,7 +85,7 @@ const Description = ({ label, value }) => {
   return (
     <>
       <Typography variant='body2'>
-        {label}:&nbsp;{value}
+        <strong>{label}:</strong>&nbsp;{value}
       </Typography>
     </>
   );
