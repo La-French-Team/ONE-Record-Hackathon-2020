@@ -7,7 +7,7 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 // Assets
-import { StartEndIcon } from 'assets';
+import { AirportIcon, StartEndIcon, WarehouseIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
@@ -92,11 +92,11 @@ const Flights = ({ flights }) => {
 
         <Layer
           id={`flight-start-${index}`}
-          images={['start-end-marker', StartEndIcon]}
+          images={['airport-marker', AirportIcon]}
           layout={{
             'icon-allow-overlap': true,
             'icon-anchor': 'bottom',
-            'icon-image': 'start-end-marker',
+            'icon-image': 'airport-marker',
           }}
           type='symbol'
         >
@@ -118,7 +118,7 @@ const Routes = ({ routes }) => {
         </Layer>
         <Layer
           id={`route-start-${index}`}
-          images={['warehouse-marker', StartEndIcon]}
+          images={['warehouse-marker', WarehouseIcon]}
           layout={{
             'icon-allow-overlap': true,
             'icon-anchor': 'bottom',
