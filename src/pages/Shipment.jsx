@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
@@ -14,6 +14,7 @@ import moment from 'moment';
 import { useAsync } from 'hooks';
 import Uld from 'components/uld/Uld';
 import Skeleton from 'react-loading-skeleton';
+import shipmentStore from 'stores/shipmentStore';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -34,6 +35,17 @@ export default () => {
 
   const shipmentId = match.params.id;
   const shipmentAWB = mockData[shipmentId] || mockData['057-35635677']; // Fallback on not yet mocked data
+
+  shipmentStore.setAirwayBill(shipmentAWB);
+
+  useEffect(() => {
+    const loop = setInterval(() => {
+      shipmentStore.nextStep();
+    }, 100);
+    return () => {
+      clearInterval(loop);
+    };
+  }, [shipmentAWB]);
 
   const classes = useStyle();
   return (
