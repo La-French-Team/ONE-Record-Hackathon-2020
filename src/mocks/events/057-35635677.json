@@ -1,0 +1,122 @@
+[
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924285480,
+    "details": { "threshold": 8.0, "value": 8.069 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924285540,
+    "details": { "threshold": 8.0, "value": 8.333 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924285600,
+    "details": { "threshold": 8.0, "value": 8.566 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924285660,
+    "details": { "threshold": 8.0, "value": 8.765 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924285720,
+    "details": { "threshold": 8.0, "value": 8.928 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924286140,
+    "details": { "threshold": 8.0, "value": 8.985 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924286200,
+    "details": { "threshold": 8.0, "value": 8.837 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924286260,
+    "details": { "threshold": 8.0, "value": 8.653 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924286320,
+    "details": { "threshold": 8.0, "value": 8.434 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924286380,
+    "details": { "threshold": 8.0, "value": 8.183 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289260,
+    "details": { "threshold": 8.0, "value": 8.116 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289320,
+    "details": { "threshold": 8.0, "value": 8.375 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289380,
+    "details": { "threshold": 8.0, "value": 8.602 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289440,
+    "details": { "threshold": 8.0, "value": 8.795 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289500,
+    "details": { "threshold": 8.0, "value": 8.952 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289920,
+    "details": { "threshold": 8.0, "value": 8.963 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924289980,
+    "details": { "threshold": 8.0, "value": 8.809 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924290040,
+    "details": { "threshold": 8.0, "value": 8.618 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924290100,
+    "details": { "threshold": 8.0, "value": 8.394 }
+  },
+  {
+    "level": "error",
+    "title": "Temperature exceeded",
+    "time": 1599924290160,
+    "details": { "threshold": 8.0, "value": 8.138 }
+  }
+]

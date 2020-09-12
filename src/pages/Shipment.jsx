@@ -7,8 +7,8 @@ import ShipmentMap from 'components/shipment/ShipmentMap';
 import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
-import { useRouteMatch } from 'react-router-dom';
-import { events } from 'data_mock';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import eventsMock from 'mocks/events';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
 import { useAsync } from 'hooks';
@@ -31,9 +31,14 @@ const useStyle = makeStyles(() => ({
 
 export default () => {
   const match = useRouteMatch();
+  const history = useHistory();
 
   const shipmentId = match.params.id;
-  const shipmentAWB = mockData[shipmentId] || mockData['057-35635677']; // Fallback on not yet mocked data
+  if (!mockData[shipmentId]) {
+    history.push('/', null);
+    return null;
+  }
+  const shipmentAWB = mockData[shipmentId];
 
   const classes = useStyle();
   return (
@@ -54,7 +59,7 @@ export default () => {
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <EventList />
+          <EventList shipmentId={shipmentId} />
         </Grid>
       </Grid>
     </Page>
@@ -83,10 +88,10 @@ const ULDList = () => {
   );
 };
 
-const EventList = () => {
+const EventList = ({ shipmentId }) => {
   return (
     <ResponsiveList>
-      {events.map((event) => (
+      {eventsMock[shipmentId].map((event) => (
         <ListItem>
           <Event event={event} />
         </ListItem>

@@ -7,6 +7,8 @@ import ShipperShipmentCard from 'components/overview/ShipperShipmentCard';
 import AirlineShipmentCard from 'components/overview/AirlineShipmentCard';
 import GuestShipmentCard from 'components/overview/GuestShipmentCard';
 
+import mockData from 'mocks/events';
+
 const useStyle = makeStyles((theme) => ({
   title: {
     textAlign: 'center',
@@ -50,10 +52,12 @@ export default () => {
   }, [type]);
 
   useEffect(() => {
-    setShipments([
-      { waybillNumber: '057-35635677', alertNb: 12 },
-      { waybillNumber: '057-90104626', alertNb: 0 },
-    ]);
+    setShipments(
+      ['057-35635677', '057-90104626'].map((waybillNumber) => ({
+        alertNb: mockData[waybillNumber]?.length || 0,
+        waybillNumber: waybillNumber,
+      })),
+    );
   }, []);
 
   return (
