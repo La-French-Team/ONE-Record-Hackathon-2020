@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps(airWayBill) {
-  return airWayBill?.map((step) => step.point) || [];
+  return airWayBill?.filter((step) => step.location.type !== 'Truck').map((step) => step.point) || [];
 }
 
 export default function ShipmentStatus({ airWayBill }) {
