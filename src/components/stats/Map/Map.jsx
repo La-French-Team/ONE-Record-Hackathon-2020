@@ -110,7 +110,6 @@ const Flights = ({ flights }) => {
 
 const Routes = ({ routes }) => {
   return routes.map(({ coordinates }, index) => {
-    console.log(coordinates[0]);
     return (
       <Fragment key={index}>
         <Layer type='line' layout={lineLayout} paint={routeLinePaint}>
@@ -135,11 +134,9 @@ const Routes = ({ routes }) => {
 };
 
 const PointsOfInterest = ({ interests }) => {
-  console.table(interests);
   return interests
     .filter((interest) => interest.location.latitude !== null)
     .map((interest, index) => {
-      console.log(interest, `${interest.point}-${index}`, interest.location.type);
       return (
         <Layer
           key={`${interest.point}-${index}`}
