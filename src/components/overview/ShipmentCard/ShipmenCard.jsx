@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Card, makeStyles } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -31,10 +31,11 @@ const useStyle = makeStyles((theme) => ({
  * @param {JSX.Element} props.shipmentDescription
  */
 const ShipmentCard = ({ shipment, shipmentDescription }) => {
+  const { params } = useRouteMatch();
   const classes = useStyle();
   return (
     <Link
-      to={`/shipments/${shipment.waybillNumber}`}
+      to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
       className={classes.cardLink}
     >
       <Card className={classes.shipmentCard}>

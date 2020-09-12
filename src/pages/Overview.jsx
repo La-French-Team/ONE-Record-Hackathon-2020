@@ -37,7 +37,7 @@ export default () => {
   const [shipments, setShipments] = useState([]);
 
   const { params } = useRouteMatch();
-  const type = params.type;
+  const type = params.userType;
 
   const cardComponent = useMemo(() => {
     if (type === 'shipper') {

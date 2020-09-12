@@ -22,10 +22,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path='/shipments/:id'>
+          <Route path='/:userType/shipments/:id'>
             <Shipment />
           </Route>
-          <Route path='/:type/overview'>
+          <Route path='/:userType/overview'>
             <Overview />
           </Route>
           <Route path='/about'>
