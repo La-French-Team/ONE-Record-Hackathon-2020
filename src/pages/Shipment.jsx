@@ -1,19 +1,26 @@
-import React from 'react';
-import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
+import {
+  Card,
+  CardContent,
+  Grid,
+  ListItem,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
 import ShipmentMap from 'components/shipment/ShipmentMap';
-import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import eventsMock from 'mocks/events';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
+import { StatusColor } from 'const';
 import { useAsync } from 'hooks';
-import Uld from 'components/uld/Uld';
 import Skeleton from 'react-loading-skeleton';
+import Uld from 'components/uld/Uld';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -41,6 +48,20 @@ export default () => {
   const shipmentAWB = mockData[shipmentId];
 
   const classes = useStyle();
+  const [highlightEventAt, setHighlightEventAt] = useState(null);
+
+  const onEventClick = useCallback(
+    (timestamp) => {
+      console.log(timestamp);
+      if (timestamp === highlightEventAt) {
+        setHighlightEventAt(null);
+      } else {
+        setHighlightEventAt(timestamp);
+      }
+    },
+    [highlightEventAt],
+  );
+
   return (
     <Page pageName={`Shipment ${shipmentId} details`}>
       <Grid container spacing={0}>
@@ -55,11 +76,15 @@ export default () => {
             <ShipmentMap airWayBill={shipmentAWB} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails />
+            <ShipmentDetails highlightEventAt={highlightEventAt} />
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <EventList shipmentId={shipmentId} />
+          <EventList
+            shipmentId={shipmentId}
+            onEventClick={onEventClick}
+            highlightEventAt={highlightEventAt}
+          />
         </Grid>
       </Grid>
     </Page>
@@ -67,7 +92,9 @@ export default () => {
 };
 
 const getULDFromOneRecord = () => {
-  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then((response) => response.json());
+  return fetch(
+    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+  ).then((response) => response.json());
 };
 
 const ULDList = () => {
@@ -88,20 +115,40 @@ const ULDList = () => {
   );
 };
 
-const EventList = ({ shipmentId }) => {
+const EventList = ({ shipmentId, onEventClick, highlightEventAt = null }) => {
   return (
     <ResponsiveList>
       {eventsMock[shipmentId].map((event) => (
         <ListItem>
-          <Event event={event} />
+          <Event
+            event={event}
+            onEventClick={onEventClick}
+            isHighLighted={event.time === highlightEventAt}
+          />
         </ListItem>
       ))}
     </ResponsiveList>
   );
 };
 
-const ShipmentDetails = () => {
+const ShipmentDetails = ({ highlightEventAt }) => {
   const classes = useStyle();
+  const data = Array.from(Array(20), (_, index) => ({
+    x: moment('2020-09-12T15:24:45Z')
+      .add(index * 240, 's')
+      .toDate(),
+    y: Math.random() * 10,
+  }));
+
+  const marker = [];
+  if (!!highlightEventAt) {
+    marker.push({
+      axis: 'x',
+      value: moment(highlightEventAt).toDate(),
+      lineStyle: { stroke: StatusColor.error, strokeWidth: 4 },
+    });
+  }
+
   return (
     <Grid container>
       <Grid item xs={12} className={classes.chartContainer}>
@@ -110,16 +157,12 @@ const ShipmentDetails = () => {
           series={[
             {
               id: 'Internal temperature',
-              data: Array.from(Array(20), (_, index) => ({
-                x: moment('2020-09-12T15:24:45Z')
-                  .add(index * 240, 's')
-                  .toDate(),
-                y: Math.random() * 10,
-              })),
+              data,
             },
           ]}
           min={2}
           max={8}
+          defaultMarkers={marker}
         />
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>
