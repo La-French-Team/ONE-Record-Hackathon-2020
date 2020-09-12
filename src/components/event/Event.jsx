@@ -1,7 +1,20 @@
-import { Box, Button, Card, CardActions, CardContent, makeStyles, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
+import WarningIcon from '@material-ui/icons/Warning';
+import ErrorIcon from '@material-ui/icons/Error';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const icons = {
+  info: <InfoIcon color='primary' />,
+  warning: <WarningIcon color='secondary' />,
+  error: <ErrorIcon color='error' />,
+};
 
 const useStyles = makeStyles({
+  info: { color: 'blue' },
+  warning: { color: 'orange' },
+  error: { color: 'red' },
   root: {},
   bullet: {
     display: 'inline-block',
@@ -16,16 +29,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Event() {
+export default function Event({ level = 'info' }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
+      <CardHeader avatar={icons[level]} title={level.toUpperCase()} />
       <CardContent>
-        <Typography className={classes.title} color='textSecondary' gutterBottom>
-          Event
-        </Typography>
         <Typography variant='h5' component='h2'>
           be{bull}nev{bull}o{bull}lent
         </Typography>
@@ -44,3 +55,7 @@ export default function Event() {
     </Card>
   );
 }
+
+Event.propTypes = {
+  level: PropTypes.oneOf(['info', 'warning', 'error']),
+};
