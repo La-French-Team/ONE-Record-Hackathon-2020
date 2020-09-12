@@ -64,16 +64,13 @@ class Map extends Component {
   routes = this.props.routes || [];
   
   computeBoundingBox = () => {
-    if (this.interests.length < 1) {
-      return new LngLatBounds([0, 0], [0, 0]);
-    }
+    const lnglats = [
+      ...this.routes.reduce((acc, { coordinates }) => [...acc, ...coordinates], []),
+      ...this.flights.reduce((acc, { points }) => [...acc, ...points.map(p => p.pos)], [])
+    ]
 
-    const lnglatInterests = this.interests
-      .map(interest => [interest.location.longitude, interest.location.latitude])
-      .filter(lnglat => lnglat[0] !== null && lnglat[1] !== null)
-
-    const bounds = lnglatInterests
-      .reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglatInterests[0], lnglatInterests[0]))
+    const bounds = lnglats
+      .reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]))
 
     return bounds.toArray();
   }
