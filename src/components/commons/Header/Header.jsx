@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { IconButton, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,8 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const getUserName = (userType) => {
+  if (userType === 'shipper') {
+    return 'Gerrard Benson';
+  } else if (userType === 'airline') {
+    return 'Daniel Ware';
+  }
+  return 'Guest';
+};
+
 const Header = ({ pageName = '' }) => {
   const classes = useStyles();
+  const { params } = useRouteMatch();
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -45,14 +55,15 @@ const Header = ({ pageName = '' }) => {
           {pageName}
         </Typography>
 
-        <IconButton
+        <Button
           aria-label='account of current user'
           aria-controls='menu-appbar'
           aria-haspopup='true'
           color='inherit'
         >
           <AccountCircle />
-        </IconButton>
+          <Typography>&nbsp;{getUserName(params.userType)}</Typography>
+        </Button>
       </Toolbar>
     </AppBar>
   );
