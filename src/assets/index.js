@@ -6,8 +6,8 @@ import truckImage from './truck.svg';
 import warehouseImage from './warehouse.svg';
 
 import FlightPlaybackAF570 from './flight-playback-2576f644-af570-20200910.json';
-import FlightPlaybackLH584 from './flight-playback-2579ac49-lh584-20200911.json';
 import FlightPlaybackKL643 from './flight-playback-257924d5-kl643-20200911.json';
+import FlightPlaybackLH8290 from './flight-playback-2575adf4-lh8290-20200910.json';
 
 export const BoxIcon = new Image();
 BoxIcon.height = 24;
@@ -42,10 +42,7 @@ WarehouseIcon.src = warehouseImage;
 const flights = {
   KL643: FlightPlaybackKL643,
   AF570: FlightPlaybackAF570,
-  LH584: FlightPlaybackLH584,
+  LH8290: FlightPlaybackLH8290,
 };
 
-export { default as FlightPlaybackAF570 } from './flight-playback-2576f644-af570-20200910.json';
-export { default as FlightPlaybackLH584 } from './flight-playback-2579ac49-lh584-20200911.json';
-export { default as FlightPlaybackKL643 } from './flight-playback-257924d5-kl643-20200911.json';
 export { flights };

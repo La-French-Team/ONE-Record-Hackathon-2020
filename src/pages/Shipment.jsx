@@ -90,17 +90,14 @@ const ShipmentDetails = () => {
           series={[
             {
               id: 'Internal temperature',
-              data: [
-                { x: 0, y: 7 },
-                { x: 1, y: 5 },
-                { x: 2, y: 11 },
-                { x: 3, y: 9 },
-                { x: 4, y: 13 },
-                { x: 7, y: 16 },
-                { x: 9, y: 12 },
-              ],
+              data: Array.from(Array(20), (_, index) => ({
+                x: index,
+                y: Math.random() * 25,
+              })),
             },
           ]}
+          min={6}
+          max={15.3}
         />
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>
@@ -108,15 +105,10 @@ const ShipmentDetails = () => {
           series={[
             {
               id: 'Hygrometry',
-              data: [
-                { x: 0, y: 7 },
-                { x: 1, y: 5 },
-                { x: 2, y: 11 },
-                { x: 3, y: 9 },
-                { x: 4, y: 13 },
-                { x: 7, y: 16 },
-                { x: 9, y: 12 },
-              ],
+              data: Array.from(Array(20), (_, index) => ({
+                x: index,
+                y: Math.random() * 25,
+              })),
             },
           ]}
         />

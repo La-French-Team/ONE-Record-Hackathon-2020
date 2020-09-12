@@ -12,20 +12,21 @@ import WarningIcon from '@material-ui/icons/Warning';
 import ErrorIcon from '@material-ui/icons/Error';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StatusColor } from 'const';
 
 const icons = {
-  info: <InfoIcon style={{ color: 'blue' }} />,
+  info: <InfoIcon style={{ color: StatusColor.info }} />,
   warning: (
     <WarningIcon
       style={{
-        color: '#ff9800',
+        color: StatusColor.warning,
       }}
     />
   ),
   error: (
     <ErrorIcon
       style={{
-        color: 'red',
+        color: StatusColor.error,
       }}
     />
   ),
