@@ -1,8 +1,7 @@
-import { Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
-import box from 'assets/box.svg';
+import { Card, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
+import uldImage from 'assets/uld.svg';
 import Piece from 'components/piece/Piece';
-import { useAsync, useWhyDidYouUpdate } from 'hooks';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 const useStyles = makeStyles({
@@ -26,7 +25,7 @@ export default function Uld({ uld }) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<img src={box} alt='Box' height={30} />}
+        avatar={<img src={uldImage} alt='Box' height={30} />}
         title={`ULD #${uld['https://onerecord.iata.org/ULD#serialNumber']}`}
       />
       <CardContent>
