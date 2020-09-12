@@ -5,7 +5,7 @@ on:
       - '*.md'
 env:
   DOCKER_REPOSITORY: acouvreur/one-record-frontend
-  CI: true
+  CI: false
 
 jobs:
   build:
