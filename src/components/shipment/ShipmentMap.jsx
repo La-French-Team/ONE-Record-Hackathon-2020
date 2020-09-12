@@ -12,7 +12,6 @@ export default function ShipmentMap({ airWayBill }) {
     // Retrieve flightPlayback data
     .map(([, value]) => value);
 
-  console.table(routes);
   const routePlaybacks = Object.values(routes);
 
   return <Map flights={flightPlaybacks} routes={routePlaybacks} interests={airWayBill} />;

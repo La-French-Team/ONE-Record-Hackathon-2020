@@ -7,7 +7,7 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 // Assets
-import { BoxIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
+import { StartEndIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
