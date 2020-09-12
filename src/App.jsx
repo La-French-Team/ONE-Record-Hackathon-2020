@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, About } from './pages';
+import { Home, About, Login } from './pages';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
@@ -25,7 +25,7 @@ function App() {
             <About />
           </Route>
           <Route path='/'>
-            <Home />
+            <Login />
           </Route>
         </Switch>
       </Router>

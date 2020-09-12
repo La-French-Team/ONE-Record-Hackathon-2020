@@ -4,4 +4,4 @@ import Login from './Login';
 import Overview from './Overview';
 import Details from './Details';
 
-export { Home, About, Login, Overview };
+export { Home, About, Login, Overview, Details };
