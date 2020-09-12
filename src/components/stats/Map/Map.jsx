@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react';
 
 // Packages
-import { NavigationControl, ScaleControl } from 'mapbox-gl';
+import { LngLatBounds, NavigationControl, ScaleControl } from 'mapbox-gl';
 import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
@@ -45,6 +45,21 @@ class Map extends Component {
       })) || [],
   }));
   routes = this.props.routes || [];
+  
+  computeBoundingBox = () => {
+    if (this.interests.length < 1) {
+      return new LngLatBounds([0, 0], [0, 0]);
+    }
+
+    const lnglatInterests = this.interests
+      .map(interest => [interest.location.longitude, interest.location.latitude])
+      .filter(lnglat => lnglat[0] !== null && lnglat[1] !== null)
+
+    const bounds = lnglatInterests
+      .reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglatInterests[0], lnglatInterests[0]))
+
+    return bounds.toArray();
+  }
 
   handleStyleLoad = (map) => {
     map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
@@ -57,6 +72,7 @@ class Map extends Component {
           width: '100%',
           height: '100%',
         }}
+        fitBounds={this.computeBoundingBox()}
         fitBoundsOptions={{
           padding: this.props.theme.spacing(3),
         }}
