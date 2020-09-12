@@ -8,8 +8,14 @@ import { StatusColor } from 'const';
  * @param {import('@nivo/line').Serie[]} props.series
  * @param {number} [props.min]
  * @param {number} [props.max]
+ * @param {string} [props.verticalAxisName]
  */
-const LineChart = ({ series, min = undefined, max = undefined }) => {
+const LineChart = ({
+  series,
+  verticalAxisName = '',
+  min = undefined,
+  max = undefined,
+}) => {
   /**
    * @type {import('@nivo/core').CartesianMarkerProps[]}
    */
@@ -57,28 +63,6 @@ const LineChart = ({ series, min = undefined, max = undefined }) => {
   }
 
   return (
-    // <Line
-    //   width={900}
-    //   height={400}
-    //   data={series}
-    //   animate={true}
-    //   enableSlices={'x'}
-    //   curve='monotoneX'
-    //   xScale={{
-    //     type: 'linear',
-    //     min: 0,
-    //     max: 'auto',
-    //   }}
-    //   axisLeft={{
-    //     legend: 'linear scale',
-    //     legendOffset: 12,
-    //   }}
-    //   axisBottom={{
-    //     legend: 'linear scale',
-    //     legendOffset: -12,
-    //   }}
-    // />
-
     <ResponsiveLine
       data={series}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -97,7 +81,7 @@ const LineChart = ({ series, min = undefined, max = undefined }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'transportation',
+        legend: 'Time',
         legendOffset: 36,
         legendPosition: 'middle',
       }}
@@ -106,7 +90,7 @@ const LineChart = ({ series, min = undefined, max = undefined }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'count',
+        legend: verticalAxisName,
         legendOffset: -40,
         legendPosition: 'middle',
       }}

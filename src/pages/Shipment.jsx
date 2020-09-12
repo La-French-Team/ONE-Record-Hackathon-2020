@@ -87,11 +87,12 @@ const ShipmentDetails = () => {
     <Grid container>
       <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
+          verticalAxisName={'Température (°C)'}
           series={[
             {
               id: 'Internal temperature',
               data: Array.from(Array(20), (_, index) => ({
-                x: index,
+                x: index * 240,
                 y: Math.random() * 25,
               })),
             },
@@ -102,11 +103,12 @@ const ShipmentDetails = () => {
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
+          verticalAxisName='Hygrometry (%)'
           series={[
             {
               id: 'Hygrometry',
               data: Array.from(Array(20), (_, index) => ({
-                x: index,
+                x: index * 240,
                 y: Math.random() * 25,
               })),
             },
