@@ -29,7 +29,7 @@ export default () => {
   const match = useRouteMatch();
 
   const shipmentId = match.params.id;
-  const shipmentAWB = mockData[shipmentId];
+  const shipmentAWB = mockData[shipmentId] || mockData['057-35635677']; // Fallback on not yet mocked data
 
   const classes = useStyle();
   return (
