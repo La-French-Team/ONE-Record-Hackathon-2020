@@ -26,11 +26,11 @@ const useStyle = makeStyles(() => ({
 export default () => {
   const match = useRouteMatch();
 
-  const shippmentId = match.params.id;
+  const shipmentId = match.params.id;
 
   const classes = useStyle();
   return (
-    <Page pageName='Shipment details'>
+    <Page pageName={`Shipment ${shipmentId} details`}>
       <Grid container spacing={0}>
         <Grid item xs={12} md={2}>
           <PieceList />
