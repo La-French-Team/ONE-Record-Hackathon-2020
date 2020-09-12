@@ -10,7 +10,8 @@ import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 import { BoxIcon, PlaneIcon, StartEndIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken:
+    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -26,8 +27,24 @@ const linePaint = {
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
-    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
+    'fill-extrusion-height': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'height'],
+    ],
+    'fill-extrusion-base': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'min_height'],
+    ],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -41,7 +58,9 @@ class Map extends Component {
   }));
 
   handleStyleLoad = (map) => {
-    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
+    map
+      .addControl(new NavigationControl())
+      .addControl(new ScaleControl(), 'bottom-right');
   };
 
   render() {
@@ -103,7 +122,8 @@ const Routes = ({ routes }) => {
                 'icon-anchor': 'center',
                 'icon-image': 'plane-marker',
                 'icon-offset': [8, 8],
-                'icon-rotate': points[points.length - 1].hdg - 45 - map.getBearing(),
+                'icon-rotate':
+                  points[points.length - 1].hdg - 45 - map.getBearing(),
               }}
               type='symbol'
             >
@@ -145,7 +165,12 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
+          <Feature
+            coordinates={[
+              interest.location.longitude,
+              interest.location.latitude,
+            ]}
+          />
         </Layer>
       );
     });

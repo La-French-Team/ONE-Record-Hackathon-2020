@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 import { StatusColor } from 'const';
+import moment from 'moment';
 
 /**
  *
@@ -37,7 +38,7 @@ const LineChart = ({
             lineStyle: { stroke: StatusColor.warning, strokeWidth: 2 },
           });
         }
-      })
+      }),
     );
   }
 
@@ -58,7 +59,7 @@ const LineChart = ({
             lineStyle: { stroke: StatusColor.warning, strokeWidth: 2 },
           });
         }
-      })
+      }),
     );
   }
 
@@ -66,7 +67,14 @@ const LineChart = ({
     <ResponsiveLine
       data={series}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: 'point' }}
+      xScale={{
+        type: 'time',
+        min: 'auto',
+        max: 'auto',
+        stacked: false,
+        reverse: false,
+      }}
+      curve='monotoneX'
       yScale={{
         type: 'linear',
         min: 'auto',
@@ -74,10 +82,12 @@ const LineChart = ({
         stacked: true,
         reverse: false,
       }}
+      xFormat={(time) => moment(time).format('LLL')}
       axisTop={null}
       axisRight={null}
       axisBottom={{
         orient: 'bottom',
+        format: renderXFormat,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -131,6 +141,20 @@ const LineChart = ({
       ]}
     />
   );
+};
+
+let xFormatCounter = 0;
+const renderXFormat = (time) => {
+  let res = null;
+  if (xFormatCounter === 0) {
+    xFormatCounter = 0;
+    res = moment(time).format('LLL');
+  }
+  xFormatCounter++;
+  if (xFormatCounter === 3) {
+    xFormatCounter = 0;
+  }
+  return res;
 };
 
 export default LineChart;

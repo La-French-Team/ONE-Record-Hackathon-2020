@@ -7,7 +7,9 @@ export default function ShipmentMap({ airWayBill }) {
   const locations = airWayBill.map((step) => step.location.type);
 
   // Retrieve flight playbacks by ID (e.g. KL643)
-  const flightPlaybacks = Object.entries(flights).filter(([key]) => locations.includes(key));
+  const flightPlaybacks = Object.entries(flights).filter(([key]) =>
+    locations.includes(key),
+  );
   // Retrieve flightPlayback data
   const routes = flightPlaybacks.map(([, value]) => value);
 

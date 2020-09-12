@@ -10,6 +10,7 @@ import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useRouteMatch } from 'react-router-dom';
 import { events } from 'data_mock';
 import mockData from 'mocks/shipments';
+import moment from 'moment';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -92,13 +93,15 @@ const ShipmentDetails = () => {
             {
               id: 'Internal temperature',
               data: Array.from(Array(20), (_, index) => ({
-                x: index * 240,
-                y: Math.random() * 25,
+                x: moment('2020-09-12T15:24:45Z')
+                  .add(index * 240, 's')
+                  .toDate(),
+                y: Math.random() * 10,
               })),
             },
           ]}
-          min={6}
-          max={15.3}
+          min={2}
+          max={8}
         />
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>
@@ -108,7 +111,9 @@ const ShipmentDetails = () => {
             {
               id: 'Hygrometry',
               data: Array.from(Array(20), (_, index) => ({
-                x: index * 240,
+                x: moment('2020-09-12T15:24:45Z')
+                  .add(index * 240, 's')
+                  .toDate(),
                 y: Math.random() * 25,
               })),
             },
