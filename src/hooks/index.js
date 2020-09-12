@@ -1,3 +1,4 @@
 import useLocalStorage from './useLocalStorage';
+import useRouter from './useRouter';
 
-export { useLocalStorage };
+export { useRouter, useLocalStorage };
