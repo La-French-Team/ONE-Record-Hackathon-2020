@@ -101,7 +101,7 @@ class Map extends Component {
           sourceLayer='building'
           filter={['==', 'extrude', 'true']}
           type='fill-extrusion'
-          minZoom={20}
+          minZoom={15}
           paint={this.buildingsLayerPaint}
           tolerance={3.5}
         />
