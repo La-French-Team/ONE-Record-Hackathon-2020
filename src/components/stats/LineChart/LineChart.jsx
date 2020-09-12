@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line, ResponsiveLine } from '@nivo/line';
+import { ResponsiveLine } from '@nivo/line';
 
 /**
  *

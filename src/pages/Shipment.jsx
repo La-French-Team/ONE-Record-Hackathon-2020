@@ -1,16 +1,17 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, useMediaQuery, Box } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
 import ShipmentMap from 'components/shipment/ShipmentMap';
+import Piece from 'components/piece/Piece';
 
 export default () => {
   return (
     <Page pageName='Shipment details'>
       <Grid container spacing={0}>
         <Grid item xs={12} md={2}>
-          <Typography>Left</Typography>
+          <PieceList />
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
@@ -24,7 +25,7 @@ export default () => {
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <Typography>Right</Typography>
+          <EventList />
         </Grid>
       </Grid>
     </Page>
@@ -32,7 +33,21 @@ export default () => {
 };
 
 const PieceList = () => {
-  return null;
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('xs'));
+  const direction = matches ? 'row' : 'column';
+  return (
+    <Grid container direction={direction}>
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_) => (
+        <Grid item md={12}>
+          <Piece />
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
+
+const EventList = () => {
+  return <Typography>Event list</Typography>;
 };
 
 const ShipmentDetails = () => {
