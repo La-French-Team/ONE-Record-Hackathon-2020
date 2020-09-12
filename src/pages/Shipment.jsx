@@ -1,5 +1,11 @@
 import React from 'react';
-import { Grid, Typography, useMediaQuery, Box } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  useMediaQuery,
+  Box,
+  makeStyles,
+} from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -7,21 +13,44 @@ import ShipmentMap from 'components/shipment/ShipmentMap';
 import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
 
+const useStyle = makeStyles(() => ({
+  fullHeightContainer: {
+    height: '100%',
+  },
+  mapContainer: {
+    width: '100%',
+    flex: '2 2 auto',
+    maxHeight: '50%',
+  },
+  detailsContainer: {
+    flex: '1 1 auto',
+    height: '0',
+  },
+}));
+
 export default () => {
+  const classes = useStyle();
   return (
     <Page pageName='Shipment details'>
-      <Grid container spacing={0}>
+      <Grid container spacing={0} className={classes.fullHeightContainer}>
         <Grid item xs={12} md={2}>
           <PieceList />
         </Grid>
-        <Grid container item xs={12} md={8} direction='column'>
+        <Grid
+          container
+          item
+          xs={12}
+          md={8}
+          direction='column'
+          className={classes.fullHeightContainer}
+        >
           <Grid item>
             <ShipmentStatus />
           </Grid>
-          <Grid item>
+          <Grid item className={classes.mapContainer}>
             <ShipmentMap />
           </Grid>
-          <Grid item>
+          <Grid item className={classes.detailsContainer}>
             <ShipmentDetails />
           </Grid>
         </Grid>
@@ -62,9 +91,10 @@ const EventList = () => {
 };
 
 const ShipmentDetails = () => {
+  const classes = useStyle();
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} style={{ maxHeight: '300px' }}>
+    <Grid container className={classes.fullHeightContainer}>
+      <Grid item xs={12} md={6} style={{ height: '100%' }}>
         <LineChart
           series={[
             {
