@@ -1,18 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { About, Login } from './pages';
+import { Home, About, Shipment, Login } from './pages';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+import blue from '@material-ui/core/colors/blue';
+import pink from '@material-ui/core/colors/pink';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: blue[500],
     },
     secondary: {
-      main: green[500],
+      main: pink[500],
     },
+    contrastThreshold: 3,
   },
 });
 
@@ -21,6 +22,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
+          <Route path='/shipment/:id'>
+            <Shipment />
+          </Route>
           <Route path='/about'>
             <About />
           </Route>

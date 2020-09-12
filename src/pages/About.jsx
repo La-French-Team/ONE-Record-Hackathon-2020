@@ -1,5 +1,6 @@
 import React from 'react';
+import Page from 'components/commons/Page/Page';
 
 export default () => {
-  return <h2>About</h2>;
+  return <Page pageName='About'>About</Page>;
 };

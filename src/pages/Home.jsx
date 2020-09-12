@@ -1,5 +1,6 @@
-import { Container, Box, Typography, Link } from '@material-ui/core';
 import React from 'react';
+import { Typography, Link } from '@material-ui/core';
+import Page from 'components/commons/Page/Page';
 
 function Copyright() {
   return (
@@ -16,13 +17,11 @@ function Copyright() {
 
 export default () => {
   return (
-    <Container maxWidth='sm'>
-      <Box my={4}>
-        <Typography variant='h4' component='h1' gutterBottom align='center'>
-          ONE Record Hackathon 2020
-        </Typography>
-        <Copyright />
-      </Box>
-    </Container>
+    <Page pageName='Home'>
+      <Typography variant='h4' component='h1' gutterBottom align='center'>
+        ONE Record Hackathon 2020
+      </Typography>
+      <Copyright />
+    </Page>
   );
 };
