@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
 import ShipmentMap from 'components/shipment/ShipmentMap';
-import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
-import { useRouteMatch } from 'react-router-dom';
-import { events } from 'data_mock';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import eventsMock from 'mocks/events';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
+import { StatusColor } from 'const';
 import { useAsync } from 'hooks';
-import Uld from 'components/uld/Uld';
 import Skeleton from 'react-loading-skeleton';
 import shipmentStore from 'stores/shipmentStore';
+import Uld from 'components/uld/Uld';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -32,9 +32,14 @@ const useStyle = makeStyles(() => ({
 
 export default () => {
   const match = useRouteMatch();
+  const history = useHistory();
 
   const shipmentId = match.params.id;
-  const shipmentAWB = mockData[shipmentId] || mockData['057-35635677']; // Fallback on not yet mocked data
+  if (!mockData[shipmentId]) {
+    history.push('/', null);
+    return null;
+  }
+  const shipmentAWB = mockData[shipmentId];
 
   shipmentStore.setAirwayBill(shipmentAWB);
 
@@ -48,6 +53,20 @@ export default () => {
   }, [shipmentAWB]);
 
   const classes = useStyle();
+  const [highlightEventAt, setHighlightEventAt] = useState(null);
+
+  const onEventClick = useCallback(
+    (timestamp) => {
+      console.log(timestamp);
+      if (timestamp === highlightEventAt) {
+        setHighlightEventAt(null);
+      } else {
+        setHighlightEventAt(timestamp);
+      }
+    },
+    [highlightEventAt]
+  );
+
   return (
     <Page pageName={`Shipment ${shipmentId} details`}>
       <Grid container spacing={0}>
@@ -62,11 +81,11 @@ export default () => {
             <ShipmentMap airWayBill={shipmentAWB} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails />
+            <ShipmentDetails highlightEventAt={highlightEventAt} />
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <EventList />
+          <EventList shipmentId={shipmentId} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
         </Grid>
       </Grid>
     </Page>
@@ -95,20 +114,36 @@ const ULDList = () => {
   );
 };
 
-const EventList = () => {
+const EventList = ({ shipmentId, onEventClick, highlightEventAt = null }) => {
   return (
     <ResponsiveList>
-      {events.map((event) => (
+      {eventsMock[shipmentId].map((event) => (
         <ListItem>
-          <Event event={event} />
+          <Event event={event} onEventClick={onEventClick} isHighLighted={event.time === highlightEventAt} />
         </ListItem>
       ))}
     </ResponsiveList>
   );
 };
 
-const ShipmentDetails = () => {
+const ShipmentDetails = ({ highlightEventAt }) => {
   const classes = useStyle();
+  const data = Array.from(Array(20), (_, index) => ({
+    x: moment('2020-09-12T15:24:45Z')
+      .add(index * 240, 's')
+      .toDate(),
+    y: Math.random() * 10,
+  }));
+
+  const marker = [];
+  if (!!highlightEventAt) {
+    marker.push({
+      axis: 'x',
+      value: moment(highlightEventAt).toDate(),
+      lineStyle: { stroke: StatusColor.error, strokeWidth: 4 },
+    });
+  }
+
   return (
     <Grid container>
       <Grid item xs={12} className={classes.chartContainer}>
@@ -117,16 +152,12 @@ const ShipmentDetails = () => {
           series={[
             {
               id: 'Internal temperature',
-              data: Array.from(Array(20), (_, index) => ({
-                x: moment('2020-09-12T15:24:45Z')
-                  .add(index * 240, 's')
-                  .toDate(),
-                y: Math.random() * 10,
-              })),
+              data,
             },
           ]}
           min={2}
           max={8}
+          defaultMarkers={marker}
         />
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>

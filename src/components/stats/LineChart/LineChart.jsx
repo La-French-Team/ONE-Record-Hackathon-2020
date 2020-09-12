@@ -10,17 +10,19 @@ import moment from 'moment';
  * @param {number} [props.min]
  * @param {number} [props.max]
  * @param {string} [props.verticalAxisName]
+ * @param {import('@nivo/core').CartesianMarkerProps[]} [props.defaultMarkers]
  */
 const LineChart = ({
   series,
   verticalAxisName = '',
   min = undefined,
   max = undefined,
+  defaultMarkers = [],
 }) => {
   /**
    * @type {import('@nivo/core').CartesianMarkerProps[]}
    */
-  const markers = [];
+  const markers = defaultMarkers;
 
   if (min) {
     markers.push({

@@ -10,9 +10,10 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import WarningIcon from '@material-ui/icons/Warning';
 import ErrorIcon from '@material-ui/icons/Error';
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { StatusColor } from 'const';
+import moment from 'moment';
 
 const icons = {
   info: <InfoIcon style={{ color: StatusColor.info }} />,
@@ -39,18 +40,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Event({ event }) {
+export default function Event({ event, isHighLighted, onEventClick }) {
   const classes = useStyles();
 
+  const onClick = useCallback(() => {
+    onEventClick(event.time);
+  }, [event, onEventClick]);
+
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={isHighLighted ? 3 : 0}>
       <CardHeader
         avatar={icons[event.level]}
         title={event.title.toUpperCase()}
       />
       <CardContent>
         <Typography variant='caption' component='p'>
-          {new Date(event.timestamp).toLocaleString()}
+          {moment(event.time).format('LLL')}
         </Typography>
         <Typography variant='body2' component='p'>
           {!!event.details &&
@@ -58,7 +63,9 @@ export default function Event({ event }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Learn More</Button>
+        <Button size='small' onClick={onClick}>
+          Highlight
+        </Button>
       </CardActions>
     </Card>
   );

@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react';
 
 // Packages
-import { NavigationControl, ScaleControl } from 'mapbox-gl';
+import { LngLatBounds, NavigationControl, ScaleControl } from 'mapbox-gl';
 import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
@@ -10,7 +10,8 @@ import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import { AirportIcon, StartEndIcon, WarehouseIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken:
+    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -31,8 +32,24 @@ const routeLinePaint = {
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
-    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
+    'fill-extrusion-height': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'height'],
+    ],
+    'fill-extrusion-base': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'min_height'],
+    ],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -45,9 +62,23 @@ class Map extends Component {
       })) || [],
   }));
   routes = this.props.routes || [];
+  
+  computeBoundingBox = () => {
+    const lnglats = [
+      ...this.routes.reduce((acc, { coordinates }) => [...acc, ...coordinates], []),
+      ...this.flights.reduce((acc, { points }) => [...acc, ...points.map(p => p.pos)], [])
+    ]
+
+    const bounds = lnglats
+      .reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]))
+
+    return bounds.toArray();
+  }
 
   handleStyleLoad = (map) => {
-    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
+    map
+      .addControl(new NavigationControl())
+      .addControl(new ScaleControl(), 'bottom-right');
   };
 
   render() {
@@ -57,6 +88,7 @@ class Map extends Component {
           width: '100%',
           height: '100%',
         }}
+        fitBounds={this.computeBoundingBox()}
         fitBoundsOptions={{
           padding: this.props.theme.spacing(3),
         }}
@@ -149,7 +181,12 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
+          <Feature
+            coordinates={[
+              interest.location.longitude,
+              interest.location.latitude,
+            ]}
+          />
         </Layer>
       );
     });
