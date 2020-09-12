@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, ListItem } from '@material-ui/core';
+import { Grid, ListItem, makeStyles } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -9,11 +9,26 @@ import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useRouteMatch } from 'react-router-dom';
 
+const useStyle = makeStyles(() => ({
+  mapContainer: {
+    width: '100%',
+    height: '600px',
+  },
+  detailsContainer: {
+    height: '300px',
+  },
+  chartContainer: {
+    margin: '10px 0',
+    height: '400px',
+  },
+}));
+
 export default () => {
   const match = useRouteMatch();
 
   const shippmentId = match.params.id;
 
+  const classes = useStyle();
   return (
     <Page pageName='Shipment details'>
       <Grid container spacing={0}>
@@ -24,10 +39,10 @@ export default () => {
           <Grid item>
             <ShipmentStatus />
           </Grid>
-          <Grid item>
+          <Grid item className={classes.mapContainer}>
             <ShipmentMap />
           </Grid>
-          <Grid item>
+          <Grid item className={classes.detailsContainer}>
             <ShipmentDetails />
           </Grid>
         </Grid>
@@ -64,9 +79,10 @@ const EventList = () => {
 };
 
 const ShipmentDetails = () => {
+  const classes = useStyle();
   return (
     <Grid container>
-      <Grid item xs={12} md={6} style={{ maxHeight: '300px' }}>
+      <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
           series={[
             {
@@ -84,11 +100,11 @@ const ShipmentDetails = () => {
           ]}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
           series={[
             {
-              id: 'Internal temperature',
+              id: 'Hygrometry',
               data: [
                 { x: 0, y: 7 },
                 { x: 1, y: 5 },
