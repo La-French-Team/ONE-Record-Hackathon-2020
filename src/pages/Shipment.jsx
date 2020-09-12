@@ -1,13 +1,19 @@
 import React from 'react';
-import { Grid, Typography, useMediaQuery, Box } from '@material-ui/core';
+import { Grid, ListItem } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
 import ShipmentMap from 'components/shipment/ShipmentMap';
 import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
+import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
+import { useRouteMatch } from 'react-router-dom';
 
 export default () => {
+  const match = useRouteMatch();
+
+  const shippmentId = match.params.id;
+
   return (
     <Page pageName='Shipment details'>
       <Grid container spacing={0}>
@@ -34,30 +40,26 @@ export default () => {
 };
 
 const PieceList = () => {
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('xs'));
-  const direction = matches ? 'row' : 'column';
   return (
-    <Grid container direction={direction}>
+    <ResponsiveList>
       {[0, 1, 2, 3, 4].map((_) => (
-        <Grid item md={12}>
+        <ListItem>
           <Piece />
-        </Grid>
+        </ListItem>
       ))}
-    </Grid>
+    </ResponsiveList>
   );
 };
 
 const EventList = () => {
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('xs'));
-  const direction = matches ? 'row' : 'column';
   return (
-    <Grid container direction={direction}>
+    <ResponsiveList>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_) => (
-        <Grid item md={12}>
+        <ListItem>
           <Event />
-        </Grid>
+        </ListItem>
       ))}
-    </Grid>
+    </ResponsiveList>
   );
 };
 
@@ -83,7 +85,22 @@ const ShipmentDetails = () => {
         />
       </Grid>
       <Grid item xs={12} md={6}>
-        test
+        <LineChart
+          series={[
+            {
+              id: 'Internal temperature',
+              data: [
+                { x: 0, y: 7 },
+                { x: 1, y: 5 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 13 },
+                { x: 7, y: 16 },
+                { x: 9, y: 12 },
+              ],
+            },
+          ]}
+        />
       </Grid>
     </Grid>
   );

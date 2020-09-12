@@ -15,34 +15,19 @@ const useStyles = makeStyles({
   info: { color: 'blue' },
   warning: { color: 'orange' },
   error: { color: 'red' },
-  root: {},
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
+  root: { height: '100%', width: '100%' },
   title: {
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
 });
 
 export default function Event({ level = 'info' }) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
       <CardHeader avatar={icons[level]} title={level.toUpperCase()} />
       <CardContent>
-        <Typography variant='h5' component='h2'>
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color='textSecondary'>
-          adjective
-        </Typography>
         <Typography variant='body2' component='p'>
           well meaning and kindly.
           <br />

@@ -3,7 +3,7 @@ import box from 'assets/box.svg';
 import React from 'react';
 
 const useStyles = makeStyles({
-  root: {},
+  root: { height: '100%', width: '100%' },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -12,22 +12,15 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  pos: {
-    marginBottom: 12,
-  },
 });
 
 export default function Piece() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
-      <CardHeader avatar={<img src={box} alt='Box' height={30} />} title='Piece pieceNumber' />
+      <CardHeader avatar={<img src={box} alt='Box' height={30} />} title='Piece #pieceNumber' />
       <CardContent>
-        <Typography className={classes.pos} color='textSecondary'>
-          adjective
-        </Typography>
         <Typography variant='body2' component='p'>
           well meaning and kindly.
           <br />
