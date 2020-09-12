@@ -8,6 +8,7 @@ import Piece from 'components/piece/Piece';
 import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useRouteMatch } from 'react-router-dom';
+import { events } from 'data_mock';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -69,9 +70,9 @@ const PieceList = () => {
 const EventList = () => {
   return (
     <ResponsiveList>
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_) => (
+      {events.map((event) => (
         <ListItem>
-          <Event />
+          <Event event={event} />
         </ListItem>
       ))}
     </ResponsiveList>

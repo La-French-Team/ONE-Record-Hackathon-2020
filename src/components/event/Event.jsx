@@ -1,4 +1,12 @@
-import { Button, Card, CardActions, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import WarningIcon from '@material-ui/icons/Warning';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -6,32 +14,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const icons = {
-  info: <InfoIcon color='primary' />,
-  warning: <WarningIcon color='secondary' />,
-  error: <ErrorIcon color='error' />,
+  info: <InfoIcon style={{ color: 'blue' }} />,
+  warning: (
+    <WarningIcon
+      style={{
+        color: '#ff9800',
+      }}
+    />
+  ),
+  error: (
+    <ErrorIcon
+      style={{
+        color: 'red',
+      }}
+    />
+  ),
 };
 
 const useStyles = makeStyles({
-  info: { color: 'blue' },
-  warning: { color: 'orange' },
-  error: { color: 'red' },
   root: { height: '100%', width: '100%' },
   title: {
     fontSize: 14,
   },
 });
 
-export default function Event({ level = 'info' }) {
+export default function Event({ event }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardHeader avatar={icons[level]} title={level.toUpperCase()} />
+      <CardHeader
+        avatar={icons[event.level]}
+        title={event.title.toUpperCase()}
+      />
       <CardContent>
+        <Typography variant='caption' component='p'>
+          {new Date(event.timestamp).toLocaleString()}
+        </Typography>
         <Typography variant='body2' component='p'>
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          {!!event.details &&
+            `Maximum temperature ${event.details.threshold}°C exceeded: ${event.details.value}°C`}
         </Typography>
       </CardContent>
       <CardActions>
