@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { About, Shipment, Login } from './pages';
+import { About, Shipment, Login, Overview } from './pages';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/pink';
@@ -27,6 +27,9 @@ function App() {
           </Route>
           <Route path='/about'>
             <About />
+          </Route>
+          <Route path='/overview'>
+            <Overview />
           </Route>
           <Route path='/'>
             <Login />
