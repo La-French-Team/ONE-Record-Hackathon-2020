@@ -13,6 +13,16 @@ const MapboxGL = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
+const lineLayout = {
+  'line-cap': 'round',
+  'line-join': 'round',
+};
+
+const linePaint = {
+  'line-color': '#4790E5',
+  'line-width': 12,
+};
+
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
@@ -21,16 +31,7 @@ class Map extends Component {
     'fill-extrusion-opacity': 0.6,
   };
 
-  lineLayout = {
-    'line-cap': 'round',
-    'line-join': 'round',
-  };
-
-  linePaint = {
-    'line-color': '#4790E5',
-    'line-width': 12,
-  };
-
+  interests = this.props.interests || [];
   routes = this.props.routes?.map((points) => ({
     points:
       points.result.response.data.flight.track.map((point) => ({
@@ -66,62 +67,88 @@ class Map extends Component {
           paint={this.buildingsLayerPaint}
         />
 
-        {this.routes.map(({ points }) => {
-          console.log(points);
-          return (
-            <>
-              <Layer type='line' layout={this.lineLayout} paint={this.linePaint}>
-                <Feature coordinates={points.map((p) => p.pos)} />
-              </Layer>
-              <Layer
-                id='box'
-                images={['box-marker', BoxIcon]}
-                layout={{
-                  'icon-allow-overlap': true,
-                  'icon-anchor': 'center',
-                  'icon-image': 'box-marker',
-                }}
-                type='symbol'
-              >
-                <Feature coordinates={points[points.length - 1].pos} />
-              </Layer>
-              <MapContext.Consumer>
-                {(map) => (
-                  <Layer
-                    id='plane'
-                    images={['plane-marker', PlaneIcon]}
-                    layout={{
-                      'icon-allow-overlap': true,
-                      'icon-anchor': 'center',
-                      'icon-image': 'plane-marker',
-                      'icon-offset': [8, 8],
-                      'icon-rotate': points[points.length - 1].hdg - 45 - map.getBearing(),
-                    }}
-                    type='symbol'
-                  >
-                    <Feature coordinates={points[points.length - 1].pos} />
-                  </Layer>
-                )}
-              </MapContext.Consumer>
-              <Layer
-                id='start'
-                images={['start-end-marker', StartEndIcon]}
-                layout={{
-                  'icon-allow-overlap': true,
-                  'icon-anchor': 'bottom',
-                  'icon-image': 'start-end-marker',
-                }}
-                type='symbol'
-              >
-                <Feature coordinates={points[0].pos} />
-                <Feature coordinates={points[points.length - 1].pos} />
-              </Layer>
-            </>
-          );
-        })}
+        <Routes routes={this.routes} />
+        <PointsOfInterest interests={this.interests} />
       </MapboxGL>
     );
   }
 }
+
+const Routes = ({ routes }) => {
+  return routes.map(({ points }) => {
+    return (
+      <>
+        <Layer type='line' layout={lineLayout} paint={linePaint}>
+          <Feature coordinates={points.map((p) => p.pos)} />
+        </Layer>
+        <Layer
+          id='box'
+          images={['box-marker', BoxIcon]}
+          layout={{
+            'icon-allow-overlap': true,
+            'icon-anchor': 'center',
+            'icon-image': 'box-marker',
+          }}
+          type='symbol'
+        >
+          <Feature coordinates={points[points.length - 1].pos} />
+        </Layer>
+        <MapContext.Consumer>
+          {(map) => (
+            <Layer
+              id='plane'
+              images={['plane-marker', PlaneIcon]}
+              layout={{
+                'icon-allow-overlap': true,
+                'icon-anchor': 'center',
+                'icon-image': 'plane-marker',
+                'icon-offset': [8, 8],
+                'icon-rotate': points[points.length - 1].hdg - 45 - map.getBearing(),
+              }}
+              type='symbol'
+            >
+              <Feature coordinates={points[points.length - 1].pos} />
+            </Layer>
+          )}
+        </MapContext.Consumer>
+        <Layer
+          id='start'
+          images={['start-end-marker', StartEndIcon]}
+          layout={{
+            'icon-allow-overlap': true,
+            'icon-anchor': 'bottom',
+            'icon-image': 'start-end-marker',
+          }}
+          type='symbol'
+        >
+          <Feature coordinates={points[0].pos} />
+          <Feature coordinates={points[points.length - 1].pos} />
+        </Layer>
+      </>
+    );
+  });
+};
+
+const PointsOfInterest = ({ interests }) => {
+  console.table(interests);
+  return interests
+    .filter((interest) => !!interest.location.latitude)
+    .map((interest, index) => {
+      return (
+        <Layer
+          id={`${interest.point}-${index}`}
+          images={['start-end-marker', StartEndIcon]}
+          layout={{
+            'icon-allow-overlap': true,
+            'icon-anchor': 'bottom',
+            'icon-image': 'start-end-marker',
+          }}
+          type='symbol'
+        >
+          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
+        </Layer>
+      );
+    });
+};
 
 export default withTheme(Map);

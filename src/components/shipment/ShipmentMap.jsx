@@ -3,10 +3,13 @@ import React from 'react';
 import { flights } from 'assets';
 
 export default function ShipmentMap({ airWayBill }) {
-  console.table(airWayBill);
-  console.table(flights);
+  // A location might be an airplane ID (e.g. KL643)
   const locations = airWayBill.map((step) => step.location.type);
-  const flightPlaybacks = Object.entries(flights).filter(([key, value]) => locations.includes(key));
-  console.log(flightPlaybacks);
-  return <Map routes={flightPlaybacks.map(([key, value]) => value)} />;
+
+  // Retrieve flight playbacks by ID (e.g. KL643)
+  const flightPlaybacks = Object.entries(flights).filter(([key]) => locations.includes(key));
+  // Retrieve flightPlayback data
+  const routes = flightPlaybacks.map(([, value]) => value);
+
+  return <Map routes={routes} interests={airWayBill} />;
 }
