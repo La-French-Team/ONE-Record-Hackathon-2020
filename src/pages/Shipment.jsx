@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, ListItem, makeStyles } from '@material-ui/core';
+import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -11,6 +11,9 @@ import { useRouteMatch } from 'react-router-dom';
 import { events } from 'data_mock';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
+import { useAsync } from 'hooks';
+import Uld from 'components/uld/Uld';
+import Skeleton from 'react-loading-skeleton';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -37,7 +40,7 @@ export default () => {
     <Page pageName={`Shipment ${shipmentId} details`}>
       <Grid container spacing={0}>
         <Grid item xs={12} md={2}>
-          <PieceList />
+          <ULDList />
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
@@ -58,14 +61,24 @@ export default () => {
   );
 };
 
-const PieceList = () => {
+const getULDFromOneRecord = () => {
+  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then((response) => response.json());
+};
+
+const ULDList = () => {
+  // TODO: Get multiple ULDs instead of one
+  const { status, value, error } = useAsync(getULDFromOneRecord);
   return (
     <ResponsiveList>
-      {[0, 1, 2, 3, 4].map((_) => (
-        <ListItem>
-          <Piece />
-        </ListItem>
-      ))}
+      {status === 'pending' && <Skeleton count={5} />}
+      {status === 'success' && <Uld uld={value} />}
+      {status === 'error' && (
+        <Card>
+          <CardContent>
+            <Typography>{error.message}</Typography>
+          </CardContent>
+        </Card>
+      )}
     </ResponsiveList>
   );
 };
