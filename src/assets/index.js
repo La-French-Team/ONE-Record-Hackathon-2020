@@ -1,9 +1,13 @@
-import boxImage from './box.svg'
-import planeImage from './plane.svg'
-import airportImage from './airport.svg'
-import startEndImage from './start_end.svg'
-import truckImage from './truck.svg'
-import warehouseImage from './warehouse.svg'
+import boxImage from './box.svg';
+import planeImage from './plane.svg';
+import airportImage from './airport.svg';
+import startEndImage from './start_end.svg';
+import truckImage from './truck.svg';
+import warehouseImage from './warehouse.svg';
+
+import FlightPlaybackAF570 from './flight-playback-2576f644-af570-20200910.json';
+import FlightPlaybackLH584 from './flight-playback-2579ac49-lh584-20200911.json';
+import FlightPlaybackKL643 from './flight-playback-257924d5-kl643-20200911.json';
 
 export const BoxIcon = new Image();
 BoxIcon.height = 24;
@@ -35,6 +39,13 @@ WarehouseIcon.height = 32;
 WarehouseIcon.width = 32;
 WarehouseIcon.src = warehouseImage;
 
-export { default as FlightPlaybackAF570 } from './flight-playback-2576f644-af570-20200910.json'
-export { default as FlightPlaybackLH584 } from './flight-playback-2579ac49-lh584-20200911.json'
-export { default as FlightPlaybackKL643 } from './flight-playback-257924d5-kl643-20200911.json'
+const flights = {
+  KL643: FlightPlaybackKL643,
+  AF570: FlightPlaybackAF570,
+  LH584: FlightPlaybackLH584,
+};
+
+export { default as FlightPlaybackAF570 } from './flight-playback-2576f644-af570-20200910.json';
+export { default as FlightPlaybackLH584 } from './flight-playback-2579ac49-lh584-20200911.json';
+export { default as FlightPlaybackKL643 } from './flight-playback-257924d5-kl643-20200911.json';
+export { flights };

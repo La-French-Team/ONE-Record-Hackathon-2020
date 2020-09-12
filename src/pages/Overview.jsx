@@ -51,7 +51,7 @@ export default () => {
 
   useEffect(() => {
     setShipments([
-      { waybillNumber: '057-91214933', alertNb: 12 },
+      { waybillNumber: '057-35635677', alertNb: 12 },
       { waybillNumber: '057-90104626', alertNb: 0 },
     ]);
   }, []);

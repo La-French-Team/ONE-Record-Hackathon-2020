@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return ['Departure', 'CDG', 'truck', 'AMS', 'plane', 'SIN', 'Arrival'];
+function getSteps(airWayBill) {
+  return airWayBill?.map((step) => step.point) || [];
 }
 
-function HorizontalLinearStepper() {
+export default function ShipmentStatus({ airWayBill }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const steps = getSteps();
+  const steps = getSteps(airWayBill);
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -49,8 +49,4 @@ function HorizontalLinearStepper() {
       </Stepper>
     </div>
   );
-}
-
-export default function ShipmentStatus() {
-  return <HorizontalLinearStepper />;
 }

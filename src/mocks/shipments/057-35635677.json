@@ -1,0 +1,101 @@
+[
+  {
+    "point": "Le trait",
+    "actorType": "Shipper",
+    "actorName": "Sanofi",
+    "location": {
+      "type": "Warehouse",
+      "address": "1051 Boulevard industriel, 76580",
+      "latitude": "49.485133",
+      "longitude": "0.793279"
+    }
+  },
+  {
+    "point": "le trait - CDG",
+    "actorType": "Agent",
+    "actorName": "Bollore Logistics",
+    "location": {
+      "type": "Truck",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  {
+    "point": "CDG",
+    "actorType": "Airline",
+    "actorName": "Air France",
+    "location": {
+      "type": "Warehouse",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "49.002843",
+      "longitude": "2,537995"
+    }
+  },
+  {
+    "point": "CDG-AMS",
+    "actorType": "Airline",
+    "actorName": "Air France",
+    "location": {
+      "type": "Truck",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  {
+    "point": "AMS",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "Warehouse",
+      "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
+      "latitude": "52.303190",
+      "longitude": "4.752027"
+    }
+  },
+  {
+    "point": "AMS-JFK",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "KL643",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  {
+    "point": "JFK",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "Warehouse",
+      "address": "Building JFK, 78B N Boundary Rd, Jamaica, NY 11430, États-Unis",
+      "latitude": "40.658247",
+      "longitude": "-73.773584"
+    }
+  },
+  {
+    "point": "JFK",
+    "actorType": "Agent",
+    "actorName": "Bollore",
+    "location": {
+      "type": "Warehouse",
+      "address": "151-6 132nd Ave, Jamaica, NY 11434, États-Unis",
+      "latitude": "40.671022",
+      "longitude": "-73.784912"
+    }
+  },
+  {
+    "point": "New York",
+    "actorType": "Consignee",
+    "actorName": "CVS Pharmacy",
+    "location": {
+      "type": "Warehouse",
+      "address": "1 CVS Dr, Chemung, NY 14825, États-Unis",
+      "latitude": "39.958981",
+      "longitude": "-94.533603"
+    }
+  }
+]

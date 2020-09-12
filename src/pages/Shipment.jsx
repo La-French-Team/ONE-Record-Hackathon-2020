@@ -9,6 +9,7 @@ import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useRouteMatch } from 'react-router-dom';
 import { events } from 'data_mock';
+import mockData from 'mocks/shipments';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -28,6 +29,7 @@ export default () => {
   const match = useRouteMatch();
 
   const shipmentId = match.params.id;
+  const shipmentAWB = mockData[shipmentId];
 
   const classes = useStyle();
   return (
@@ -38,10 +40,10 @@ export default () => {
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
-            <ShipmentStatus />
+            <ShipmentStatus airWayBill={shipmentAWB} />
           </Grid>
           <Grid item className={classes.mapContainer}>
-            <ShipmentMap />
+            <ShipmentMap airWayBill={shipmentAWB} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
             <ShipmentDetails />

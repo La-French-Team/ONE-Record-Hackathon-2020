@@ -7,27 +7,6 @@ import { ResponsiveLine } from '@nivo/line';
  * @param {import('@nivo/line').Serie[]} props.series
  */
 const LineChart = ({ series }) => (
-  // <Line
-  //   width={900}
-  //   height={400}
-  //   data={series}
-  //   animate={true}
-  //   enableSlices={'x'}
-  //   curve='monotoneX'
-  //   xScale={{
-  //     type: 'linear',
-  //     min: 0,
-  //     max: 'auto',
-  //   }}
-  //   axisLeft={{
-  //     legend: 'linear scale',
-  //     legendOffset: 12,
-  //   }}
-  //   axisBottom={{
-  //     legend: 'linear scale',
-  //     legendOffset: -12,
-  //   }}
-  // />
   <ResponsiveLine
     data={series}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
