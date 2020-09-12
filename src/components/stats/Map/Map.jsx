@@ -7,7 +7,7 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 
 // Assets
-import { BoxIcon, PlaneIcon } from 'assets';
+import { BoxIcon, PlaneIcon, StartEndIcon } from 'assets';
 
 const MapboxGL = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
@@ -103,6 +103,19 @@ class Map extends Component {
                   </Layer>
                 )}
               </MapContext.Consumer>
+              <Layer
+                id='start'
+                images={['start-end-marker', StartEndIcon]}
+                layout={{
+                  'icon-allow-overlap': true,
+                  'icon-anchor': 'bottom',
+                  'icon-image': 'start-end-marker',
+                }}
+                type='symbol'
+              >
+                <Feature coordinates={points[0].pos} />
+                <Feature coordinates={points[points.length - 1].pos} />
+              </Layer>
             </>
           );
         })}
