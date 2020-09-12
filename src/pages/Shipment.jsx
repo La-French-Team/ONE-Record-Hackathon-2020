@@ -2,6 +2,8 @@ import React from 'react';
 import PageWithNav from 'components/commons/Page/PageWithNav';
 import { useRouteMatch } from 'react-router-dom';
 import LineChart from 'components/stats/LineChart/LineChart';
+import Map from 'components/stats/Map/Map';
+import { FlightPlaybackAF570 } from 'assets';
 
 export default () => {
   const match = useRouteMatch();
@@ -11,7 +13,10 @@ export default () => {
       tabs={[
         {
           label: 'Recap',
-          content: <>Shipment {match.params.id}</>,
+          content: <>
+            <div>Shipment {match.params.id}</div>
+            <Map flightPlayback={FlightPlaybackAF570} />
+          </>,
         },
         {
           label: 'Stats',
