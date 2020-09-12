@@ -23,21 +23,25 @@ export default () => {
           <h2>Sign In</h2>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Link to='shipment/1' className={classes.linkButton}>
+          <Link to='shipper/overview' className={classes.linkButton}>
             <Button variant='contained' color='primary'>
               <h2>I am a shipper</h2>
             </Button>
           </Link>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Button variant='contained' color='primary'>
-            <h2>I am an airline</h2>
-          </Button>
+          <Link to='airline/overview' className={classes.linkButton}>
+            <Button variant='contained' color='primary'>
+              <h2>I am an airline</h2>
+            </Button>
+          </Link>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Button variant='contained' color='primary'>
-            <h2>I am a guest</h2>
-          </Button>
+          <Link to='guest/overview' className={classes.linkButton}>
+            <Button variant='contained' color='primary'>
+              <h2>I am a guest</h2>
+            </Button>
+          </Link>
         </Grid>
         <Grid
           item

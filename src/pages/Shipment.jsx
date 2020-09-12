@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
+import ShipmentMap from 'components/shipment/ShipmentMap';
 
 export default () => {
   return (
@@ -34,9 +35,6 @@ const PieceList = () => {
   return null;
 };
 
-const ShipmentMap = () => {
-  return <Typography>ShipmentMap</Typography>;
-};
 const ShipmentDetails = () => {
   return (
     <Grid container>

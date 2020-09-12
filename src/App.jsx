@@ -22,8 +22,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path='/shipment/:id'>
+          <Route path='/shipments/:id'>
             <Shipment />
+          </Route>
+          <Route path='/:type/overview'>
+            <Overview />
           </Route>
           <Route path='/about'>
             <About />
