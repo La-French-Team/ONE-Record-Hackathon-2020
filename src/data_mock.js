@@ -1,7 +1,7 @@
 export const events = [
   {
     level: 'warning',
-    title: 'Temperature delayed',
+    title: 'Departure delayed',
     timestamp: Date.parse('2020-09-12T11:55:00Z'),
     details: null,
   },

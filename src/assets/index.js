@@ -4,6 +4,7 @@ import airportImage from './airport.svg';
 import startEndImage from './start_end.svg';
 import truckImage from './truck.svg';
 import warehouseImage from './warehouse.svg';
+import uldImage from './uld.svg';
 
 import FlightPlaybackAF570 from './flight-playback-2576f644-af570-20200910.json';
 import FlightPlaybackKL643 from './flight-playback-257924d5-kl643-20200911.json';
@@ -43,6 +44,11 @@ export const WarehouseIcon = new Image();
 WarehouseIcon.height = 32;
 WarehouseIcon.width = 32;
 WarehouseIcon.src = warehouseImage;
+
+export const UldIcon = new Image();
+UldIcon.height = 32;
+UldIcon.width = 32;
+UldIcon.src = uldImage;
 
 const flights = {
   KL643: FlightPlaybackKL643,
