@@ -8,7 +8,6 @@ import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 
 // Assets
 import { AirportIcon, PlaneIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
-import { Place } from '@material-ui/icons';
 import shipmentStore from 'stores/shipmentStore';
 import { observer } from 'mobx-react';
 
@@ -28,6 +27,11 @@ const flightLinePaint = {
 
 const routeLinePaint = {
   'line-color': '#15b33f',
+  'line-width': 12,
+};
+
+const nextRouteLinePaint = {
+  'line-color': '#bfbfbf',
   'line-width': 12,
 };
 
@@ -101,7 +105,11 @@ const Flights = ({ flights }) => {
   return flights.map((points, index) => {
     return (
       <Fragment key={index}>
-        <Layer type='line' layout={lineLayout} paint={flightLinePaint}>
+        <Layer
+          type='line'
+          layout={lineLayout}
+          paint={index > shipmentStore.stepNumber ? flightLinePaint : nextRouteLinePaint}
+        >
           <Feature coordinates={points.map((p) => p.pos)} />
         </Layer>
 

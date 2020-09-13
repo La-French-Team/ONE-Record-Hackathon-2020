@@ -11,7 +11,7 @@ import {
   Switch
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import settingsStore from 'stores/settingsStore';
@@ -56,7 +56,7 @@ const getUserName = (userType) => {
 
 const Header = observer(({ pageName = '' }) => {
   const classes = useStyles();
-  const { params } = useRouteMatch();
+  const { params, path } = useRouteMatch();
 
   const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
 
@@ -83,23 +83,22 @@ const Header = observer(({ pageName = '' }) => {
     <AppBar position='static'>
       <Toolbar className={classes.flex}>
         <div className={classes.flex}>
-          <Link to='/'>
-            <Button className={classes.menuButton}>
-              <img
-                src={`${process.env.PUBLIC_URL}/one-track.png`}
-                className={classes.logo}
-                alt='onecargo-logo'
-              />
-            </Button>
-          </Link>
+          <Button className={classes.menuButton} component={RouterLink} to='/'>
+            <img
+              src={`${process.env.PUBLIC_URL}/one-track.png`}
+              className={classes.logo}
+              alt='onecargo-logo'
+            />
+          </Button>
           <Typography variant='h6' className={classes.title}>
             {pageName}
           </Typography>
         </div>
-
-        <Button onClick={onReplay} variant='contained' color='secondary'>
-          Replay
-        </Button>
+        {path === '/:userType/shipments/:id' && (
+          <Button onClick={onReplay} variant='contained' color='secondary'>
+            Replay
+          </Button>
+        )}
 
         <Button
           aria-label='account of current user'

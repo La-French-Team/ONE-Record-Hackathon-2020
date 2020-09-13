@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Card, makeStyles } from '@material-ui/core';
+import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
+import { Link, Card, makeStyles } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const useStyle = makeStyles((theme) => ({
@@ -40,6 +40,7 @@ const ShipmentCard = ({ shipment, shipmentDescription }) => {
     <Card className={classes.shipmentCard}>
       {React.cloneElement(shipmentDescription, { shipment })}
       <Link
+          component={RouterLink}
           style={{margin: 0}}
           to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
           className={classes.cardLink}

@@ -1,7 +1,7 @@
 import { Button, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import Page from 'components/commons/Page/Page';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   linkButton: {
@@ -23,25 +23,19 @@ export default () => {
           <h2>Sign In</h2>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Link to='shipper/overview' className={classes.linkButton}>
-            <Button variant='contained' color='primary'>
-              <h2>I am a shipper</h2>
-            </Button>
-          </Link>
+          <Button variant='contained' color='primary' component={RouterLink} to='shipper/overview'>
+            <h2>I am a shipper</h2>
+          </Button>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Link to='airline/overview' className={classes.linkButton}>
-            <Button variant='contained' color='primary'>
-              <h2>I am an airline</h2>
-            </Button>
-          </Link>
+          <Button variant='contained' color='primary' component={RouterLink} to='airline/overview'>
+            <h2>I am an airline</h2>
+          </Button>
         </Grid>
         <Grid item className={classes.item} xs={4}>
-          <Link to='guest/overview' className={classes.linkButton}>
-            <Button variant='contained' color='primary'>
-              <h2>I am a guest</h2>
-            </Button>
-          </Link>
+          <Button variant='contained' color='primary' component={RouterLink} to='guest/overview'>
+            <h2>I am a guest</h2>
+          </Button>
         </Grid>
         <Grid
           item

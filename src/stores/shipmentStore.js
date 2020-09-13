@@ -1,7 +1,6 @@
-import { flights, routes } from 'assets';
 import moment from 'moment';
 
-const { decorate, observable, action, toJS } = require('mobx');
+const { decorate, observable, action } = require('mobx');
 
 class ShipmentStore {
   airWayBill;
@@ -19,6 +18,7 @@ class ShipmentStore {
     this.airWayBill = airWayBill.data;
     this.currentTime = this.airWayBill[0]?.timestamp;
 
+    this.currentTime = this.airWayBill[this.airWayBill.length - 1]?.eta;
     this.#playbacks = airWayBill.playbacks;
     this.stepNumber = airWayBill.steps.length - 1;
     this.#playbackIndex = this.#playbacks.length - 1;
@@ -53,7 +53,6 @@ class ShipmentStore {
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
       this.increaseStepNumber();
-      // console.log('Arrived !');
       return 'arrived';
     }
 

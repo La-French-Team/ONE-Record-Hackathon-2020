@@ -77,7 +77,10 @@ export default () => {
   });
 
   const handleCheckboxChange = (event) => {
-    setCheckboxState({ ...checkboxState, [event.target.name]: event.target.checked });
+    setCheckboxState({
+      ...checkboxState,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const shipmentId = match.params.id;
@@ -95,7 +98,6 @@ export default () => {
       try {
         shipmentStore.nextStep();
       } catch (e) {
-        console.error(e);
         clearInterval(loop);
       }
     }, 5);
@@ -109,7 +111,6 @@ export default () => {
 
   const onEventClick = useCallback(
     (timestamp) => {
-      // console.log(timestamp);
       if (timestamp === highlightEventAt) {
         setHighlightEventAt(null);
       } else {
@@ -244,7 +245,7 @@ const ULDList = () => {
 const EventList = observer(({ shipment, onEventClick, highlightEventAt = null }) => {
   const classes = useStyle();
   const events = shipment
-    .filter(({ eta }) => moment(eta).isBefore(moment(shipmentStore.currentTime)))
+    .filter(({ eta }) => moment(eta).isSameOrBefore(shipmentStore.currentTime))
     .map((step) => {
       if (step.startTemperature > 8) {
         return {
@@ -282,6 +283,7 @@ const EventList = observer(({ shipment, onEventClick, highlightEventAt = null })
         };
       }
     });
+  console.log(events.length);
 
   return (
     <ResponsiveList>

@@ -41,6 +41,7 @@ const ShipmentStep = ({ label, index, ...props }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const step = shipmentStore.airWayBill[index];
+  console.log(index, step);
 
   const handleClick = (event) => {
     if (index <= shipmentStore.stepNumber) {
@@ -83,25 +84,25 @@ const ShipmentStep = ({ label, index, ...props }) => {
             </Typography>
             <LoInfoButton loType='Company' loUri={step.actorURI} />
           </div>
-          {step.eta && (
-            <Typography variant='body2'>
-              <strong>ETA: </strong>
-              {moment(step.eta).format('LLL')}
-            </Typography>
-          )}
           {step.etd && (
             <Typography variant='body2'>
               <strong>ETD: </strong>
               {moment(step.etd).format('LLL')}
             </Typography>
           )}
-          <Typography variant='body1'>
-            <strong>Shipment tmp at arrival: </strong>
-            {step.startTemperature ? step.startTemperature : '-'} °C
-          </Typography>
+          {step.eta && (
+            <Typography variant='body2'>
+              <strong>ETA: </strong>
+              {moment(step.eta).format('LLL')}
+            </Typography>
+          )}
           <Typography variant='body1'>
             <strong>Shipment tmp at departure: </strong>
             {step.endTemperature ? step.endTemperature : '-'} °C
+          </Typography>
+          <Typography variant='body1'>
+            <strong>Shipment tmp at arrival: </strong>
+            {step.startTemperature ? step.startTemperature : '-'} °C
           </Typography>
           <Typography variant='body1'>
             <strong>External temparature: </strong>
@@ -124,7 +125,7 @@ function ShipmentStatus({ airWayBill }) {
   return (
     <div className={classes.root}>
       <Stepper activeStep={shipmentStore.stepNumber}>
-        {steps.map((label, index) => {
+        {steps.map(({ label, stepIndex }, index) => {
           const stepProps = {};
           const labelProps = {};
           return (
