@@ -10,6 +10,7 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
+import QRCode from "qrcode.react";
 
 const useStyles = makeStyles({
   qrcode: {
@@ -93,9 +94,14 @@ const LoInfoButton = ({ loUri, loType }) => {
         open={open}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          <div style={{ minWidth: "300px" }}>{loType} - Link (ONE Record)</div>
+          <div style={{ minWidth: "300px" }}>
+            <strong>ONE Record Link</strong> - {loType}
+          </div>
         </DialogTitle>
         <DialogContent dividers>
+          <div style={{ marginBottom: "5px", textAlign: "center" }}>
+            <QRCode value={loUri} />
+          </div>
           <a href={loUri}>{loUri}</a>
         </DialogContent>
         <DialogActions>
