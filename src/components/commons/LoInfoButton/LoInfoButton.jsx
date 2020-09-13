@@ -102,7 +102,9 @@ const LoInfoButton = ({ loUri, loType }) => {
           <div style={{ marginBottom: "5px", textAlign: "center" }}>
             <QRCode value={loUri} />
           </div>
-          <a href={loUri}>{loUri}</a>
+          <a href={loUri} target="_blank">
+            {loUri}
+          </a>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
