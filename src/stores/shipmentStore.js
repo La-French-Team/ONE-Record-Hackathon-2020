@@ -48,6 +48,10 @@ class ShipmentStore {
       extractRoutePoints(routes.JFKNewYork),
       [],
     ];
+
+    this.stepNumber = airWayBill.length - 1;
+    this.#playbackIndex = this.#playbacks.length - 1;
+    this.#currentPointIndex = this.#playbacks[this.#playbackIndex].length - 1;
   }
 
   setSelectedUld(uld) {
@@ -105,9 +109,9 @@ class ShipmentStore {
 
   reset() {
     this.stepNumber = 0;
-    this.selectedUld = null;
-    this.airWayBill = null;
-    this.events = [];
+    this.#playbackIndex = 0;
+    this.#currentPointIndex = 0;
+    this.currentTime = moment(0);
   }
 }
 

@@ -62,10 +62,7 @@ export default () => {
   useEffect(() => {
     const loop = setInterval(() => {
       try {
-        const result = shipmentStore.nextStep();
-        if (result === 'arrived') {
-          clearInterval(loop);
-        }
+        shipmentStore.nextStep();
       } catch (e) {
         console.error(e);
         clearInterval(loop);
