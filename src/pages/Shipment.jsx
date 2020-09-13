@@ -176,7 +176,7 @@ export default () => {
                     control={<Checkbox checked={checkboxState.checkedWhatsApp} onChange={handleCheckboxChange} name="checkedWhatsApp" />}
                     label="WhatsApp"
                   />
-                  <Button variant='contained' color='primary'>Save</Button>
+                  <Button variant='contained' color='primary' onClick={handlePopoverClose}>Save</Button>
                 </FormGroup>
               </Grid>
             </Popover>
