@@ -1,5 +1,12 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Grid,
+  ListItem,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -7,7 +14,6 @@ import ShipmentMap from 'components/shipment/ShipmentMap';
 import Event from 'components/event/Event';
 import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import eventsMock from 'mocks/events';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
 import { StatusColor } from 'const';
@@ -39,7 +45,7 @@ export default () => {
     history.push('/', null);
     return null;
   }
-  const shipmentAWB = mockData[shipmentId];
+  const shipment = mockData[shipmentId];
 
   shipmentStore.setAirwayBill(shipmentAWB);
 
@@ -64,7 +70,7 @@ export default () => {
         setHighlightEventAt(timestamp);
       }
     },
-    [highlightEventAt]
+    [highlightEventAt],
   );
 
   return (
@@ -75,17 +81,24 @@ export default () => {
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
-            <ShipmentStatus airWayBill={shipmentAWB} />
+            <ShipmentStatus airWayBill={shipment} />
           </Grid>
           <Grid item className={classes.mapContainer}>
-            <ShipmentMap airWayBill={shipmentAWB} />
+            <ShipmentMap airWayBill={shipment} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails highlightEventAt={highlightEventAt} />
+            <ShipmentDetails
+              shipment={shipment}
+              highlightEventAt={highlightEventAt}
+            />
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <EventList shipmentId={shipmentId} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
+          <EventList
+            shipment={shipment}
+            onEventClick={onEventClick}
+            highlightEventAt={highlightEventAt}
+          />
         </Grid>
       </Grid>
     </Page>
@@ -93,7 +106,9 @@ export default () => {
 };
 
 const getULDFromOneRecord = () => {
-  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then((response) => response.json());
+  return fetch(
+    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+  ).then((response) => response.json());
 };
 
 const ULDList = () => {
@@ -114,25 +129,48 @@ const ULDList = () => {
   );
 };
 
-const EventList = ({ shipmentId, onEventClick, highlightEventAt = null }) => {
+const EventList = ({ shipment, onEventClick, highlightEventAt = null }) => {
+  const events = [
+    ...shipment
+      .filter(({ startTemperature }) => startTemperature > 8)
+      .map((step) => ({
+        level: 'error',
+        title: 'Temperature issue',
+        time: step.eta,
+        details: `Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`,
+      })),
+    ...shipment
+      .filter(({ startTemperature }) => startTemperature < 2)
+      .map((step) => ({
+        level: 'error',
+        title: 'Temperature issue',
+        time: step.eta,
+        details: `Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`,
+      })),
+  ].sort(({ time: t1 }, { time: t2 }) => t2 - t1);
+
+  console.log(events);
+
   return (
     <ResponsiveList>
-      {eventsMock[shipmentId].map((event) => (
+      {events.map((event) => (
         <ListItem>
-          <Event event={event} onEventClick={onEventClick} isHighLighted={event.time === highlightEventAt} />
+          <Event
+            event={event}
+            onEventClick={onEventClick}
+            isHighLighted={event.time === highlightEventAt}
+          />
         </ListItem>
       ))}
     </ResponsiveList>
   );
 };
 
-const ShipmentDetails = ({ highlightEventAt }) => {
+const ShipmentDetails = ({ shipment, highlightEventAt }) => {
   const classes = useStyle();
-  const data = Array.from(Array(20), (_, index) => ({
-    x: moment('2020-09-12T15:24:45Z')
-      .add(index * 240, 's')
-      .toDate(),
-    y: Math.random() * 10,
+  const data = shipment.map(({ eta, startTemperature }) => ({
+    x: moment(eta).toDate(),
+    y: startTemperature,
   }));
 
   const marker = [];

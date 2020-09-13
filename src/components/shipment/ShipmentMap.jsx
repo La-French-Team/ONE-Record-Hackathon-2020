@@ -14,5 +14,11 @@ export default function ShipmentMap({ airWayBill }) {
 
   const routePlaybacks = Object.values(routes);
 
-  return <Map flights={flightPlaybacks} routes={routePlaybacks} interests={airWayBill} />;
+  return (
+    <Map
+      flights={flightPlaybacks}
+      routes={routePlaybacks}
+      interests={airWayBill}
+    />
+  );
 }

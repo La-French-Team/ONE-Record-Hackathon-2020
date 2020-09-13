@@ -45,7 +45,7 @@ const Header = ({ pageName = '' }) => {
         <Link to='/'>
           <IconButton edge='start' className={classes.menuButton}>
             <img
-              src={`${process.env.PUBLIC_URL}/logo192.png`}
+              src={`${process.env.PUBLIC_URL}/one-track.png`}
               className={classes.logo}
               alt='onecargo-logo'
             />
