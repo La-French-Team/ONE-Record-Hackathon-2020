@@ -49,6 +49,7 @@ class Map extends Component {
       })) || [],
   }));
   routes = this.props.routes || [];
+<<<<<<< HEAD
 
   computeBoundingBox = () => {
     const lnglats = [
@@ -57,6 +58,25 @@ class Map extends Component {
     ];
 
     const bounds = lnglats.reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]));
+=======
+
+  computeBoundingBox = () => {
+    if (this.interests.length < 1) {
+      return new LngLatBounds([0, 0], [0, 0]);
+    }
+
+    const lnglatInterests = this.interests
+      .map((interest) => [
+        interest.location.longitude,
+        interest.location.latitude,
+      ])
+      .filter((lnglat) => lnglat[0] !== null && lnglat[1] !== null);
+
+    const bounds = lnglatInterests.reduce(
+      (bounds, coords) => bounds.extend(coords),
+      new LngLatBounds(lnglatInterests[0], lnglatInterests[0]),
+    );
+>>>>>>> Add temperature data & sync alerts with charts
 
     return bounds.toArray();
   };
@@ -90,9 +110,9 @@ class Map extends Component {
           tolerance={3.5}
         />
 
+        <PointsOfInterest interests={this.interests} />
         <Routes routes={this.routes} />
         <Flights flights={this.flights} />
-        <PointsOfInterest interests={this.interests} />
         <CurrentVehicle />
       </MapboxGL>
     );

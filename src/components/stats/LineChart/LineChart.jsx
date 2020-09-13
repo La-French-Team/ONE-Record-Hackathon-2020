@@ -28,8 +28,8 @@ const LineChart = ({
     markers.push({
       axis: 'y',
       value: min,
-      lineStyle: { stroke: 'blue', strokeWidth: 2 },
-      legend: 'Minimum allowed',
+      lineStyle: { stroke: 'blue', strokeWidth: 1.5 },
+      legend: `${min}°C`,
     });
     series.forEach(({ data }) =>
       data.forEach(({ x, y }) => {
@@ -37,7 +37,7 @@ const LineChart = ({
           markers.push({
             axis: 'x',
             value: x,
-            lineStyle: { stroke: StatusColor.warning, strokeWidth: 2 },
+            lineStyle: { stroke: StatusColor.warning, strokeWidth: 1.5 },
           });
         }
       }),
@@ -48,8 +48,8 @@ const LineChart = ({
     markers.push({
       axis: 'y',
       value: max,
-      lineStyle: { stroke: 'red', strokeWidth: 2 },
-      legend: 'Maximum allowed',
+      lineStyle: { stroke: 'red', strokeWidth: 1.5 },
+      legend: `${max}°C`,
     });
 
     series.forEach(({ data }) =>
@@ -58,7 +58,7 @@ const LineChart = ({
           markers.push({
             axis: 'x',
             value: x,
-            lineStyle: { stroke: StatusColor.warning, strokeWidth: 2 },
+            lineStyle: { stroke: StatusColor.warning, strokeWidth: 1.5 },
           });
         }
       }),
@@ -79,7 +79,7 @@ const LineChart = ({
       curve='monotoneX'
       yScale={{
         type: 'linear',
-        min: 'auto',
+        min: 0,
         max: 'auto',
         stacked: true,
         reverse: false,

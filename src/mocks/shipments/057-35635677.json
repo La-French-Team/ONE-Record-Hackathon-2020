@@ -8,7 +8,14 @@
       "address": "1051 Boulevard industriel, 76580",
       "latitude": "49.485133",
       "longitude": "0.793279"
-    }
+    },
+    "etd": "2020-09-11T20:00:00Z",
+    "ete": null,
+    "eta": "2020-09-11T20:00:00Z",
+    "startTemperature": 4,
+    "endTemperature": 4,
+    "timeToReach": 1260,
+    "externalTemperature": 21
   },
   {
     "point": "le trait - CDG",
@@ -19,7 +26,14 @@
       "address": "Route",
       "latitude": null,
       "longitude": null
-    }
+    },
+    "etd": "2020-09-11T20:00:00Z",
+    "ete": 137,
+    "eta": "2020-09-11T22:17:00Z",
+    "startTemperature": 4,
+    "endTemperature": 4,
+    "timeToReach": 30,
+    "externalTemperature": 21
   },
   {
     "point": "CDG",
@@ -30,7 +44,50 @@
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
       "latitude": "49.002843",
       "longitude": "2.537995"
-    }
+    },
+    "etd": "2020-09-11T22:17:00Z",
+    "ete": 1380,
+    "eta": "2020-09-11T22:40:00Z",
+    "startTemperature": 4,
+    "endTemperature": 5,
+    "timeToReach": 1380,
+    "externalTemperature": 20
+  },
+  {
+    "point": "CDG",
+    "actorType": "Airline",
+    "actorName": "Airfrance",
+    "location": {
+      "type": "Cooled storage",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "49.002843",
+      "longitude": "2.537995"
+    },
+    "etd": "2020-09-11T22:40:00Z",
+    "ete": 350,
+    "eta": "2020-09-12T04:30:00Z",
+    "startTemperature": 5,
+    "endTemperature": 12,
+    "timeToReach": 3600,
+    "externalTemperature": 18
+  },
+  {
+    "point": "CDG",
+    "actorType": "Airline",
+    "actorName": "Airfrance",
+    "location": {
+      "type": "out of cooled storage",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "49.002843",
+      "longitude": "2.537996"
+    },
+    "etd": "2020-09-12T04:30:00Z",
+    "ete": 1800,
+    "eta": "2020-09-12T05:00:00Z",
+    "startTemperature": 12,
+    "endTemperature": 5,
+    "timeToReach": 1800,
+    "externalTemperature": 19
   },
   {
     "point": "CDG-AMS",
@@ -41,7 +98,32 @@
       "address": "Route",
       "latitude": null,
       "longitude": null
-    }
+    },
+    "etd": "2020-09-12T05:00:00Z",
+    "ete": 17700,
+    "eta": "2020-09-12T09:55:00Z",
+    "startTemperature": 5,
+    "endTemperature": 10,
+    "timeToReach": 3600,
+    "externalTemperature": 19
+  },
+  {
+    "point": "AMS",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "Warehouse",
+      "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
+      "latitude": "52.303249",
+      "longitude": "4.75192"
+    },
+    "etd": "2020-09-12T09:55:00Z",
+    "ete": 900,
+    "eta": "2020-09-12T10:10:00Z",
+    "startTemperature": 10,
+    "endTemperature": 5,
+    "timeToReach": 900,
+    "externalTemperature": null
   },
   {
     "point": "AMS",
@@ -52,7 +134,50 @@
       "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
       "latitude": "52.303190",
       "longitude": "4.752027"
-    }
+    },
+    "etd": "2020-09-12T10:10:00Z",
+    "ete": null,
+    "eta": "2020-09-12T15:50:00Z",
+    "startTemperature": 5,
+    "endTemperature": 7,
+    "timeToReach": 3600,
+    "externalTemperature": null
+  },
+  {
+    "point": "AMS",
+    "actorType": "Airline ",
+    "actorName": "KLM",
+    "location": {
+      "type": "Warehouse",
+      "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
+      "latitude": null,
+      "longitude": null
+    },
+    "etd": "2020-09-12T15:50:00Z",
+    "ete": 2520,
+    "eta": "2020-09-12T16:32:00Z",
+    "startTemperature": 7,
+    "endTemperature": 4,
+    "timeToReach": 2520,
+    "externalTemperature": null
+  },
+  {
+    "point": "AMS",
+    "actorType": "Airline",
+    "actorName": "KLM",
+    "location": {
+      "type": "truck",
+      "address": "Tarmac",
+      "latitude": null,
+      "longitude": null
+    },
+    "etd": "2020-09-12T16:32:00Z",
+    "ete": 18,
+    "eta": "2020-09-12T16:50:00Z",
+    "startTemperature": 4,
+    "endTemperature": 9,
+    "timeToReach": 1080,
+    "externalTemperature": null
   },
   {
     "point": "AMS-JFK",
@@ -63,7 +188,14 @@
       "address": "Route",
       "latitude": null,
       "longitude": null
-    }
+    },
+    "etd": "2020-09-12T17:52:00Z",
+    "ete": 530,
+    "eta": "2020-09-12T19:42:00Z",
+    "startTemperature": 9,
+    "endTemperature": 14,
+    "timeToReach": 3600,
+    "externalTemperature": null
   },
   {
     "point": "JFK",
@@ -74,7 +206,14 @@
       "address": "Building JFK, 78B N Boundary Rd, Jamaica, NY 11430, États-Unis",
       "latitude": "40.658247",
       "longitude": "-73.773584"
-    }
+    },
+    "etd": "2020-09-12T19:42:00Z",
+    "ete": 250,
+    "eta": "2020-09-12T21:02:00Z",
+    "startTemperature": 14,
+    "endTemperature": 5,
+    "timeToReach": 1800,
+    "externalTemperature": null
   },
   {
     "point": "JFK",
@@ -85,7 +224,14 @@
       "address": "Route",
       "latitude": null,
       "longitude": null
-    }
+    },
+    "etd": "2020-09-12T21:02:00Z",
+    "ete": 1260,
+    "eta": "2020-09-12T21:23:00Z",
+    "startTemperature": 6,
+    "endTemperature": 5,
+    "timeToReach": 0,
+    "externalTemperature": null
   },
   {
     "point": "JFK",
@@ -96,7 +242,14 @@
       "address": "151-6 132nd Ave, Jamaica, NY 11434, États-Unis",
       "latitude": "40.671022",
       "longitude": "-73.784912"
-    }
+    },
+    "etd": "2020-09-12T21:23:00Z",
+    "ete": 577,
+    "eta": "2020-09-13T06:00:00Z",
+    "startTemperature": 5,
+    "endTemperature": 5,
+    "timeToReach": 1200,
+    "externalTemperature": null
   },
   {
     "point": "JFK-New York",
@@ -107,7 +260,14 @@
       "address": "Route",
       "latitude": null,
       "longitude": null
-    }
+    },
+    "etd": "2020-09-13T06:00:00Z",
+    "ete": 250,
+    "eta": "2020-09-13T10:10:00Z",
+    "startTemperature": 5,
+    "endTemperature": 6,
+    "timeToReach": 60,
+    "externalTemperature": null
   },
   {
     "point": "New York",
@@ -118,6 +278,13 @@
       "address": "1 CVS Dr, Chemung, NY 14825, États-Unis",
       "latitude": "42.0090935",
       "longitude": "-76.5653509"
-    }
+    },
+    "etd": null,
+    "ete": null,
+    "eta": "2020-09-13T10:10:00Z",
+    "startTemperature": 6,
+    "endTemperature": 4,
+    "timeToReach": null,
+    "externalTemperature": null
   }
 ]

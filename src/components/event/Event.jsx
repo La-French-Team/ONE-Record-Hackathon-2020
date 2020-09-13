@@ -58,8 +58,7 @@ export default function Event({ event, isHighLighted, onEventClick }) {
           {moment(event.time).format('LLL')}
         </Typography>
         <Typography variant='body2' component='p'>
-          {!!event.details &&
-            `Maximum temperature ${event.details.threshold}°C exceeded: ${event.details.value}°C`}
+          {event.details}
         </Typography>
       </CardContent>
       <CardActions>
