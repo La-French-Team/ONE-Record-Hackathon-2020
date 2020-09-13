@@ -8,7 +8,8 @@ const extractFlightPoints = (points) =>
     hdg: point.heading,
   }));
 
-const extractRoutePoints = (route) => route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
+const extractRoutePoints = (route) =>
+  route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
 
 const mockedData = {
   '057-35635677': {
@@ -32,7 +33,19 @@ const mockedData = {
       extractRoutePoints(routes.JFKNewYork),
       [],
     ],
-    steps: ['Departure', 'Truck', 'CDG', 'Truck', 'AMS', 'Plane', 'JFK', 'Truck', 'Agent', 'Truck', 'Arrival'],
+    steps: [
+      { label: 'Departure', stepIndex: 0 },
+      { label: 'Truck', stepIndex: 1 },
+      { label: 'CDG', stepIndex: 2 },
+      { label: 'Truck', stepIndex: 5 },
+      { label: 'AMS', stepIndex: 7 },
+      { label: 'Plane', stepIndex: 10 },
+      { label: 'JFK', stepIndex: 11 },
+      { label: 'Truck', stepIndex: 12 },
+      { label: 'Agent', stepIndex: 13 },
+      { label: 'Truck', stepIndex: 14 },
+      { label: 'Arrival', stepIndex: 15 },
+    ],
   },
   '220-58358322': {
     data: chickens,
@@ -47,7 +60,15 @@ const mockedData = {
       [], // Arrival
     ],
 
-    steps: ['Departure', 'Truck', 'FRA', 'Plane', 'CAI', 'Truck', 'Arrival'],
+    steps: [
+      { label: 'Departure', stepIndex: 0 },
+      { label: 'Truck', stepIndex: 1 },
+      { label: 'FRA', stepIndex: 2 },
+      { label: 'Plane', stepIndex: 6 },
+      { label: 'CAI', stepIndex: 7 },
+      { label: 'Truck', stepIndex: 8 },
+      { label: 'Arrival', stepIndex: 9 },
+    ],
   },
 };
 

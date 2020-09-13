@@ -59,9 +59,15 @@ const ShipmentStep = ({ label, index, ...props }) => {
   return (
     <>
       <div onClick={handleClick} className={classes.stepperButton}>
-        {label === 'Plane' && <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />}
-        {label === 'Truck' && <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />}
-        {label !== '' && label !== 'Plane' && label !== 'Truck' && <StepLabel {...props}>{label}</StepLabel>}
+        {label === 'Plane' && (
+          <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />
+        )}
+        {label === 'Truck' && (
+          <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />
+        )}
+        {label !== '' && label !== 'Plane' && label !== 'Truck' && (
+          <StepLabel {...props}>{label}</StepLabel>
+        )}
       </div>
       <Popover
         id={id}
@@ -125,12 +131,12 @@ function ShipmentStatus({ airWayBill }) {
   return (
     <div className={classes.root}>
       <Stepper activeStep={shipmentStore.stepNumber}>
-        {steps.map((label, index) => {
+        {steps.map(({ label, stepIndex }, index) => {
           const stepProps = {};
           const labelProps = {};
           return (
             <Step key={`${label}-${index}`} {...stepProps}>
-              <ShipmentStep label={label} index={index} {...labelProps} />
+              <ShipmentStep label={label} index={stepIndex} {...labelProps} />
             </Step>
           );
         })}
