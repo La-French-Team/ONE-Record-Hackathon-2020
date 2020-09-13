@@ -7,13 +7,19 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 
 // Assets
-import { AirportIcon, PlaneIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
-import { Place } from '@material-ui/icons';
+import {
+  AirportIcon,
+  PlaneIcon,
+  StartEndIcon,
+  TruckIcon,
+  WarehouseIcon,
+} from 'assets';
 import shipmentStore from 'stores/shipmentStore';
 import { observer } from 'mobx-react';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken:
+    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -31,11 +37,32 @@ const routeLinePaint = {
   'line-width': 12,
 };
 
+const nextRouteLinePaint = {
+  'line-color': '#bfbfbf',
+  'line-width': 12,
+};
+
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
-    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
+    'fill-extrusion-height': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'height'],
+    ],
+    'fill-extrusion-base': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'min_height'],
+    ],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -51,17 +78,28 @@ class Map extends Component {
 
   computeBoundingBox = () => {
     const lnglats = [
-      ...this.routes.reduce((acc, { coordinates }) => [...acc, ...coordinates], []),
-      ...this.flights.reduce((acc, { points }) => [...acc, ...points.map((p) => p.pos)], []),
+      ...this.routes.reduce(
+        (acc, { coordinates }) => [...acc, ...coordinates],
+        [],
+      ),
+      ...this.flights.reduce(
+        (acc, { points }) => [...acc, ...points.map((p) => p.pos)],
+        [],
+      ),
     ];
 
-    const bounds = lnglats.reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]));
+    const bounds = lnglats.reduce(
+      (bounds, coords) => bounds.extend(coords),
+      new LngLatBounds(lnglats[0], lnglats[0]),
+    );
 
     return bounds.toArray();
   };
 
   handleStyleLoad = (map) => {
-    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
+    map
+      .addControl(new NavigationControl())
+      .addControl(new ScaleControl(), 'bottom-right');
     map.addImage('plane-marker', PlaneIcon);
   };
 
@@ -99,11 +137,19 @@ class Map extends Component {
   }
 }
 
-const Flights = ({ flights }) => {
+const Flights = observer(({ flights }) => {
   return flights.map(({ points }, index) => {
     return (
       <Fragment key={index}>
-        <Layer type='line' layout={lineLayout} paint={flightLinePaint}>
+        <Layer
+          type='line'
+          layout={lineLayout}
+          paint={
+            index > shipmentStore.stepNumber
+              ? flightLinePaint
+              : nextRouteLinePaint
+          }
+        >
           <Feature coordinates={points.map((p) => p.pos)} />
         </Layer>
 
@@ -123,7 +169,7 @@ const Flights = ({ flights }) => {
       </Fragment>
     );
   });
-};
+});
 
 const CurrentVehicle = observer(() => {
   const isPlane = shipmentStore.currentGeoLoc?.hdg !== null;
@@ -131,7 +177,7 @@ const CurrentVehicle = observer(() => {
 
   return isPlane ? (
     <MapContext.Consumer>
-      {map => (
+      {(map) => (
         <Layer
           id='plane'
           images={['plane-marker', PlaneIcon]}
@@ -139,7 +185,8 @@ const CurrentVehicle = observer(() => {
             'icon-allow-overlap': true,
             'icon-anchor': 'center',
             'icon-image': 'plane-marker',
-            'icon-rotate': shipmentStore.currentGeoLoc?.hdg - 45 - map.getBearing(),
+            'icon-rotate':
+              shipmentStore.currentGeoLoc?.hdg - 45 - map.getBearing(),
           }}
           type='symbol'
         >
@@ -163,11 +210,20 @@ const CurrentVehicle = observer(() => {
   );
 });
 
-const Routes = ({ routes }) => {
+const Routes = observer(({ routes }) => {
   return routes.map(({ coordinates }, index) => {
+    console.log(index, shipmentStore.stepNumber);
     return (
       <Fragment key={index}>
-        <Layer type='line' layout={lineLayout} paint={routeLinePaint}>
+        <Layer
+          type='line'
+          layout={lineLayout}
+          paint={
+            index > shipmentStore.stepNumber
+              ? routeLinePaint
+              : nextRouteLinePaint
+          }
+        >
           <Feature coordinates={coordinates} />
         </Layer>
         <Layer
@@ -186,7 +242,7 @@ const Routes = ({ routes }) => {
       </Fragment>
     );
   });
-};
+});
 
 const PointsOfInterest = ({ interests }) => {
   return interests
@@ -204,7 +260,12 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
+          <Feature
+            coordinates={[
+              interest.location.longitude,
+              interest.location.latitude,
+            ]}
+          />
         </Layer>
       );
     });
