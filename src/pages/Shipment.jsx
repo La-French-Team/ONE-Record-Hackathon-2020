@@ -283,11 +283,14 @@ const ULDList = ({ ulds }) => {
 const EventList = observer(
   ({ shipment, onEventClick, highlightEventAt = null }) => {
     const classes = useStyle();
+    const match = useRouteMatch();
+    const shipmentId = match.params.id;
+    const { min, max } = minMax[shipmentId];
     const passedPoints = shipment.filter(({ eta }) =>
       moment(eta).isSameOrBefore(moment(shipmentStore.currentTime)),
     );
     const events = passedPoints.map((step) => {
-      if (step.startTemperature > 8) {
+      if (step.startTemperature > max) {
         return {
           level: 'error',
           title: 'Temperature issue',
@@ -298,7 +301,7 @@ const EventList = observer(
             </Typography>
           ),
         };
-      } else if (step.startTemperature < 2) {
+      } else if (step.startTemperature < min) {
         return {
           level: 'error',
           title: 'Temperature issue',
@@ -342,6 +345,9 @@ const EventList = observer(
 
 const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
   const classes = useStyle();
+  const match = useRouteMatch();
+  const shipmentId = match.params.id;
+  const { min, max } = minMax[shipmentId];
 
   const [randomData] = useState(
     shipment.map(({ eta }) => ({
@@ -379,8 +385,8 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
               data,
             },
           ]}
-          min={2}
-          max={8}
+          min={min}
+          max={max}
           defaultMarkers={marker}
         />
       </Grid>
@@ -400,3 +406,14 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
     </Grid>
   );
 });
+
+const minMax = {
+  '057-35635677': {
+    min: 2,
+    max: 8,
+  },
+  '220-58358322': {
+    min: 15,
+    max: 25,
+  },
+};

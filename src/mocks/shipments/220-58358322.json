@@ -12,10 +12,10 @@
     "etd": "2020-09-11T20:00:00Z",
     "ete": null,
     "eta": "2020-09-11T20:00:00Z",
-    "startTemperature": 4,
-    "endTemperature": 4,
-    "timeToReach": 1260,
-    "externalTemperature": 21
+    "startTemperature": 20,
+    "endTemperature": 20,
+    "timeToReach": 0,
+    "externalTemperature": 16
   },
   {
     "point": "Babberich - FRA",
@@ -30,10 +30,10 @@
     "etd": "2020-09-11T20:00:00Z",
     "ete": 137,
     "eta": "2020-09-11T22:17:00Z",
-    "startTemperature": 4,
-    "endTemperature": 4,
-    "timeToReach": 30,
-    "externalTemperature": 21
+    "startTemperature": 20,
+    "endTemperature": 20,
+    "timeToReach": 0,
+    "externalTemperature": 16
   },
   {
     "point": "FRA",
@@ -48,10 +48,10 @@
     "etd": "2020-09-11T22:17:00Z",
     "ete": 1380,
     "eta": "2020-09-11T22:40:00Z",
-    "startTemperature": 4,
-    "endTemperature": 5,
-    "timeToReach": 1380,
-    "externalTemperature": 20
+    "startTemperature": 20,
+    "endTemperature": 17,
+    "timeToReach": 1500,
+    "externalTemperature": 15
   },
   {
     "point": "FRA",
@@ -66,10 +66,10 @@
     "etd": "2020-09-11T22:40:00Z",
     "ete": 350,
     "eta": "2020-09-12T04:30:00Z",
-    "startTemperature": 5,
-    "endTemperature": 12,
-    "timeToReach": 3600,
-    "externalTemperature": 18
+    "startTemperature": 17,
+    "endTemperature": 20,
+    "timeToReach": 1800,
+    "externalTemperature": 14
   },
   {
     "point": "FRA",
@@ -84,10 +84,10 @@
     "etd": "2020-09-12T04:30:00Z",
     "ete": 1800,
     "eta": "2020-09-12T05:00:00Z",
-    "startTemperature": 12,
-    "endTemperature": 5,
-    "timeToReach": 1800,
-    "externalTemperature": 19
+    "startTemperature": 20,
+    "endTemperature": 18,
+    "timeToReach": 1500,
+    "externalTemperature": 13
   },
   {
     "point": "FRA",
@@ -102,10 +102,10 @@
     "etd": "2020-09-12T05:00:00Z",
     "ete": 17700,
     "eta": "2020-09-12T09:55:00Z",
-    "startTemperature": 5,
-    "endTemperature": 10,
-    "timeToReach": 3600,
-    "externalTemperature": 19
+    "startTemperature": 18,
+    "endTemperature": 16,
+    "timeToReach": 1200,
+    "externalTemperature": 13
   },
   {
     "point": "FRA-CAI",
@@ -120,10 +120,10 @@
     "etd": "2020-09-12T09:55:00Z",
     "ete": 900,
     "eta": "2020-09-12T10:10:00Z",
-    "startTemperature": 10,
-    "endTemperature": 5,
-    "timeToReach": 900,
-    "externalTemperature": null
+    "startTemperature": 16,
+    "endTemperature": 20,
+    "timeToReach": 1800,
+    "externalTemperature": 13
   },
   {
     "point": "FRA-CAI",
@@ -138,10 +138,10 @@
     "etd": "2020-09-12T10:10:00Z",
     "ete": null,
     "eta": "2020-09-12T15:50:00Z",
-    "startTemperature": 5,
-    "endTemperature": 7,
-    "timeToReach": 3600,
-    "externalTemperature": null
+    "startTemperature": 20,
+    "endTemperature": 30,
+    "timeToReach": 4200,
+    "externalTemperature": 35
   },
   {
     "point": "CAI",
@@ -156,10 +156,10 @@
     "etd": "2020-09-12T15:50:00Z",
     "ete": 2520,
     "eta": "2020-09-12T16:32:00Z",
-    "startTemperature": 7,
-    "endTemperature": 4,
-    "timeToReach": 2520,
-    "externalTemperature": null
+    "startTemperature": 30,
+    "endTemperature": 24,
+    "timeToReach": 3000,
+    "externalTemperature": 37
   },
   {
     "point": "CAI",
@@ -174,9 +174,9 @@
     "etd": "2020-09-12T16:32:00Z",
     "ete": 18,
     "eta": "2020-09-12T16:50:00Z",
-    "startTemperature": 4,
-    "endTemperature": 9,
-    "timeToReach": 1080,
-    "externalTemperature": null
+    "startTemperature": 24,
+    "endTemperature": 25,
+    "timeToReach": 600,
+    "externalTemperature": 37
   }
 ]
