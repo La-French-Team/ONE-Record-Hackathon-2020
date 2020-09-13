@@ -47,7 +47,7 @@ export default () => {
   }
   const shipment = mockData[shipmentId];
 
-  shipmentStore.setAirwayBill(shipmentAWB);
+  shipmentStore.setAirwayBill(shipment);
 
   useEffect(() => {
     const loop = setInterval(() => {
@@ -56,7 +56,7 @@ export default () => {
     return () => {
       clearInterval(loop);
     };
-  }, [shipmentAWB]);
+  }, [shipment]);
 
   const classes = useStyle();
   const [highlightEventAt, setHighlightEventAt] = useState(null);
