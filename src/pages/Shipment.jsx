@@ -24,6 +24,7 @@ import shipmentStore from 'stores/shipmentStore';
 import Uld from 'components/uld/Uld';
 import PhonelinkRingIcon from '@material-ui/icons/PhonelinkRing';
 import { observer } from 'mobx-react';
+import LoInfoButton from 'components/commons/LoInfoButton/LoInfoButton';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -36,6 +37,12 @@ const useStyle = makeStyles(() => ({
   chartContainer: {
     margin: '10px 0',
     height: '400px',
+  },
+  infoDetails: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '1rem',
   },
 }));
 
@@ -105,13 +112,22 @@ export default () => {
           </Grid>
         </Grid>
         <Grid container item xs={12} md={2} direction='column'>
-          <Grid item style={{textAlign:'center', paddingTop:8}}>
-            <Button variant='contained' color='primary' startIcon={<PhonelinkRingIcon />} onClick={() => {}}>
+          <Grid item style={{ textAlign: 'center', paddingTop: 8 }}>
+            <Button
+              variant='contained'
+              color='primary'
+              startIcon={<PhonelinkRingIcon />}
+              onClick={() => {}}
+            >
               Stay informed
             </Button>
           </Grid>
           <Grid item>
-            <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
+            <EventList
+              shipment={shipment}
+              onEventClick={onEventClick}
+              highlightEventAt={highlightEventAt}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -161,6 +177,7 @@ const ULDList = () => {
 
 const EventList = observer(
   ({ shipment, onEventClick, highlightEventAt = null }) => {
+    const classes = useStyle();
     const events = shipment
       .filter(({ eta }) =>
         moment(eta).isBefore(moment(shipmentStore.currentTime)),
@@ -171,24 +188,37 @@ const EventList = observer(
             level: 'error',
             title: 'Temperature issue',
             time: step.eta,
-            details: `Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`,
+            details: (
+              <Typography variant='body2' component='p'>
+                {`Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`}
+              </Typography>
+            ),
           };
         } else if (step.startTemperature < 2) {
           return {
             level: 'error',
             title: 'Temperature issue',
             time: step.eta,
-            details: `Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`,
+            details: (
+              <Typography variant='body2' component='p'>
+                {`Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`}
+              </Typography>
+            ),
           };
         } else {
           return {
             level: 'info',
             title: step.location.type,
             time: step.eta,
+            details: (
+              <div className={classes.infoDetails}>
+                <span>{step.actorName}</span>
+                <LoInfoButton loUri={step.actorURI} loType='Company' />
+              </div>
+            ),
           };
         }
       });
-    // console.log(events);
 
     return (
       <ResponsiveList>

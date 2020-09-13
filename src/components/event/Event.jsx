@@ -74,12 +74,12 @@ export default function Event({ event, isHighLighted, onEventClick }) {
         }
       />
       <CardContent style={{ 'padding-bottom': 0 }}>
-        <Typography variant='caption' component='p'>
-          {moment(event.time).format('LLL')}
-        </Typography>
-        <Typography variant='body2' component='p'>
+        <>
+          <Typography variant='caption' component='p'>
+            {moment(event.time).format('LLL')}
+          </Typography>
           {event.details}
-        </Typography>
+        </>
       </CardContent>
 
       {event.level === 'error' && (
