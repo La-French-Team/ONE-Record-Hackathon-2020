@@ -20,11 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps(airWayBill) {
-  return (
-    airWayBill
-      ?.filter((step) => step.location.type !== 'Truck')
-      .map((step) => step.point) || []
-  );
+  return airWayBill?.filter((step) => step.location.type !== 'Truck').map((step) => step.point) || [];
 }
 
 function ShipmentStatus({ airWayBill }) {
@@ -38,7 +34,7 @@ function ShipmentStatus({ airWayBill }) {
           const stepProps = {};
           const labelProps = {};
           return (
-            <Step key={label} {...stepProps}>
+            <Step key={`${label}-${index}`} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );

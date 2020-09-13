@@ -7,13 +7,13 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 // Assets
-import { AirportIcon, PlaneIcon, StartEndIcon, WarehouseIcon } from 'assets';
+import { AirportIcon, PlaneIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
+import { Place } from '@material-ui/icons';
 import shipmentStore from 'stores/shipmentStore';
 import { observer } from 'mobx-react';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken:
-    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -34,24 +34,8 @@ const routeLinePaint = {
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'height'],
-    ],
-    'fill-extrusion-base': [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'min_height'],
-    ],
+    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
+    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -71,24 +55,19 @@ class Map extends Component {
     }
 
     const lnglatInterests = this.interests
-      .map((interest) => [
-        interest.location.longitude,
-        interest.location.latitude,
-      ])
+      .map((interest) => [interest.location.longitude, interest.location.latitude])
       .filter((lnglat) => lnglat[0] !== null && lnglat[1] !== null);
 
     const bounds = lnglatInterests.reduce(
       (bounds, coords) => bounds.extend(coords),
-      new LngLatBounds(lnglatInterests[0], lnglatInterests[0]),
+      new LngLatBounds(lnglatInterests[0], lnglatInterests[0])
     );
 
     return bounds.toArray();
   };
 
   handleStyleLoad = (map) => {
-    map
-      .addControl(new NavigationControl())
-      .addControl(new ScaleControl(), 'bottom-right');
+    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
   };
 
   render() {
@@ -152,7 +131,10 @@ const Flights = ({ flights }) => {
 };
 
 const CurrentVehicle = observer(() => {
-  return (
+  // const isPlane = shipmentStore.currentGeoLoc?.hdg !== null;
+  const isPlane = true;
+
+  return isPlane ? (
     <Layer
       id='plane'
       images={['plane-marker', PlaneIcon]}
@@ -162,8 +144,22 @@ const CurrentVehicle = observer(() => {
         'icon-image': 'plane-marker',
       }}
       type='symbol'
+      bearing={shipmentStore.currentGeoLoc?.hdg}
     >
-      <Feature coordinates={shipmentStore.currentGeoLoc.pos} />
+      <Feature coordinates={shipmentStore.currentGeoLoc?.pos} />
+    </Layer>
+  ) : (
+    <Layer
+      id='plane'
+      images={['truck-marker', TruckIcon]}
+      layout={{
+        'icon-allow-overlap': true,
+        'icon-anchor': 'bottom',
+        'icon-image': 'truck-marker',
+      }}
+      type='symbol'
+    >
+      <Feature coordinates={shipmentStore.currentGeoLoc?.pos} />
     </Layer>
   );
 });
@@ -209,12 +205,7 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature
-            coordinates={[
-              interest.location.longitude,
-              interest.location.latitude,
-            ]}
-          />
+          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
         </Layer>
       );
     });

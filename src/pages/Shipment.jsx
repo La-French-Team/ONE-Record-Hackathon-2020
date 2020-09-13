@@ -1,12 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import {
-  Card,
-  CardContent,
-  Grid,
-  ListItem,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -51,8 +44,16 @@ export default () => {
 
   useEffect(() => {
     const loop = setInterval(() => {
-      shipmentStore.nextStep();
-    }, 100);
+      try {
+        const result = shipmentStore.nextStep();
+        if (result === 'arrived') {
+          clearInterval(loop);
+        }
+      } catch (e) {
+        console.error(e);
+        clearInterval(loop);
+      }
+    }, 5);
     return () => {
       clearInterval(loop);
     };
@@ -70,7 +71,7 @@ export default () => {
         setHighlightEventAt(timestamp);
       }
     },
-    [highlightEventAt],
+    [highlightEventAt]
   );
 
   return (
@@ -87,18 +88,11 @@ export default () => {
             <ShipmentMap airWayBill={shipment} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails
-              shipment={shipment}
-              highlightEventAt={highlightEventAt}
-            />
+            <ShipmentDetails shipment={shipment} highlightEventAt={highlightEventAt} />
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
-          <EventList
-            shipment={shipment}
-            onEventClick={onEventClick}
-            highlightEventAt={highlightEventAt}
-          />
+          <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
         </Grid>
       </Grid>
     </Page>
@@ -106,9 +100,7 @@ export default () => {
 };
 
 const getULDFromOneRecord = () => {
-  return fetch(
-    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
-  ).then((response) => response.json());
+  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then((response) => response.json());
 };
 
 const ULDList = () => {
@@ -155,11 +147,7 @@ const EventList = ({ shipment, onEventClick, highlightEventAt = null }) => {
     <ResponsiveList>
       {events.map((event) => (
         <ListItem>
-          <Event
-            event={event}
-            onEventClick={onEventClick}
-            isHighLighted={event.time === highlightEventAt}
-          />
+          <Event event={event} onEventClick={onEventClick} isHighLighted={event.time === highlightEventAt} />
         </ListItem>
       ))}
     </ResponsiveList>

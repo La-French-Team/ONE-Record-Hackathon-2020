@@ -1,43 +1,39 @@
 import { flights, routes } from 'assets';
 
-const { decorate, observable, action } = require('mobx');
+const { decorate, observable, action, toJS } = require('mobx');
 
 class ShipmentStore {
   airWayBill;
   events = [];
   selectedUld = null;
-  currentGeoLoc = { lon: 0, lat: 0, hdg: 90 };
+  currentGeoLoc = { lon: 0, lat: 0, hdg: null };
   stepNumber = 0;
 
-  #state = 'moving';
-
-  #currentPlayback = null;
+  #playbacks = [];
+  #playbackIndex = 0;
   #currentPointIndex = 0;
-  #flightPlaybacks = [];
-  #routesPlaybacks = [];
 
   setAirwayBill(airWayBill) {
-    this.airWayBill = airWayBill;
-    // A location might be an airplane ID (e.g. KL643)
-    const locations = airWayBill.map((step) => step.location.type);
-
-    // Retrieve flight playbacks by ID (e.g. KL643)
-    this.#flightPlaybacks = Object.entries(flights)
-      .filter(([key]) => locations.includes(key))
-      // Retrieve flightPlayback data
-      .map(([, value]) => value)
-      .map((points) => ({
-        points: points.result.response.data.flight.track.map((point) => ({
-          pos: [point.longitude, point.latitude],
-          hdg: point.heading,
-        })),
+    const extractFlightPoints = (points) =>
+      points.result.response.data.flight.track.map((point) => ({
+        pos: [point.longitude, point.latitude],
+        hdg: point.heading,
       }));
 
-    //TODO: Filter per airwaybill
-    this.#routesPlaybacks = Object.values(routes).map(({ coordinates }) => ({
-      points: coordinates.map((coordinate) => ({ pos: coordinate })),
-    }));
-    this.#currentPlayback = this.#routesPlaybacks[0].points;
+    const extractRoutePoints = (route) => route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
+
+    this.airWayBill = airWayBill;
+
+    // Retrieve flight playbacks by ID (e.g. KL643)
+    this.#playbacks = [
+      extractRoutePoints(routes.LeTraitCDG),
+      extractRoutePoints(routes.CDGAMS),
+      extractFlightPoints(flights.KL643),
+      extractRoutePoints(routes.JFKJFK),
+      extractRoutePoints(routes.JFKNewYork),
+    ];
+
+    console.table(this.#playbacks);
   }
 
   setSelectedUld(uld) {
@@ -49,6 +45,10 @@ class ShipmentStore {
   }
 
   increaseStepNumber() {
+    if (this.stepNumber === this.airWayBill.length - 1) {
+      console.warn('Calling increase but already at max');
+      return;
+    }
     this.stepNumber++;
   }
 
@@ -57,30 +57,41 @@ class ShipmentStore {
   }
 
   nextStep() {
-    if (this.#state === 'moving') {
-      if (!this.#currentPlayback) {
-        this.#currentPlayback = this.nextPlayback();
-        return;
-      }
-      if (this.#currentPointIndex === this.#currentPlayback.length - 1) {
-        this.#currentPlayback = this.nextPlayback();
-        this.#currentPointIndex = 0;
-        this.increaseStepNumber();
-        return;
-      }
+    // if (this.stepNumber >= this.airWayBill.length - 1) {
+    //   // Arrived !
+    //   return 'arrived';
+    // }
 
-      const obj = this.#currentPlayback[this.#currentPointIndex];
-      console.log(obj);
-      console.log(this.#currentPlayback);
-      this.currentGeoLoc = this.#currentPlayback[++this.#currentPointIndex];
-    } else {
-      // TODO: Simulate checkins, transfer, etc.
+    if (this.#playbackIndex > this.#playbacks.length - 1) {
+      // Arrived !
+      return 'arrived';
     }
-  }
 
-  nextPlayback() {
-    if (true) {
+    // const isInWarehouse = this.airWayBill[this.stepNumber].location.latitude !== null;
+    // if (isInWarehouse) {
+    //   // TODO: Simulate checkins, transfer, etc.
+    //   // Go to next step
+    //   this.increaseStepNumber();
+    //   // Get next playback
+    //   // this.#currentPlayback = this.nextPlayback();
+    //   return;
+    // }
+
+    // Arrived at point of interest
+    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length - 1;
+    if (isStepOver) {
+      // this.increaseStepNumber();
+      this.#playbackIndex++;
+      this.#currentPointIndex = 0;
+
+      // TODO: Emit events. Arrived at next point of interest
+      // Get next playback
+      // this.#currentPlayback = this.nextPlayback().points;
+      return;
     }
+
+    // Forward
+    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][this.#currentPointIndex++];
   }
 
   reset() {
