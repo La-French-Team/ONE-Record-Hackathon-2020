@@ -16,38 +16,11 @@ class ShipmentStore {
   #currentPointIndex = 0;
 
   setAirwayBill(airWayBill) {
-    const extractFlightPoints = (points) =>
-      points.result.response.data.flight.track.map((point) => ({
-        pos: [point.longitude, point.latitude],
-        hdg: point.heading,
-      }));
-
-    const extractRoutePoints = (route) =>
-      route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
-
-    this.airWayBill = airWayBill;
+    this.airWayBill = airWayBill.data;
     this.currentTime = this.airWayBill[0]?.timestamp;
 
     // Retrieve flight playbacks by ID (e.g. KL643)
-    this.#playbacks = [
-      [], // Departure
-      [], // Truck
-      extractRoutePoints(routes.LeTraitCDG), // CDG
-      [], // Truck
-      // [],
-      // [],
-      extractRoutePoints(routes.CDGAMS), // AMS
-      [], // Flight
-      // [],
-      // [],
-      // [],
-      extractFlightPoints(flights.KL643), // JFK
-      [], // Truck
-      extractRoutePoints(routes.JFKJFK),
-      // [],
-      extractRoutePoints(routes.JFKNewYork),
-      [],
-    ];
+    this.#playbacks = airWayBill.playbacks;
   }
 
   setSelectedUld(uld) {
@@ -83,8 +56,7 @@ class ShipmentStore {
     }
 
     // Arrived at point of interest
-    const isStepOver =
-      this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
+    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
     if (isStepOver) {
       this.increaseStepNumber();
       this.#playbackIndex++;
@@ -95,12 +67,8 @@ class ShipmentStore {
     }
 
     // Forward
-    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][
-      this.#currentPointIndex++
-    ];
-    this.currentTime = moment(
-      this.airWayBill[this.#playbackIndex]?.eta || this.currentTime,
-    );
+    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][this.#currentPointIndex++];
+    this.currentTime = moment(this.airWayBill[this.#playbackIndex]?.eta || this.currentTime);
   }
 
   reset() {

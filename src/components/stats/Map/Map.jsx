@@ -40,19 +40,13 @@ class Map extends Component {
   };
 
   interests = this.props.interests || [];
-  flights = this.props.flights?.map((points) => ({
-    points:
-      points.result.response.data.flight.track.map((point) => ({
-        pos: [point.longitude, point.latitude],
-        hdg: point.heading,
-      })) || [],
-  }));
+  flights = this.props.flights || [];
   routes = this.props.routes || [];
 
   computeBoundingBox = () => {
     const lnglats = [
-      ...this.routes.reduce((acc, { coordinates }) => [...acc, ...coordinates], []),
-      ...this.flights.reduce((acc, { points }) => [...acc, ...points.map((p) => p.pos)], []),
+      ...this.routes.reduce((acc, points) => [...acc, ...points.map((p) => p.pos)], []),
+      ...this.flights.reduce((acc, points) => [...acc, ...points.map((p) => p.pos)], []),
     ];
 
     const bounds = lnglats.reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]));
@@ -66,6 +60,10 @@ class Map extends Component {
   };
 
   render() {
+    console.log('Flights');
+    console.table(this.flights);
+    console.log('Routes');
+    console.table(this.routes);
     return (
       <MapboxGL
         containerStyle={{
@@ -100,7 +98,7 @@ class Map extends Component {
 }
 
 const Flights = ({ flights }) => {
-  return flights.map(({ points }, index) => {
+  return flights.map((points, index) => {
     return (
       <Fragment key={index}>
         <Layer type='line' layout={lineLayout} paint={flightLinePaint}>
@@ -131,7 +129,7 @@ const CurrentVehicle = observer(() => {
 
   return isPlane ? (
     <MapContext.Consumer>
-      {map => (
+      {(map) => (
         <Layer
           id='plane'
           images={['plane-marker', PlaneIcon]}
@@ -164,11 +162,11 @@ const CurrentVehicle = observer(() => {
 });
 
 const Routes = ({ routes }) => {
-  return routes.map(({ coordinates }, index) => {
+  return routes.map((points, index) => {
     return (
       <Fragment key={index}>
         <Layer type='line' layout={lineLayout} paint={routeLinePaint}>
-          <Feature coordinates={coordinates} />
+          <Feature coordinates={points.map((p) => p.pos)} />
         </Layer>
         <Layer
           id={`route-start-${index}`}
@@ -180,8 +178,8 @@ const Routes = ({ routes }) => {
           }}
           type='symbol'
         >
-          <Feature coordinates={coordinates[0]} />
-          <Feature coordinates={coordinates[coordinates.length - 1]} />
+          <Feature coordinates={points[0].pos} />
+          <Feature coordinates={points[points.length - 1].pos} />
         </Layer>
       </Fragment>
     );

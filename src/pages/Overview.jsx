@@ -35,18 +35,17 @@ export default () => {
 
   useEffect(() => {
     setShipments(
-      ['057-35635677', '057-90104626'].map((waybillNumber) => {
+      ['057-35635677', '057-90104626', '220-58358322'].map((waybillNumber) => {
         const shipment = mockData[waybillNumber];
         return {
-          alertNb:
-            shipment?.filter(
-              ({ startTemperature }) =>
-                startTemperature > 8 || startTemperature < 2,
-            ).length || 0,
+          alertNb: shipment?.filter(({ startTemperature }) => startTemperature > 8 || startTemperature < 2).length || 0,
           waybillNumber: waybillNumber,
-          loUri: waybillNumber === '057-35635677' ? 'http://onerecord.fr:8082/companies/bollore/los/Waybill_266895' : 'http://onerecord.fr:8082/companies/dbschenker/los/Waybill_124259',
+          loUri:
+            waybillNumber === '057-35635677'
+              ? 'http://onerecord.fr:8082/companies/bollore/los/Waybill_266895'
+              : 'http://onerecord.fr:8082/companies/dbschenker/los/Waybill_124259',
         };
-      }),
+      })
     );
   }, []);
 

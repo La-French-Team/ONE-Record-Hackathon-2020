@@ -14,6 +14,8 @@ import LeTraitCDG from './route-playback-le-trait-CDG.json';
 import CDGAMS from './route-playback-CDG-AMS.json';
 import JFKNewYork from './ors__v2_directions_get_1599934104836.json';
 import JFKJFK from './ors__v2_directions_get_1599934045185.json';
+import BabberichFRA from './ors__v2_directions_get_1599987139613.json';
+import CAIFarm from './ors__v2_directions_get_1599987494323.json';
 
 export const BoxIcon = new Image();
 BoxIcon.height = 24;
@@ -61,6 +63,8 @@ const routes = {
   CDGAMS,
   JFKNewYork,
   JFKJFK,
+  BabberichFRA,
+  CAIFarm,
 };
 
 export { flights, routes };

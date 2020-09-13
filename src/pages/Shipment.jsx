@@ -1,13 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  ListItem,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Button, Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -55,9 +47,10 @@ export default () => {
     history.push('/', null);
     return null;
   }
-  const shipment = mockData[shipmentId];
+  const airWayBill = mockData[shipmentId];
 
-  shipmentStore.setAirwayBill(shipment);
+  shipmentStore.setAirwayBill(airWayBill);
+  const shipment = airWayBill.data;
 
   useEffect(() => {
     const loop = setInterval(() => {
@@ -88,7 +81,7 @@ export default () => {
         setHighlightEventAt(timestamp);
       }
     },
-    [highlightEventAt],
+    [highlightEventAt]
   );
 
   return (
@@ -99,35 +92,23 @@ export default () => {
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
-            <ShipmentStatus airWayBill={shipment} />
+            <ShipmentStatus airWayBill={airWayBill} />
           </Grid>
           <Grid item className={classes.mapContainer}>
-            <ShipmentMap airWayBill={shipment} />
+            <ShipmentMap airWayBill={airWayBill} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails
-              shipment={shipment}
-              highlightEventAt={highlightEventAt}
-            />
+            <ShipmentDetails shipment={shipment} highlightEventAt={highlightEventAt} />
           </Grid>
         </Grid>
         <Grid container item xs={12} md={2} direction='column'>
           <Grid item style={{ textAlign: 'center', paddingTop: 8 }}>
-            <Button
-              variant='contained'
-              color='primary'
-              startIcon={<PhonelinkRingIcon />}
-              onClick={() => {}}
-            >
+            <Button variant='contained' color='primary' startIcon={<PhonelinkRingIcon />} onClick={() => {}}>
               Stay informed
             </Button>
           </Grid>
           <Grid item>
-            <EventList
-              shipment={shipment}
-              onEventClick={onEventClick}
-              highlightEventAt={highlightEventAt}
-            />
+            <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
           </Grid>
         </Grid>
       </Grid>
@@ -136,9 +117,7 @@ export default () => {
 };
 
 const getULDFromOneRecord = () => {
-  return fetch(
-    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
-  ).then(async (response) => response.json());
+  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then(async (response) => response.json());
 };
 
 const ULDList = () => {
@@ -152,8 +131,7 @@ const ULDList = () => {
           <Uld uld={value} />
           <Uld
             uld={{
-              '@id':
-                'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+              '@id': 'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
               'https://onerecord.iata.org/ULD#ownerCode': 'AF',
               'https://onerecord.iata.org/ULD#serialNumber': '1335',
               'https://onerecord.iata.org/ULD#uldType': 'AKE',
@@ -175,66 +153,58 @@ const ULDList = () => {
   );
 };
 
-const EventList = observer(
-  ({ shipment, onEventClick, highlightEventAt = null }) => {
-    const classes = useStyle();
-    const events = shipment
-      .filter(({ eta }) =>
-        moment(eta).isBefore(moment(shipmentStore.currentTime)),
-      )
-      .map((step) => {
-        if (step.startTemperature > 8) {
-          return {
-            level: 'error',
-            title: 'Temperature issue',
-            time: step.eta,
-            details: (
-              <Typography variant='body2' component='p'>
-                {`Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`}
-              </Typography>
-            ),
-          };
-        } else if (step.startTemperature < 2) {
-          return {
-            level: 'error',
-            title: 'Temperature issue',
-            time: step.eta,
-            details: (
-              <Typography variant='body2' component='p'>
-                {`Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`}
-              </Typography>
-            ),
-          };
-        } else {
-          return {
-            level: 'info',
-            title: step.location.type,
-            time: step.eta,
-            details: (
-              <div className={classes.infoDetails}>
-                <span>{step.actorName}</span>
-                <LoInfoButton loUri={step.actorURI} loType='Company' />
-              </div>
-            ),
-          };
-        }
-      });
+const EventList = observer(({ shipment, onEventClick, highlightEventAt = null }) => {
+  const classes = useStyle();
+  const events = shipment
+    .filter(({ eta }) => moment(eta).isBefore(moment(shipmentStore.currentTime)))
+    .map((step) => {
+      if (step.startTemperature > 8) {
+        return {
+          level: 'error',
+          title: 'Temperature issue',
+          time: step.eta,
+          details: (
+            <Typography variant='body2' component='p'>
+              {`Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`}
+            </Typography>
+          ),
+        };
+      } else if (step.startTemperature < 2) {
+        return {
+          level: 'error',
+          title: 'Temperature issue',
+          time: step.eta,
+          details: (
+            <Typography variant='body2' component='p'>
+              {`Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`}
+            </Typography>
+          ),
+        };
+      } else {
+        return {
+          level: 'info',
+          title: step.location.type,
+          time: step.eta,
+          details: (
+            <div className={classes.infoDetails}>
+              <span>{step.actorName}</span>
+              <LoInfoButton loUri={step.actorURI} loType='Company' />
+            </div>
+          ),
+        };
+      }
+    });
 
-    return (
-      <ResponsiveList>
-        {events.map((event) => (
-          <ListItem>
-            <Event
-              event={event}
-              onEventClick={onEventClick}
-              isHighLighted={event.time === highlightEventAt}
-            />
-          </ListItem>
-        ))}
-      </ResponsiveList>
-    );
-  },
-);
+  return (
+    <ResponsiveList>
+      {events.map((event) => (
+        <ListItem>
+          <Event event={event} onEventClick={onEventClick} isHighLighted={event.time === highlightEventAt} />
+        </ListItem>
+      ))}
+    </ResponsiveList>
+  );
+});
 
 const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
   const classes = useStyle();
@@ -243,12 +213,10 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
     shipment.map(({ eta }) => ({
       x: moment(eta).toDate(),
       y: Math.random() * 25,
-    })),
+    }))
   );
 
-  const passedPoints = shipment.filter(({ eta }) =>
-    moment(eta).isBefore(moment(shipmentStore.currentTime)),
-  );
+  const passedPoints = shipment.filter(({ eta }) => moment(eta).isBefore(moment(shipmentStore.currentTime)));
 
   const data = passedPoints.map(({ eta, startTemperature }) => ({
     x: moment(eta).toDate(),
@@ -286,9 +254,7 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
           series={[
             {
               id: 'Hygrometry',
-              data: randomData.filter(({ x }) =>
-                moment(x).isBefore(moment(shipmentStore.currentTime)),
-              ),
+              data: randomData.filter(({ x }) => moment(x).isBefore(moment(shipmentStore.currentTime))),
             },
           ]}
         />

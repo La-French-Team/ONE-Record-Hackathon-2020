@@ -1,0 +1,182 @@
+[
+  {
+    "point": "AC Babberich",
+    "actorType": "Shipper",
+    "actorName": "ter Heerdt N.V.",
+    "location": {
+      "type": "Warehouse",
+      "address": "Babberichseweg 89, 6909 AC Babberich, Pays-Bas",
+      "latitude": "51.908843",
+      "longitude": "6.108739"
+    },
+    "etd": "2020-09-11T20:00:00Z",
+    "ete": null,
+    "eta": "2020-09-11T20:00:00Z",
+    "startTemperature": 4,
+    "endTemperature": 4,
+    "timeToReach": 1260,
+    "externalTemperature": 21
+  },
+  {
+    "point": "Babberich - FRA",
+    "actorType": "Agent",
+    "actorName": "DB Schenker",
+    "location": {
+      "type": "Truck",
+      "address": "Route",
+      "latitude": null,
+      "longitude": null
+    },
+    "etd": "2020-09-11T20:00:00Z",
+    "ete": 137,
+    "eta": "2020-09-11T22:17:00Z",
+    "startTemperature": 4,
+    "endTemperature": 4,
+    "timeToReach": 30,
+    "externalTemperature": 21
+  },
+  {
+    "point": "FRA",
+    "actorType": "Airline",
+    "actorName": "Lufthansa",
+    "location": {
+      "type": "Warehouse - acceptance area",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "50.039733",
+      "longitude": "8.530525"
+    },
+    "etd": "2020-09-11T22:17:00Z",
+    "ete": 1380,
+    "eta": "2020-09-11T22:40:00Z",
+    "startTemperature": 4,
+    "endTemperature": 5,
+    "timeToReach": 1380,
+    "externalTemperature": 20
+  },
+  {
+    "point": "FRA",
+    "actorType": "Airline",
+    "actorName": "Lufthansa",
+    "location": {
+      "type": "Warehouse - monitored storage",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "50.039733",
+      "longitude": "8.530525"
+    },
+    "etd": "2020-09-11T22:40:00Z",
+    "ete": 350,
+    "eta": "2020-09-12T04:30:00Z",
+    "startTemperature": 5,
+    "endTemperature": 12,
+    "timeToReach": 3600,
+    "externalTemperature": 18
+  },
+  {
+    "point": "FRA",
+    "actorType": "Airline",
+    "actorName": "Lufthansa",
+    "location": {
+      "type": "Warehouse - out of monitored storage",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "50.039733",
+      "longitude": "8.530525"
+    },
+    "etd": "2020-09-12T04:30:00Z",
+    "ete": 1800,
+    "eta": "2020-09-12T05:00:00Z",
+    "startTemperature": 12,
+    "endTemperature": 5,
+    "timeToReach": 1800,
+    "externalTemperature": 19
+  },
+  {
+    "point": "FRA",
+    "actorType": "Airline",
+    "actorName": "Lufthansa",
+    "location": {
+      "type": "Warehouse - Parking Stand",
+      "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
+      "latitude": "50.039733",
+      "longitude": "8.530525"
+    },
+    "etd": "2020-09-12T05:00:00Z",
+    "ete": 17700,
+    "eta": "2020-09-12T09:55:00Z",
+    "startTemperature": 5,
+    "endTemperature": 10,
+    "timeToReach": 3600,
+    "externalTemperature": 19
+  },
+  {
+    "point": "FRA-CAI",
+    "actorType": "Airline",
+    "actorName": "LH",
+    "location": {
+      "type": "LH8290",
+      "address": "Flight",
+      "latitude": null,
+      "longitude": null
+    },
+    "etd": "2020-09-12T09:55:00Z",
+    "ete": 900,
+    "eta": "2020-09-12T10:10:00Z",
+    "startTemperature": 10,
+    "endTemperature": 5,
+    "timeToReach": 900,
+    "externalTemperature": null
+  },
+  {
+    "point": "FRA-CAI",
+    "actorType": "Airline",
+    "actorName": "LH",
+    "location": {
+      "type": "LH8290",
+      "address": "Truck",
+      "latitude": null,
+      "longitude": null
+    },
+    "etd": "2020-09-12T10:10:00Z",
+    "ete": null,
+    "eta": "2020-09-12T15:50:00Z",
+    "startTemperature": 5,
+    "endTemperature": 7,
+    "timeToReach": 3600,
+    "externalTemperature": null
+  },
+  {
+    "point": "CAI",
+    "actorType": "GHA",
+    "actorName": "CACC Cargolinx",
+    "location": {
+      "type": "Warehouse",
+      "address": "Cairo Airport",
+      "latitude": "30.116077",
+      "longitude": "31.403632"
+    },
+    "etd": "2020-09-12T15:50:00Z",
+    "ete": 2520,
+    "eta": "2020-09-12T16:32:00Z",
+    "startTemperature": 7,
+    "endTemperature": 4,
+    "timeToReach": 2520,
+    "externalTemperature": null
+  },
+  {
+    "point": "CAI",
+    "actorType": "Consignee",
+    "actorName": "Lotus Poultry Egypt Farm",
+    "location": {
+      "type": "Farm",
+      "address": "Wadi Al Netroun - Al Deblomasein Rd, El Beheira Desert, El Beheira Governorate, Égypte",
+      "latitude": "30.338518",
+      "longitude": "30.305885"
+    },
+    "etd": "2020-09-12T16:32:00Z",
+    "ete": 18,
+    "eta": "2020-09-12T16:50:00Z",
+    "startTemperature": 4,
+    "endTemperature": 9,
+    "timeToReach": 1080,
+    "externalTemperature": null
+  }
+]

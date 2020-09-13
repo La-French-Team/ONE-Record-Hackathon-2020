@@ -58,15 +58,9 @@ const ShipmentStep = ({ label, index, ...props }) => {
   return (
     <>
       <div onClick={handleClick} className={classes.stepperButton}>
-        {label === 'Plane' && (
-          <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />
-        )}
-        {label === 'Truck' && (
-          <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />
-        )}
-        {label !== '' && label !== 'Plane' && label !== 'Truck' && (
-          <StepLabel {...props}>{label}</StepLabel>
-        )}
+        {label === 'Plane' && <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />}
+        {label === 'Truck' && <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />}
+        {label !== '' && label !== 'Plane' && label !== 'Truck' && <StepLabel {...props}>{label}</StepLabel>}
       </div>
       <Popover
         id={id}
@@ -120,43 +114,7 @@ const ShipmentStep = ({ label, index, ...props }) => {
 };
 
 function getSteps(airWayBill) {
-  const playback = [
-    [],
-    null,
-    [],
-    [],
-    [],
-    null,
-    [],
-    [],
-    [],
-    [],
-    null,
-    [],
-    null,
-    [],
-    null,
-    [],
-  ];
-  // return airWayBill?.map((step) => step.point) || [];
-  return [
-    'Departure',
-    'Truck',
-    'CDG',
-    // '',
-    // '',
-    'Truck',
-    'AMS',
-    // '',
-    // '',
-    // '',
-    'Plane',
-    'JFK',
-    'Truck',
-    'Agent',
-    'Truck',
-    'Arrival',
-  ];
+  return airWayBill?.steps || [];
 }
 
 function ShipmentStatus({ airWayBill }) {
