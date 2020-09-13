@@ -8,8 +8,7 @@ const extractFlightPoints = (points) =>
     hdg: point.heading,
   }));
 
-const extractRoutePoints = (route) =>
-  route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
+const extractRoutePoints = (route) => route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
 
 const mockedData = {
   '057-35635677': {
@@ -19,17 +18,11 @@ const mockedData = {
       [], // Truck
       extractRoutePoints(routes.LeTraitCDG), // CDG
       [], // Truck
-      // [],
-      // [],
       extractRoutePoints(routes.CDGAMS), // AMS
       [], // Flight
-      // [],
-      // [],
-      // [],
       extractFlightPoints(flights.KL643), // JFK
       [], // Truck
       extractRoutePoints(routes.JFKJFK),
-      // [],
       extractRoutePoints(routes.JFKNewYork),
       [],
     ],
@@ -46,6 +39,7 @@ const mockedData = {
       { label: 'Truck', stepIndex: 14 },
       { label: 'Arrival', stepIndex: 15 },
     ],
+    ulds: ['http://onerecord.fr:8083/companies/airfrance/los/Uld_195302'],
   },
   '220-58358322': {
     data: chickens,
@@ -69,6 +63,7 @@ const mockedData = {
       { label: 'Truck', stepIndex: 8 },
       { label: 'Arrival', stepIndex: 9 },
     ],
+    ulds: ['http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951'],
   },
 };
 

@@ -57,8 +57,7 @@ class ShipmentStore {
     }
 
     // Arrived at point of interest
-    const isStepOver =
-      this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
+    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
     if (isStepOver) {
       this.increaseStepNumber();
       this.#playbackIndex++;
@@ -69,12 +68,8 @@ class ShipmentStore {
     }
 
     // Forward
-    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][
-      this.#currentPointIndex++
-    ];
-    this.currentTime = moment(
-      this.airWayBill[this.stepNumber]?.eta || this.currentTime,
-    );
+    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][this.#currentPointIndex++];
+    this.currentTime = moment(this.airWayBill[this.stepNumber]?.eta || this.currentTime);
   }
 
   reset() {
@@ -91,8 +86,9 @@ decorate(ShipmentStore, {
   stepNumber: observable,
   currentGeoLoc: observable,
   selectedUld: observable,
-  nextStep: action,
   currentTime: observable,
+  nextStep: action,
+  reset: action,
 });
 
 export default new ShipmentStore();

@@ -36,7 +36,7 @@ export default () => {
 
   useEffect(() => {
     setShipments(
-      ['057-35635677', '057-90104626', '220-58358322'].map((waybillNumber) => {
+      ['057-35635677', '220-58358322'].map((waybillNumber) => {
         const shipment = mockData[waybillNumber]?.data || mockedData['057-35635677'].data;
         return {
           alertNb: shipment?.filter(({ startTemperature }) => startTemperature > 8 || startTemperature < 2).length || 0,

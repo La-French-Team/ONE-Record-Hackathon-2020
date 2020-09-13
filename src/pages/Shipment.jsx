@@ -22,7 +22,6 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import mockData from 'mocks/shipments';
 import moment from 'moment';
 import { StatusColor } from 'const';
-import { useAsync } from 'hooks';
 import Skeleton from 'react-loading-skeleton';
 import shipmentStore from 'stores/shipmentStore';
 import Uld from 'components/uld/Uld';
@@ -124,7 +123,7 @@ export default () => {
     <Page pageName={`Shipment ${shipmentId} details`}>
       <Grid container spacing={0}>
         <Grid item xs={12} md={2}>
-          <ULDList />
+          <ULDList ulds={airWayBill.ulds} />
         </Grid>
         <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
@@ -205,33 +204,51 @@ export default () => {
   );
 };
 
-const getULDFromOneRecord = () => {
-  return fetch('http://onerecord.fr:8083/companies/airfrance/los/Uld_195302').then(async (response) => response.json());
-};
+const ULDList = ({ ulds }) => {
+  const [loading, setLoading] = useState(true);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
-const ULDList = () => {
-  // TODO: Get multiple ULDs instead of one
-  const { status, value, error } = useAsync(getULDFromOneRecord);
+  useEffect(() => {
+    setLoading(true);
+    // TODO: Get multiple ULDs instead of one
+    fetch(ulds[0])
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+        setResult(data);
+      })
+      .catch((e) => {
+        setError(e);
+        setLoading(false);
+      });
+  }, [ulds]);
+
   return (
     <ResponsiveList>
-      {status === 'pending' && <Skeleton height={180} count={5} />}
-      {status === 'success' && (
+      {loading && <Skeleton height={180} count={5} />}
+      {result && (
         <>
-          <Uld uld={value} />
-          <Uld
-            uld={{
-              '@id': 'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
-              'https://onerecord.iata.org/ULD#ownerCode': 'AF',
-              'https://onerecord.iata.org/ULD#serialNumber': '1335',
-              'https://onerecord.iata.org/ULD#uldType': 'AKE',
-              'https://onerecord.iata.org/ULD#upid': {
-                'https://onerecord.iata.org/Piece#containedPiece': [],
-              },
-            }}
-          />
+          <Uld uld={result} />
+          {
+            // Hardcoded empty ULD
+            ulds[0] === 'http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951' && (
+              <Uld
+                uld={{
+                  '@id': 'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+                  'https://onerecord.iata.org/ULD#ownerCode': 'AF',
+                  'https://onerecord.iata.org/ULD#serialNumber': '1335',
+                  'https://onerecord.iata.org/ULD#uldType': 'AKE',
+                  'https://onerecord.iata.org/ULD#upid': {
+                    'https://onerecord.iata.org/Piece#containedPiece': [],
+                  },
+                }}
+              />
+            )
+          }
         </>
       )}
-      {status === 'error' && (
+      {error && (
         <Card>
           <CardContent>
             <Typography>{error.message}</Typography>
