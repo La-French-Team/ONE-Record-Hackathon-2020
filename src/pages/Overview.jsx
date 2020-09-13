@@ -28,9 +28,9 @@ export default () => {
     if (type === 'shipper') {
       return <ShipperShipmentCard />;
     } else if (type === 'airline') {
-      return <AirlineShipmentCard />;
+      return <ShipperShipmentCard />;
     } else {
-      return <GuestShipmentCard />;
+      return <ShipperShipmentCard />;
     }
   }, [type]);
 
