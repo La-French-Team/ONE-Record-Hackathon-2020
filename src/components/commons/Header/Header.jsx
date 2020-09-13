@@ -11,7 +11,7 @@ import {
   Switch
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import settingsStore from 'stores/settingsStore';
@@ -83,15 +83,13 @@ const Header = observer(({ pageName = '' }) => {
     <AppBar position='static'>
       <Toolbar className={classes.flex}>
         <div className={classes.flex}>
-          <Link to='/'>
-            <Button className={classes.menuButton}>
-              <img
-                src={`${process.env.PUBLIC_URL}/one-track.png`}
-                className={classes.logo}
-                alt='onecargo-logo'
-              />
-            </Button>
-          </Link>
+          <Button className={classes.menuButton} component={RouterLink} to='/'>
+            <img
+              src={`${process.env.PUBLIC_URL}/one-track.png`}
+              className={classes.logo}
+              alt='onecargo-logo'
+            />
+          </Button>
           <Typography variant='h6' className={classes.title}>
             {pageName}
           </Typography>

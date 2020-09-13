@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Chip, Avatar, makeStyles } from '@material-ui/core';
+import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
+import { Chip, Avatar, Link, makeStyles } from '@material-ui/core';
 import LoInfoButton from 'components/commons/LoInfoButton/LoInfoButton';
 
 const useStyle = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ const ShipperShipmentCard = ({ shipment }) => {
         <strong>AirWaybill </strong>
         <Link
           to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
-          className={classes.cardLink}
+          component={RouterLink}
         >
           <span style={{ marginRight: '15px', lineHeight: '34px' }} className={classes.cardLabel}>{shipment.waybillNumber}</span>
         </Link>
