@@ -26,14 +26,23 @@ class ShipmentStore {
 
     // Retrieve flight playbacks by ID (e.g. KL643)
     this.#playbacks = [
+      [],
       extractRoutePoints(routes.LeTraitCDG),
+      [],
+      [],
+      [],
       extractRoutePoints(routes.CDGAMS),
+      [],
+      [],
+      [],
+      [],
       extractFlightPoints(flights.KL643),
+      [],
       extractRoutePoints(routes.JFKJFK),
+      [],
       extractRoutePoints(routes.JFKNewYork),
+      [],
     ];
-
-    console.table(this.#playbacks);
   }
 
   setSelectedUld(uld) {
@@ -57,36 +66,25 @@ class ShipmentStore {
   }
 
   nextStep() {
-    // if (this.stepNumber >= this.airWayBill.length - 1) {
-    //   // Arrived !
-    //   return 'arrived';
+    // if([this.#playbacks[this.#playbackIndex]].length === 0) {
+    // TODO: multiple steps, send events, etc.
+    //   return;
     // }
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
+      this.increaseStepNumber();
       console.log('Arrived !');
       return 'arrived';
     }
 
-    // const isInWarehouse = this.airWayBill[this.stepNumber].location.latitude !== null;
-    // if (isInWarehouse) {
-    //   // TODO: Simulate checkins, transfer, etc.
-    //   // Go to next step
-    //   this.increaseStepNumber();
-    //   // Get next playback
-    //   // this.#currentPlayback = this.nextPlayback();
-    //   return;
-    // }
-
     // Arrived at point of interest
     const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
     if (isStepOver) {
-      // this.increaseStepNumber();
+      this.increaseStepNumber();
       this.#playbackIndex++;
       this.#currentPointIndex = 0;
 
       // TODO: Emit events. Arrived at next point of interest
-      // Get next playback
-      // this.#currentPlayback = this.nextPlayback().points;
       return;
     }
 

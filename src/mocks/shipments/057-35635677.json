@@ -150,8 +150,8 @@
     "location": {
       "type": "Warehouse",
       "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
-      "latitude": null,
-      "longitude": null
+      "latitude": "52.303190",
+      "longitude": "4.752027"
     },
     "etd": "2020-09-12T15:50:00Z",
     "ete": 2520,
@@ -168,8 +168,8 @@
     "location": {
       "type": "truck",
       "address": "Tarmac",
-      "latitude": null,
-      "longitude": null
+      "latitude": "52.303190",
+      "longitude": "4.752027"
     },
     "etd": "2020-09-12T16:32:00Z",
     "ete": 18,
