@@ -41,7 +41,7 @@ export default function Uld({ uld }) {
         style={{ paddingBottom: 0 }}
         title={
           <strong style={{ fontSize: "18px", lineHeight: "34px" }}>
-            {`ULD ${uld["https://onerecord.iata.org/ULD#uldType"]} ${uld["https://onerecord.iata.org/ULD#ownerCode"]}#${uld["https://onerecord.iata.org/ULD#serialNumber"]}`}
+            {`ULD ${uld["https://onerecord.iata.org/ULD#uldType"]}${uld["https://onerecord.iata.org/ULD#serialNumber"]}${uld["https://onerecord.iata.org/ULD#ownerCode"]}`}
             <LoInfoButton loUri={uld["@id"]} loType={"ULD"}></LoInfoButton>
           </strong>
         }

@@ -13,7 +13,7 @@ const useStyle = makeStyles((theme) => ({
 const ShipperShipmentCard = ({ shipment }) => {
   const classes = useStyle();
   const { params } = useRouteMatch();
-  console.log(shipment)
+  // console.log(shipment)
   return (
     <>
       <Chip

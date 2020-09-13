@@ -19,8 +19,10 @@ class ShipmentStore {
     this.airWayBill = airWayBill.data;
     this.currentTime = this.airWayBill[0]?.timestamp;
 
-    // Retrieve flight playbacks by ID (e.g. KL643)
     this.#playbacks = airWayBill.playbacks;
+    this.stepNumber = airWayBill.steps.length - 1;
+    this.#playbackIndex = this.#playbacks.length - 1;
+    this.#currentPointIndex = this.#playbacks[this.#playbackIndex].length - 1;
   }
 
   setSelectedUld(uld) {
@@ -33,7 +35,7 @@ class ShipmentStore {
 
   increaseStepNumber() {
     if (this.stepNumber === this.airWayBill.length - 1) {
-      console.warn('Calling increase but already at max');
+      // console.warn('Calling increase but already at max');
       return;
     }
     this.stepNumber++;
@@ -51,7 +53,7 @@ class ShipmentStore {
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
       this.increaseStepNumber();
-      console.log('Arrived !');
+      // console.log('Arrived !');
       return 'arrived';
     }
 
@@ -73,9 +75,9 @@ class ShipmentStore {
 
   reset() {
     this.stepNumber = 0;
-    this.selectedUld = null;
-    this.airWayBill = null;
-    this.events = [];
+    this.#playbackIndex = 0;
+    this.#currentPointIndex = 0;
+    this.currentTime = moment(0);
   }
 }
 

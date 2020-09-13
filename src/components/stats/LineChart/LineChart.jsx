@@ -1,7 +1,9 @@
 import React from 'react';
+import { defaultTheme } from '@nivo/core';
 import { ResponsiveLine } from '@nivo/line';
 import { StatusColor } from 'const';
 import moment from 'moment';
+import { useTheme } from '@material-ui/core';
 
 /**
  *
@@ -19,17 +21,103 @@ const LineChart = ({
   max = undefined,
   defaultMarkers = [],
 }) => {
+  const theme = useTheme();
+
+  const nivoTheme = theme.palette.type === 'light'
+    ? defaultTheme
+    : {
+      background: theme.palette.background.default,
+      axis: {
+          domain: {
+              line: {
+                  strokeWidth: 0,
+                  stroke: '#526271',
+              },
+          },
+          ticks: {
+              line: {
+                  strokeWidth: 1,
+                  stroke: '#526271',
+              },
+              text: {
+                  fill: '#8d9cab',
+                  fontSize: 11,
+              },
+          },
+          legend: {
+              text: {
+                  fill: '#ccd7e2',
+                  fontSize: 13,
+                  fontWeight: 500,
+              },
+          },
+      },
+      grid: {
+          line: {
+              stroke: '#444',
+          },
+      },
+      legends: {
+          text: {
+              fontSize: 12,
+              fill: '#8d9cab',
+          },
+      },
+      tooltip: {
+          container: {
+              fontSize: '13px',
+              background: '#000',
+              color: '#ddd',
+          },
+      },
+      labels: {
+          text: {
+              fill: '#ddd',
+              fontSize: 12,
+              fontWeight: 500,
+          },
+      },
+      dots: {
+          text: {
+              fill: '#bbb',
+              fontSize: 12,
+          },
+      },
+      annotations: {
+          text: {
+              fill: '#dddddd',
+              outlineWidth: 3,
+              outlineColor: '#0e1317',
+          },
+          link: {
+              stroke: '#ffffff',
+              outlineWidth: 2,
+              outlineColor: '#0e1317',
+          },
+          outline: {
+              stroke: '#ffffff',
+              outlineWidth: 2,
+              outlineColor: '#0e1317',
+          },
+          symbol: {
+              fill: '#ffffff',
+              outlineWidth: 2,
+              outlineColor: '#0e1317',
+          },
+      }
+    }
+
   /**
    * @type {import('@nivo/core').CartesianMarkerProps[]}
    */
   const markers = defaultMarkers;
-
   if (min) {
     markers.push({
       axis: 'y',
       value: min,
       lineStyle: { stroke: 'blue', strokeWidth: 1.5 },
       legend: `${min}°C`,
+      textStyle: nivoTheme.labels.text,
     });
     series.forEach(({ data }) =>
       data.forEach(({ x, y }) => {
@@ -50,6 +138,7 @@ const LineChart = ({
       value: max,
       lineStyle: { stroke: 'red', strokeWidth: 1.5 },
       legend: `${max}°C`,
+      textStyle: nivoTheme.labels.text,
     });
 
     series.forEach(({ data }) =>
@@ -68,6 +157,7 @@ const LineChart = ({
   return (
     <ResponsiveLine
       data={series}
+      theme={nivoTheme}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{
         type: 'time',
@@ -130,6 +220,7 @@ const LineChart = ({
           symbolSize: 12,
           symbolShape: 'circle',
           symbolBorderColor: 'rgba(0, 0, 0, .5)',
+          itemTextColor: nivoTheme.legends.text.fill,
           effects: [
             {
               on: 'hover',
