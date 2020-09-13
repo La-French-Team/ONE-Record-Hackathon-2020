@@ -1,68 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration
 
-## Available Scripts
+## Targeted Challenge
 
-In the project directory, you can run:
+- Challenge number 1: Track and Trace Challenge
 
-### `npm start`
+### Main issue
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Nowadays, there is no possibility for a customer to track & trace precisely a single piece unit, from origin factory to its final destination, using a single tool.
+- Having a global view of a whole shipment in realtime is almost impossible. Tracking becomes important especially when it comes to monitored cargo like pharmaceuticals or animals.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## What it does
 
-### `npm test`
+ONE Track is the most accurate and complete end-to-end tracking solution, including realtime and history of all relevant tracking information depending on the nature of goods.
+All data are provided by all participants via API connected to ONE Record servers
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How I built it
 
-### `npm run build`
+- Have a look at attached picture "technicalarchitecture.png"
+- then...
+- `git clone https://github.com/ONE-Record-Hackathon-2020/one-record-frontend`
+- `npm i`
+- `npm start`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Challenges I ran into
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Track and trace challenge
+- A few Exceptions raised during development
+- Writing code while tired
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Business challenges
 
-### `npm run eject`
+- Display real-time and history tracking data using data distributed by ONE Record API
+- Enrich ONE Record data by Routes and Weather data using APIs
+- Build and monitor temperature records mandatory for Pharmaceuticals transportation.
+- Display Shipment updates history and Alerts if temperature is out of allowed range.
+- « Stay informed » by subscribing to ONE shipment and getting updates and alerts
+- Getting different views with most accurate data depending on the actor of the supply chain (Shipper, Forwarder, Consignee)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Technical challenges
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Use ONE Record Data Model and APIs with relevant data
+- Have real distributed data, stored on multiple ONE Record servers
+- Real-time data updates on ULD and real-time display in ONE Track
+- User friendly solution to visualize data tracking on our application
+- Have alerts when special handling instructions are not respected
+- Have risk evaluation and allow to troubleshoot what happened
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Accomplishments that I'm proud of
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Astonishing team work!!
+- We managed to simulate data close to real use cases
+- Technical solution for the demo can display data in real time and you can replay it if you like to watch the planes and trucks evolve on the map again
+- Technical solution is mostly bug free
+- Technical solution for the demo has a dark theme
 
-## Learn More
+## What I learned
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Great tools make great applications
+- But great team is needed too
+- Pizza on breakfast is actually pretty good
+- Kitten waling on a keyboard can sometimes create bugs. You need to look after the cat if you want to win the challenge "Mostly bug free"
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## What's next for ONE Track (by The French Team)
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- If our idea and project is successful we will meet next to Nice to have a good dinner together
+- Why not creating a startup and provide ONE Track as a service?
