@@ -9,28 +9,10 @@ import GuestShipmentCard from 'components/overview/GuestShipmentCard';
 
 import mockData from 'mocks/shipments';
 
-const useStyle = makeStyles((theme) => ({
-  title: {
-    textAlign: 'center',
-  },
-  shipments: {
-    padding: '1rem',
-  },
-  cardLabel: {
-    margin: 0,
-    fontWeight: 'bold',
-  },
-  shipmentCard: {
-    padding: '2rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '2rem',
-  },
-  cardLink: {
-    textDecoration: 'none',
-  },
+const useStyle = makeStyles(() => ({
   listTitle: {
     marginBottom: '1rem',
+    marginLeft: '1rem',
   },
 }));
 

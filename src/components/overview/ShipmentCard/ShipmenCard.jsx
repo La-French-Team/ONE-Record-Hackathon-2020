@@ -19,6 +19,7 @@ const useStyle = makeStyles((theme) => ({
   },
   cardLink: {
     textDecoration: 'none',
+    margin: '1rem',
   },
   listTitle: {
     marginBottom: '1rem',
