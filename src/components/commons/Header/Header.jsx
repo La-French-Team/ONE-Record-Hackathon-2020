@@ -56,7 +56,7 @@ const getUserName = (userType) => {
 
 const Header = observer(({ pageName = '' }) => {
   const classes = useStyles();
-  const { params } = useRouteMatch();
+  const { params, path } = useRouteMatch();
 
   const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
 
@@ -94,10 +94,11 @@ const Header = observer(({ pageName = '' }) => {
             {pageName}
           </Typography>
         </div>
-
-        <Button onClick={onReplay} variant='contained' color='secondary'>
-          Replay
-        </Button>
+        {path === '/:userType/shipments/:id' && (
+          <Button onClick={onReplay} variant='contained' color='secondary'>
+            Replay
+          </Button>
+        )}
 
         <Button
           aria-label='account of current user'
