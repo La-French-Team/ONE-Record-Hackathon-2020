@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardContent, Grid, ListItem, makeStyles, Typography } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
 import Page from 'components/commons/Page/Page';
@@ -14,6 +14,7 @@ import { useAsync } from 'hooks';
 import Skeleton from 'react-loading-skeleton';
 import shipmentStore from 'stores/shipmentStore';
 import Uld from 'components/uld/Uld';
+import PhonelinkRingIcon from '@material-ui/icons/PhonelinkRing';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
@@ -92,6 +93,12 @@ export default () => {
           </Grid>
         </Grid>
         <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
+            <Button onClick={() => {}}>
+              <PhonelinkRingIcon />
+              <Typography>Stay informed</Typography>
+            </Button>
+          </Grid>
           <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
         </Grid>
       </Grid>
@@ -108,7 +115,7 @@ const ULDList = () => {
   const { status, value, error } = useAsync(getULDFromOneRecord);
   return (
     <ResponsiveList>
-      {status === 'pending' && <Skeleton count={5} />}
+      {status === 'pending' && <Skeleton height={180} count={5} />}
       {status === 'success' && <Uld uld={value} />}
       {status === 'error' && (
         <Card>
