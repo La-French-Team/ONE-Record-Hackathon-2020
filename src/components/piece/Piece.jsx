@@ -41,6 +41,11 @@ export default function Piece({ piece }) {
             <LoInfoButton loUri={piece['@id']} loType={'Piece'}></LoInfoButton>
           </strong>
         }
+        subheader={
+          <Typography color='secondary'>
+            <strong>{piece['https://onerecord.iata.org/Piece#goodsDescription']}</strong>
+          </Typography>
+        }
       />
       <CardContent>
         <table>
