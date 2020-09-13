@@ -59,8 +59,6 @@ class Map extends Component {
   };
 
   render() {
-    console.table(this.flights);
-    console.table(this.routes);
     return (
       <MapboxGL
         containerStyle={{
