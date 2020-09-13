@@ -13,7 +13,6 @@ const useStyle = makeStyles((theme) => ({
 const ShipperShipmentCard = ({ shipment }) => {
   const classes = useStyle();
   const { params } = useRouteMatch();
-  // console.log(shipment)
   return (
     <>
       <Chip
@@ -24,13 +23,12 @@ const ShipperShipmentCard = ({ shipment }) => {
       />
       <span>
         <strong>AirWaybill </strong>
-        <Link
-          to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
-          component={RouterLink}
-        >
-          <span style={{ marginRight: '15px', lineHeight: '34px' }} className={classes.cardLabel}>{shipment.waybillNumber}</span>
+        <Link to={`/${params.userType}/shipments/${shipment.waybillNumber}`} component={RouterLink}>
+          <span style={{ marginRight: '15px', lineHeight: '34px' }} className={classes.cardLabel}>
+            {shipment.waybillNumber}
+          </span>
         </Link>
-        <LoInfoButton loUri={shipment.loUri} loType={"AirWaybill"}></LoInfoButton>
+        <LoInfoButton loUri={shipment.loUri} loType={'AirWaybill'}></LoInfoButton>
       </span>
     </>
   );

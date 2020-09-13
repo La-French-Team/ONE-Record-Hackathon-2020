@@ -41,7 +41,6 @@ const ShipmentStep = ({ label, index, ...props }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const step = shipmentStore.airWayBill[index];
-  console.log(index, step);
 
   const handleClick = (event) => {
     if (index <= shipmentStore.stepNumber) {
@@ -59,15 +58,9 @@ const ShipmentStep = ({ label, index, ...props }) => {
   return (
     <>
       <div onClick={handleClick} className={classes.stepperButton}>
-        {label === 'Plane' && (
-          <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />
-        )}
-        {label === 'Truck' && (
-          <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />
-        )}
-        {label !== '' && label !== 'Plane' && label !== 'Truck' && (
-          <StepLabel {...props}>{label}</StepLabel>
-        )}
+        {label === 'Plane' && <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />}
+        {label === 'Truck' && <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />}
+        {label !== '' && label !== 'Plane' && label !== 'Truck' && <StepLabel {...props}>{label}</StepLabel>}
       </div>
       <Popover
         id={id}

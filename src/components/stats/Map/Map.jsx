@@ -7,19 +7,12 @@ import { withTheme } from '@material-ui/core';
 import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 
 // Assets
-import {
-  AirportIcon,
-  PlaneIcon,
-  StartEndIcon,
-  TruckIcon,
-  WarehouseIcon,
-} from 'assets';
+import { AirportIcon, PlaneIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
 import shipmentStore from 'stores/shipmentStore';
 import { observer } from 'mobx-react';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken:
-    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -40,24 +33,8 @@ const routeLinePaint = {
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'height'],
-    ],
-    'fill-extrusion-base': [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      15,
-      0,
-      15.05,
-      ['get', 'min_height'],
-    ],
+    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
+    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -67,35 +44,22 @@ class Map extends Component {
 
   computeBoundingBox = () => {
     const lnglats = [
-      ...this.routes.reduce(
-        (acc, points) => [...acc, ...points.map((p) => p.pos)],
-        [],
-      ),
-      ...this.flights.reduce(
-        (acc, points) => [...acc, ...points.map((p) => p.pos)],
-        [],
-      ),
+      ...this.routes.reduce((acc, points) => [...acc, ...points.map((p) => p.pos)], []),
+      ...this.flights.reduce((acc, points) => [...acc, ...points.map((p) => p.pos)], []),
     ];
 
-    const bounds = lnglats.reduce(
-      (bounds, coords) => bounds.extend(coords),
-      new LngLatBounds(lnglats[0], lnglats[0]),
-    );
+    const bounds = lnglats.reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]));
 
     return bounds.toArray();
   };
 
   handleStyleLoad = (map) => {
-    map
-      .addControl(new NavigationControl())
-      .addControl(new ScaleControl(), 'bottom-right');
+    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
     map.addImage('plane-marker', PlaneIcon);
   };
 
   render() {
-    console.log('Flights');
     console.table(this.flights);
-    console.log('Routes');
     console.table(this.routes);
     return (
       <MapboxGL
@@ -170,8 +134,7 @@ const CurrentVehicle = observer(() => {
             'icon-allow-overlap': true,
             'icon-anchor': 'center',
             'icon-image': 'plane-marker',
-            'icon-rotate':
-              shipmentStore.currentGeoLoc?.hdg - 45 - map.getBearing(),
+            'icon-rotate': shipmentStore.currentGeoLoc?.hdg - 45 - map.getBearing(),
           }}
           type='symbol'
         >
@@ -236,12 +199,7 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature
-            coordinates={[
-              interest.location.longitude,
-              interest.location.latitude,
-            ]}
-          />
+          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
         </Layer>
       );
     });
