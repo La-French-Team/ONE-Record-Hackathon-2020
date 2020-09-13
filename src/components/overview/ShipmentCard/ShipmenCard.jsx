@@ -16,6 +16,8 @@ const useStyle = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: '2rem',
+    "box-shadow":
+      "0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)",
   },
   cardLink: {
     textDecoration: 'none',
@@ -35,15 +37,10 @@ const ShipmentCard = ({ shipment, shipmentDescription }) => {
   const { params } = useRouteMatch();
   const classes = useStyle();
   return (
-    <Link
-      to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
-      className={classes.cardLink}
-    >
-      <Card className={classes.shipmentCard}>
-        {React.cloneElement(shipmentDescription, { shipment })}
-        <ChevronRightIcon />
-      </Card>
-    </Link>
+    <Card className={classes.shipmentCard}>
+      {React.cloneElement(shipmentDescription, { shipment })}
+      <ChevronRightIcon />
+    </Card>
   );
 };
 
