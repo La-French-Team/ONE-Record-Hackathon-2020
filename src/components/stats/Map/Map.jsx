@@ -131,8 +131,8 @@ const Flights = ({ flights }) => {
 };
 
 const CurrentVehicle = observer(() => {
-  // const isPlane = shipmentStore.currentGeoLoc?.hdg !== null;
-  const isPlane = true;
+  const isPlane = shipmentStore.currentGeoLoc?.hdg !== null;
+  // const isPlane = true;
 
   return isPlane ? (
     <Layer
@@ -150,7 +150,7 @@ const CurrentVehicle = observer(() => {
     </Layer>
   ) : (
     <Layer
-      id='plane'
+      id='truck'
       images={['truck-marker', TruckIcon]}
       layout={{
         'icon-allow-overlap': true,
