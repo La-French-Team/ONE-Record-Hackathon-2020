@@ -116,7 +116,7 @@ export default () => {
         setHighlightEventAt(timestamp);
       }
     },
-    [highlightEventAt]
+    [highlightEventAt],
   );
 
   return (
@@ -133,7 +133,10 @@ export default () => {
             <ShipmentMap airWayBill={airWayBill} />
           </Grid>
           <Grid item className={classes.detailsContainer}>
-            <ShipmentDetails shipment={shipment} highlightEventAt={highlightEventAt} />
+            <ShipmentDetails
+              shipment={shipment}
+              highlightEventAt={highlightEventAt}
+            />
           </Grid>
         </Grid>
         <Grid container item xs={12} md={2} direction='column'>
@@ -160,7 +163,11 @@ export default () => {
                 horizontal: 'center',
               }}
             >
-              <Grid container direction='column' className={classes.popoverContent}>
+              <Grid
+                container
+                direction='column'
+                className={classes.popoverContent}
+              >
                 <FormGroup column>
                   <FormControlLabel
                     control={
@@ -174,7 +181,11 @@ export default () => {
                   />
                   <FormControlLabel
                     control={
-                      <Checkbox checked={checkboxState.checkedSMS} onChange={handleCheckboxChange} name='checkedSMS' />
+                      <Checkbox
+                        checked={checkboxState.checkedSMS}
+                        onChange={handleCheckboxChange}
+                        name='checkedSMS'
+                      />
                     }
                     label='SMS'
                   />
@@ -188,7 +199,11 @@ export default () => {
                     }
                     label='WhatsApp'
                   />
-                  <Button variant='contained' color='primary' onClick={handlePopoverClose}>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handlePopoverClose}
+                  >
                     Save
                   </Button>
                 </FormGroup>
@@ -196,7 +211,11 @@ export default () => {
             </Popover>
           </Grid>
           <Grid item>
-            <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
+            <EventList
+              shipment={shipment}
+              onEventClick={onEventClick}
+              highlightEventAt={highlightEventAt}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -232,10 +251,12 @@ const ULDList = ({ ulds }) => {
           <Uld uld={result} />
           {
             // Hardcoded empty ULD
-            ulds[0] === 'http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951' && (
+            ulds[0] ===
+              'http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951' && (
               <Uld
                 uld={{
-                  '@id': 'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+                  '@id':
+                    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
                   'https://onerecord.iata.org/ULD#ownerCode': 'AF',
                   'https://onerecord.iata.org/ULD#serialNumber': '1335',
                   'https://onerecord.iata.org/ULD#uldType': 'AKE',
@@ -259,12 +280,17 @@ const ULDList = ({ ulds }) => {
   );
 };
 
-const EventList = observer(({ shipment, onEventClick, highlightEventAt = null }) => {
-  const classes = useStyle();
-  const events = shipment
-    .filter(({ eta }) => moment(eta).isSameOrBefore(shipmentStore.currentTime))
-    .map((step) => {
-      if (step.startTemperature > 8) {
+const EventList = observer(
+  ({ shipment, onEventClick, highlightEventAt = null }) => {
+    const classes = useStyle();
+    const match = useRouteMatch();
+    const shipmentId = match.params.id;
+    const { min, max } = minMax[shipmentId];
+    const passedPoints = shipment.filter(({ eta }) =>
+      moment(eta).isSameOrBefore(moment(shipmentStore.currentTime)),
+    );
+    const events = passedPoints.map((step) => {
+      if (step.startTemperature > max) {
         return {
           level: 'error',
           title: 'Temperature issue',
@@ -275,7 +301,7 @@ const EventList = observer(({ shipment, onEventClick, highlightEventAt = null })
             </Typography>
           ),
         };
-      } else if (step.startTemperature < 2) {
+      } else if (step.startTemperature < min) {
         return {
           level: 'error',
           title: 'Temperature issue',
@@ -300,30 +326,39 @@ const EventList = observer(({ shipment, onEventClick, highlightEventAt = null })
         };
       }
     });
-  console.log(events.length);
 
-  return (
-    <ResponsiveList>
-      {events.map((event) => (
-        <ListItem>
-          <Event event={event} onEventClick={onEventClick} isHighLighted={event.time === highlightEventAt} />
-        </ListItem>
-      ))}
-    </ResponsiveList>
-  );
-});
+    return (
+      <ResponsiveList>
+        {events.map((event) => (
+          <ListItem>
+            <Event
+              event={event}
+              onEventClick={onEventClick}
+              isHighLighted={event.time === highlightEventAt}
+            />
+          </ListItem>
+        ))}
+      </ResponsiveList>
+    );
+  },
+);
 
 const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
   const classes = useStyle();
+  const match = useRouteMatch();
+  const shipmentId = match.params.id;
+  const { min, max } = minMax[shipmentId];
 
   const [randomData] = useState(
     shipment.map(({ eta }) => ({
       x: moment(eta).toDate(),
       y: Math.random() * 25,
-    }))
+    })),
   );
 
-  const passedPoints = shipment.filter(({ eta }) => moment(eta).isBefore(moment(shipmentStore.currentTime)));
+  const passedPoints = shipment.filter(({ eta }) =>
+    moment(eta).isSameOrBefore(moment(shipmentStore.currentTime)),
+  );
 
   const data = passedPoints.map(({ eta, startTemperature }) => ({
     x: moment(eta).toDate(),
@@ -350,8 +385,8 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
               data,
             },
           ]}
-          min={2}
-          max={8}
+          min={min}
+          max={max}
           defaultMarkers={marker}
         />
       </Grid>
@@ -361,7 +396,9 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
           series={[
             {
               id: 'Hygrometry',
-              data: randomData.filter(({ x }) => moment(x).isBefore(moment(shipmentStore.currentTime))),
+              data: randomData.filter(({ x }) =>
+                moment(x).isSameOrBefore(moment(shipmentStore.currentTime)),
+              ),
             },
           ]}
         />
@@ -369,3 +406,14 @@ const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
     </Grid>
   );
 });
+
+const minMax = {
+  '057-35635677': {
+    min: 2,
+    max: 8,
+  },
+  '220-58358322': {
+    min: 15,
+    max: 25,
+  },
+};

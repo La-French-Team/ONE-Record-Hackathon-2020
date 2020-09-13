@@ -23,89 +23,90 @@ const LineChart = ({
 }) => {
   const theme = useTheme();
 
-  const nivoTheme = theme.palette.type === 'light'
-    ? defaultTheme
-    : {
-      background: theme.palette.background.default,
-      axis: {
-          domain: {
+  const nivoTheme =
+    theme.palette.type === 'light'
+      ? defaultTheme
+      : {
+          background: theme.palette.background.default,
+          axis: {
+            domain: {
               line: {
-                  strokeWidth: 0,
-                  stroke: '#526271',
+                strokeWidth: 0,
+                stroke: '#526271',
               },
-          },
-          ticks: {
+            },
+            ticks: {
               line: {
-                  strokeWidth: 1,
-                  stroke: '#526271',
+                strokeWidth: 1,
+                stroke: '#526271',
               },
               text: {
-                  fill: '#8d9cab',
-                  fontSize: 11,
+                fill: '#8d9cab',
+                fontSize: 11,
               },
-          },
-          legend: {
+            },
+            legend: {
               text: {
-                  fill: '#ccd7e2',
-                  fontSize: 13,
-                  fontWeight: 500,
+                fill: '#ccd7e2',
+                fontSize: 13,
+                fontWeight: 500,
               },
+            },
           },
-      },
-      grid: {
-          line: {
+          grid: {
+            line: {
               stroke: '#444',
+            },
           },
-      },
-      legends: {
-          text: {
+          legends: {
+            text: {
               fontSize: 12,
               fill: '#8d9cab',
+            },
           },
-      },
-      tooltip: {
-          container: {
+          tooltip: {
+            container: {
               fontSize: '13px',
               background: '#000',
               color: '#ddd',
+            },
           },
-      },
-      labels: {
-          text: {
+          labels: {
+            text: {
               fill: '#ddd',
               fontSize: 12,
               fontWeight: 500,
+            },
           },
-      },
-      dots: {
-          text: {
+          dots: {
+            text: {
               fill: '#bbb',
               fontSize: 12,
+            },
           },
-      },
-      annotations: {
-          text: {
+          annotations: {
+            text: {
               fill: '#dddddd',
               outlineWidth: 3,
               outlineColor: '#0e1317',
-          },
-          link: {
+            },
+            link: {
               stroke: '#ffffff',
               outlineWidth: 2,
               outlineColor: '#0e1317',
-          },
-          outline: {
+            },
+            outline: {
               stroke: '#ffffff',
               outlineWidth: 2,
               outlineColor: '#0e1317',
-          },
-          symbol: {
+            },
+            symbol: {
               fill: '#ffffff',
               outlineWidth: 2,
               outlineColor: '#0e1317',
+            },
           },
-      }
-    }
+        };
 
   /**
    * @type {import('@nivo/core').CartesianMarkerProps[]}
@@ -169,8 +170,8 @@ const LineChart = ({
       curve='monotoneX'
       yScale={{
         type: 'linear',
-        min: 0,
-        max: Math.max(10, ...series[0].data.map(({ y }) => y + 2)),
+        min: Math.min(max - 5, ...series[0].data.map(({ y }) => y - 5)),
+        max: Math.max(max + 5, ...series[0].data.map(({ y }) => y + 5)),
         stacked: true,
         reverse: false,
       }}
