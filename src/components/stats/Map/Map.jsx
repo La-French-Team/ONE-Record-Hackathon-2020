@@ -68,6 +68,7 @@ class Map extends Component {
 
   handleStyleLoad = (map) => {
     map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
+    map.addImage('plane-marker', PlaneIcon);
   };
 
   render() {

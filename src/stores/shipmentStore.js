@@ -63,7 +63,7 @@ class ShipmentStore {
     // }
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
-      // Arrived !
+      console.log('Arrived !');
       return 'arrived';
     }
 
@@ -78,7 +78,7 @@ class ShipmentStore {
     // }
 
     // Arrived at point of interest
-    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length - 1;
+    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
     if (isStepOver) {
       // this.increaseStepNumber();
       this.#playbackIndex++;
