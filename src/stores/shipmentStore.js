@@ -1,4 +1,5 @@
 import { flights, routes } from 'assets';
+import moment from 'moment';
 
 const { decorate, observable, action, toJS } = require('mobx');
 
@@ -7,6 +8,7 @@ class ShipmentStore {
   events = [];
   selectedUld = null;
   currentGeoLoc = { lon: 0, lat: 0, hdg: null };
+  currentTime = moment(0);
   stepNumber = 0;
 
   #playbacks = [];
@@ -20,9 +22,11 @@ class ShipmentStore {
         hdg: point.heading,
       }));
 
-    const extractRoutePoints = (route) => route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
+    const extractRoutePoints = (route) =>
+      route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
 
     this.airWayBill = airWayBill;
+    this.currentTime = this.airWayBill[0]?.timestamp;
 
     // Retrieve flight playbacks by ID (e.g. KL643)
     this.#playbacks = [
@@ -79,7 +83,8 @@ class ShipmentStore {
     }
 
     // Arrived at point of interest
-    const isStepOver = this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
+    const isStepOver =
+      this.#currentPointIndex === this.#playbacks[this.#playbackIndex].length;
     if (isStepOver) {
       this.increaseStepNumber();
       this.#playbackIndex++;
@@ -90,7 +95,12 @@ class ShipmentStore {
     }
 
     // Forward
-    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][this.#currentPointIndex++];
+    this.currentGeoLoc = this.#playbacks[this.#playbackIndex][
+      this.#currentPointIndex++
+    ];
+    this.currentTime = moment(
+      this.airWayBill[this.#playbackIndex]?.eta || this.currentTime,
+    );
   }
 
   reset() {
@@ -108,6 +118,7 @@ decorate(ShipmentStore, {
   currentGeoLoc: observable,
   selectedUld: observable,
   nextStep: action,
+  currentTime: observable,
 });
 
 export default new ShipmentStore();

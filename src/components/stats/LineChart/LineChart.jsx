@@ -80,7 +80,7 @@ const LineChart = ({
       yScale={{
         type: 'linear',
         min: 0,
-        max: 'auto',
+        max: Math.max(10, ...series[0].data.map(({ y }) => y + 2)),
         stacked: true,
         reverse: false,
       }}
@@ -148,10 +148,10 @@ const LineChart = ({
 let xFormatCounter = 0;
 const renderXFormat = (time) => {
   let res = null;
-  if (xFormatCounter === 0) {
-    xFormatCounter = 0;
-    res = moment(time).format('LLL');
-  }
+  // if (xFormatCounter === 0) {
+  xFormatCounter = 0;
+  res = moment(time).format('LLL');
+  // }
   xFormatCounter++;
   if (xFormatCounter === 3) {
     xFormatCounter = 0;

@@ -34,20 +34,20 @@ const icons = {
 };
 
 const useStyles = makeStyles({
-  root: { 
+  root: {
     height: '100%',
     width: '100%',
-    "box-shadow":
-      "0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)",
+    'box-shadow':
+      '0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)',
   },
   title: {
     fontSize: 14,
   },
   header: {
-    padding: "15px",
-    "font-weight": 600,
-    "font-size": "18px",
-    "border-bottom": "solid 1px lightgrey",
+    padding: '15px',
+    'font-weight': 600,
+    'font-size': '18px',
+    'border-bottom': 'solid 1px lightgrey',
   },
 });
 
@@ -59,13 +59,21 @@ export default function Event({ event, isHighLighted, onEventClick }) {
   }, [event, onEventClick]);
 
   return (
-    <Card className={classes.root} elevation={isHighLighted ? 3 : 0} style={isHighLighted ? {borderRight: 'solid 5px #2196f3'} : {}}>
+    <Card
+      className={classes.root}
+      elevation={isHighLighted ? 3 : 0}
+      style={isHighLighted ? { borderRight: 'solid 5px #2196f3' } : {}}
+    >
       <CardHeader
         className={classes.header}
         avatar={icons[event.level]}
-        title={<strong style={{ fontSize: "16px", lineHeight: "34px" }}>{event.title.toUpperCase()}</strong>}
+        title={
+          <strong style={{ fontSize: '16px', lineHeight: '34px' }}>
+            {event.title.toUpperCase()}
+          </strong>
+        }
       />
-      <CardContent style={{'padding-bottom': 0}}>
+      <CardContent style={{ 'padding-bottom': 0 }}>
         <Typography variant='caption' component='p'>
           {moment(event.time).format('LLL')}
         </Typography>
@@ -73,11 +81,14 @@ export default function Event({ event, isHighLighted, onEventClick }) {
           {event.details}
         </Typography>
       </CardContent>
-      <CardActions >
-        <Button size='small' onClick={onClick}>
-          Highlight
-        </Button>
-      </CardActions>
+
+      {event.level === 'error' && (
+        <CardActions>
+          <Button size='small' onClick={onClick}>
+            Highlight
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }

@@ -1,6 +1,5 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from 'react';
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -8,34 +7,35 @@ import {
   ListItem,
   makeStyles,
   Typography,
-} from "@material-ui/core";
-import ShipmentStatus from "components/shipment/ShipmentStatus";
-import LineChart from "components/stats/LineChart/LineChart";
-import Page from "components/commons/Page/Page";
-import ShipmentMap from "components/shipment/ShipmentMap";
-import Event from "components/event/Event";
-import ResponsiveList from "components/commons/ResponsiveList/ResponsiveList";
-import { useHistory, useRouteMatch } from "react-router-dom";
-import mockData from "mocks/shipments";
-import moment from "moment";
-import { StatusColor } from "const";
-import { useAsync } from "hooks";
-import Skeleton from "react-loading-skeleton";
-import shipmentStore from "stores/shipmentStore";
-import Uld from "components/uld/Uld";
-import PhonelinkRingIcon from "@material-ui/icons/PhonelinkRing";
+} from '@material-ui/core';
+import ShipmentStatus from 'components/shipment/ShipmentStatus';
+import LineChart from 'components/stats/LineChart/LineChart';
+import Page from 'components/commons/Page/Page';
+import ShipmentMap from 'components/shipment/ShipmentMap';
+import Event from 'components/event/Event';
+import ResponsiveList from 'components/commons/ResponsiveList/ResponsiveList';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import mockData from 'mocks/shipments';
+import moment from 'moment';
+import { StatusColor } from 'const';
+import { useAsync } from 'hooks';
+import Skeleton from 'react-loading-skeleton';
+import shipmentStore from 'stores/shipmentStore';
+import Uld from 'components/uld/Uld';
+import PhonelinkRingIcon from '@material-ui/icons/PhonelinkRing';
+import { observer } from 'mobx-react';
 
 const useStyle = makeStyles(() => ({
   mapContainer: {
-    width: "100%",
-    height: "600px",
+    width: '100%',
+    height: '600px',
   },
   detailsContainer: {
-    height: "fit-content",
+    height: 'fit-content',
   },
   chartContainer: {
-    margin: "10px 0",
-    height: "400px",
+    margin: '10px 0',
+    height: '400px',
   },
 }));
 
@@ -45,7 +45,7 @@ export default () => {
 
   const shipmentId = match.params.id;
   if (!mockData[shipmentId]) {
-    history.push("/", null);
+    history.push('/', null);
     return null;
   }
   const shipment = mockData[shipmentId];
@@ -56,7 +56,7 @@ export default () => {
     const loop = setInterval(() => {
       try {
         const result = shipmentStore.nextStep();
-        if (result === "arrived") {
+        if (result === 'arrived') {
           clearInterval(loop);
         }
       } catch (e) {
@@ -81,7 +81,7 @@ export default () => {
         setHighlightEventAt(timestamp);
       }
     },
-    [highlightEventAt]
+    [highlightEventAt],
   );
 
   return (
@@ -90,7 +90,7 @@ export default () => {
         <Grid item xs={12} md={2}>
           <ULDList />
         </Grid>
-        <Grid container item xs={12} md={8} direction="column">
+        <Grid container item xs={12} md={8} direction='column'>
           <Grid item>
             <ShipmentStatus airWayBill={shipment} />
           </Grid>
@@ -121,7 +121,7 @@ export default () => {
 
 const getULDFromOneRecord = () => {
   return fetch(
-    "http://onerecord.fr:8083/companies/airfrance/los/Uld_195302"
+    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
   ).then(async (response) => response.json());
 };
 
@@ -130,25 +130,25 @@ const ULDList = () => {
   const { status, value, error } = useAsync(getULDFromOneRecord);
   return (
     <ResponsiveList>
-      {status === "pending" && <Skeleton height={180} count={5} />}
-      {status === "success" && (
+      {status === 'pending' && <Skeleton height={180} count={5} />}
+      {status === 'success' && (
         <>
           <Uld uld={value} />
           <Uld
             uld={{
-              "@id":
-                "http://onerecord.fr:8083/companies/airfrance/los/Uld_195302",
-              "https://onerecord.iata.org/ULD#ownerCode": "AF",
-              "https://onerecord.iata.org/ULD#serialNumber": "1335",
-              "https://onerecord.iata.org/ULD#uldType": "AKE",
-              "https://onerecord.iata.org/ULD#upid": {
-                "https://onerecord.iata.org/Piece#containedPiece": [],
+              '@id':
+                'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+              'https://onerecord.iata.org/ULD#ownerCode': 'AF',
+              'https://onerecord.iata.org/ULD#serialNumber': '1335',
+              'https://onerecord.iata.org/ULD#uldType': 'AKE',
+              'https://onerecord.iata.org/ULD#upid': {
+                'https://onerecord.iata.org/Piece#containedPiece': [],
               },
             }}
           />
         </>
       )}
-      {status === "error" && (
+      {status === 'error' && (
         <Card>
           <CardContent>
             <Typography>{error.message}</Typography>
@@ -159,46 +159,68 @@ const ULDList = () => {
   );
 };
 
-const EventList = ({ shipment, onEventClick, highlightEventAt = null }) => {
-  const events = [
-    ...shipment
-      .filter(({ startTemperature }) => startTemperature > 8)
-      .map((step) => ({
-        level: "error",
-        title: "Temperature issue",
-        time: step.eta,
-        details: `Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`,
-      })),
-    ...shipment
-      .filter(({ startTemperature }) => startTemperature < 2)
-      .map((step) => ({
-        level: "error",
-        title: "Temperature issue",
-        time: step.eta,
-        details: `Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`,
-      })),
-  ].sort(({ time: t1 }, { time: t2 }) => t2 - t1);
+const EventList = observer(
+  ({ shipment, onEventClick, highlightEventAt = null }) => {
+    const events = shipment
+      .filter(({ eta }) =>
+        moment(eta).isBefore(moment(shipmentStore.currentTime)),
+      )
+      .map((step) => {
+        if (step.startTemperature > 8) {
+          return {
+            level: 'error',
+            title: 'Temperature issue',
+            time: step.eta,
+            details: `Piece temperature ${step.startTemperature}°C was over the maximum allowed value of 8.0°C`,
+          };
+        } else if (step.startTemperature < 2) {
+          return {
+            level: 'error',
+            title: 'Temperature issue',
+            time: step.eta,
+            details: `Piece temperature ${step.startTemperature}°C was below the minimum allowed value of 2.0°C`,
+          };
+        } else {
+          return {
+            level: 'info',
+            title: step.location.type,
+            time: step.eta,
+          };
+        }
+      });
+    // console.log(events);
 
-  console.log(events);
+    return (
+      <ResponsiveList>
+        {events.map((event) => (
+          <ListItem>
+            <Event
+              event={event}
+              onEventClick={onEventClick}
+              isHighLighted={event.time === highlightEventAt}
+            />
+          </ListItem>
+        ))}
+      </ResponsiveList>
+    );
+  },
+);
 
-  return (
-    <ResponsiveList>
-      {events.map((event) => (
-        <ListItem>
-          <Event
-            event={event}
-            onEventClick={onEventClick}
-            isHighLighted={event.time === highlightEventAt}
-          />
-        </ListItem>
-      ))}
-    </ResponsiveList>
-  );
-};
-
-const ShipmentDetails = ({ shipment, highlightEventAt }) => {
+const ShipmentDetails = observer(({ shipment, highlightEventAt }) => {
   const classes = useStyle();
-  const data = shipment.map(({ eta, startTemperature }) => ({
+
+  const [randomData] = useState(
+    shipment.map(({ eta }) => ({
+      x: moment(eta).toDate(),
+      y: Math.random() * 25,
+    })),
+  );
+
+  const passedPoints = shipment.filter(({ eta }) =>
+    moment(eta).isBefore(moment(shipmentStore.currentTime)),
+  );
+
+  const data = passedPoints.map(({ eta, startTemperature }) => ({
     x: moment(eta).toDate(),
     y: startTemperature,
   }));
@@ -206,7 +228,7 @@ const ShipmentDetails = ({ shipment, highlightEventAt }) => {
   const marker = [];
   if (!!highlightEventAt) {
     marker.push({
-      axis: "x",
+      axis: 'x',
       value: moment(highlightEventAt).toDate(),
       lineStyle: { stroke: StatusColor.error, strokeWidth: 4 },
     });
@@ -216,10 +238,10 @@ const ShipmentDetails = ({ shipment, highlightEventAt }) => {
     <Grid container>
       <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
-          verticalAxisName={"Température (°C)"}
+          verticalAxisName={'Température (°C)'}
           series={[
             {
-              id: "Internal temperature",
+              id: 'Internal temperature',
               data,
             },
           ]}
@@ -230,20 +252,17 @@ const ShipmentDetails = ({ shipment, highlightEventAt }) => {
       </Grid>
       <Grid item xs={12} className={classes.chartContainer}>
         <LineChart
-          verticalAxisName="Hygrometry (%)"
+          verticalAxisName='Hygrometry (%)'
           series={[
             {
-              id: "Hygrometry",
-              data: Array.from(Array(20), (_, index) => ({
-                x: moment("2020-09-12T15:24:45Z")
-                  .add(index * 240, "s")
-                  .toDate(),
-                y: Math.random() * 25,
-              })),
+              id: 'Hygrometry',
+              data: randomData.filter(({ x }) =>
+                moment(x).isBefore(moment(shipmentStore.currentTime)),
+              ),
             },
           ]}
         />
       </Grid>
     </Grid>
   );
-};
+});
