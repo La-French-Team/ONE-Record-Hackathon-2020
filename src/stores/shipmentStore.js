@@ -26,20 +26,21 @@ class ShipmentStore {
 
     // Retrieve flight playbacks by ID (e.g. KL643)
     this.#playbacks = [
-      [],
-      extractRoutePoints(routes.LeTraitCDG),
-      [],
-      [],
-      [],
-      extractRoutePoints(routes.CDGAMS),
-      [],
-      [],
-      [],
-      [],
-      extractFlightPoints(flights.KL643),
-      [],
+      [], // Departure
+      [], // Truck
+      extractRoutePoints(routes.LeTraitCDG), // CDG
+      [], // Truck
+      // [],
+      // [],
+      extractRoutePoints(routes.CDGAMS), // AMS
+      [], // Flight
+      // [],
+      // [],
+      // [],
+      extractFlightPoints(flights.KL643), // JFK
+      [], // Truck
       extractRoutePoints(routes.JFKJFK),
-      [],
+      // [],
       extractRoutePoints(routes.JFKNewYork),
       [],
     ];
