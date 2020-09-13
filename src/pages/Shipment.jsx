@@ -104,18 +104,15 @@ export default () => {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} md={2}>
-          <Grid item xs={12}>
-            <Button onClick={() => {}}>
-              <PhonelinkRingIcon />
-              <Typography>Stay informed</Typography>
+        <Grid container item xs={12} md={2} direction='column'>
+          <Grid item style={{textAlign:'center', paddingTop:8}}>
+            <Button variant='contained' color='primary' startIcon={<PhonelinkRingIcon />} onClick={() => {}}>
+              Stay informed
             </Button>
           </Grid>
-          <EventList
-            shipment={shipment}
-            onEventClick={onEventClick}
-            highlightEventAt={highlightEventAt}
-          />
+          <Grid item>
+            <EventList shipment={shipment} onEventClick={onEventClick} highlightEventAt={highlightEventAt} />
+          </Grid>
         </Grid>
       </Grid>
     </Page>
