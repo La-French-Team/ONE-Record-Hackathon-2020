@@ -1,15 +1,25 @@
-import { Card, CardContent, CardHeader, makeStyles, Typography } from '@material-ui/core';
-import uldImage from 'assets/uld.svg';
-import Piece from 'components/piece/Piece';
-import React, { useEffect, useState } from 'react';
-import Skeleton from 'react-loading-skeleton';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import uldImage from "assets/uld.svg";
+import Piece from "components/piece/Piece";
+import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import LoInfoButton from "components/commons/LoInfoButton/LoInfoButton";
 
 const useStyles = makeStyles({
-  root: { height: '100%', width: '100%' },
+  root: {
+    height: "100%",
+    width: "100%",
+  },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -18,17 +28,27 @@ const useStyles = makeStyles({
 
 export default function Uld({ uld }) {
   const classes = useStyles();
-  const pieces = uld['https://onerecord.iata.org/ULD#upid']['https://onerecord.iata.org/Piece#containedPiece'];
+  const pieces =
+    uld["https://onerecord.iata.org/ULD#upid"][
+      "https://onerecord.iata.org/Piece#containedPiece"
+    ];
   console.log(uld);
-  console.log(pieces);
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<img src={uldImage} alt='Box' height={30} />}
-        title={`ULD #${uld['https://onerecord.iata.org/ULD#serialNumber']}`}
+        avatar={<img src={uldImage} alt="Box" height={30} />}
+        style={{ paddingBottom: 0 }}
+        title={
+          <strong style={{ fontSize: "18px", lineHeight: "34px" }}>
+            {`ULD ${uld["https://onerecord.iata.org/ULD#uldType"]} ${uld["https://onerecord.iata.org/ULD#ownerCode"]}#${uld["https://onerecord.iata.org/ULD#serialNumber"]}`}
+            <LoInfoButton loUri={uld["@id"]} loType={"ULD"}></LoInfoButton>
+          </strong>
+        }
       />
-      <CardContent>
+      <CardContent
+        style={{ paddingBottom: 0, borderBottom: "solid 1px lightgrey" }}
+      >
         <PieceList pieces={pieces} />
       </CardContent>
     </Card>
@@ -36,7 +56,7 @@ export default function Uld({ uld }) {
 }
 
 const PieceList = ({ pieces }) => {
-  return pieces.map((piece) => <AsyncPiece key={piece['@id']} piece={piece} />);
+  return pieces.map((piece) => <AsyncPiece key={piece["@id"]} piece={piece} />);
 };
 
 const AsyncPiece = ({ piece }) => {
@@ -46,7 +66,7 @@ const AsyncPiece = ({ piece }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(piece['@id'])
+    fetch(piece["@id"])
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
@@ -61,7 +81,7 @@ const AsyncPiece = ({ piece }) => {
   // console.log(status, value, error);
   return (
     <>
-      {loading && <Skeleton count={1} height='100px' />}
+      {loading && <Skeleton count={1} height="100px" />}
       {result && <Piece piece={result} />}
       {error && <Typography>{error.message}</Typography>}
     </>
