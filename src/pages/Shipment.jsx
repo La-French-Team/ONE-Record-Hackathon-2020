@@ -5,8 +5,12 @@ import {
   CardContent,
   Grid,
   ListItem,
+  Popover,
   makeStyles,
   Typography,
+  FormGroup,
+  FormControlLabel,
+  Checkbox
 } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
@@ -26,7 +30,7 @@ import PhonelinkRingIcon from '@material-ui/icons/PhonelinkRing';
 import { observer } from 'mobx-react';
 import LoInfoButton from 'components/commons/LoInfoButton/LoInfoButton';
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   mapContainer: {
     width: '100%',
     height: '600px',
@@ -44,11 +48,37 @@ const useStyle = makeStyles(() => ({
     justifyContent: 'space-between',
     marginBottom: '1rem',
   },
+  popoverContent: {
+    padding: theme.spacing(2)
+  },
 }));
 
 export default () => {
   const match = useRouteMatch();
   const history = useHistory();
+
+  const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
+
+  const handlePopoverButtonClick = (event) => {
+    setPopoverAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setPopoverAnchorEl(null);
+  };
+
+  const popoverOpen = Boolean(popoverAnchorEl);
+  const popoverId = popoverOpen ? 'notification-popover' : undefined;
+
+  const [checkboxState, setCheckboxState] = React.useState({
+    checkedMail: false,
+    checkedSMS: false,
+    checkedWhatsApp: false,
+  });
+
+  const handleCheckboxChange = (event) => {
+    setCheckboxState({ ...checkboxState, [event.target.name]: event.target.checked });
+  };
 
   const shipmentId = match.params.id;
   if (!mockData[shipmentId]) {
@@ -62,10 +92,7 @@ export default () => {
   useEffect(() => {
     const loop = setInterval(() => {
       try {
-        const result = shipmentStore.nextStep();
-        if (result === 'arrived') {
-          clearInterval(loop);
-        }
+        shipmentStore.nextStep();
       } catch (e) {
         console.error(e);
         clearInterval(loop);
@@ -117,10 +144,42 @@ export default () => {
               variant='contained'
               color='primary'
               startIcon={<PhonelinkRingIcon />}
-              onClick={() => {}}
+              onClick={handlePopoverButtonClick}
             >
               Stay informed
             </Button>
+            <Popover
+              id={popoverId}
+              open={popoverOpen}
+              anchorEl={popoverAnchorEl}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Grid container direction='column' className={classes.popoverContent}>
+                <FormGroup column>
+                  <FormControlLabel
+                    control={<Checkbox checked={checkboxState.checkedMail} onChange={handleCheckboxChange} name="checkedMail" />}
+                    label="Mail"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checkboxState.checkedSMS} onChange={handleCheckboxChange} name="checkedSMS" />}
+                    label="SMS"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checkboxState.checkedWhatsApp} onChange={handleCheckboxChange} name="checkedWhatsApp" />}
+                    label="WhatsApp"
+                  />
+                  <Button variant='contained' color='primary'>Save</Button>
+                </FormGroup>
+              </Grid>
+            </Popover>
           </Grid>
           <Grid item>
             <EventList
