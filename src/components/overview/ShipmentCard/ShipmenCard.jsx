@@ -39,7 +39,13 @@ const ShipmentCard = ({ shipment, shipmentDescription }) => {
   return (
     <Card className={classes.shipmentCard}>
       {React.cloneElement(shipmentDescription, { shipment })}
-      <ChevronRightIcon />
+      <Link
+          style={{margin: 0}}
+          to={`/${params.userType}/shipments/${shipment.waybillNumber}`}
+          className={classes.cardLink}
+        >
+        <ChevronRightIcon />
+      </Link>
     </Card>
   );
 };
