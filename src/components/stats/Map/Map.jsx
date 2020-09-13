@@ -69,7 +69,9 @@ class Map extends Component {
         fitBoundsOptions={{
           padding: this.props.theme.spacing(3),
         }}
-        style='mapbox://styles/mapbox/streets-v11' // eslint-disable-line react/style-prop-object
+        style={this.props.theme.palette.type === 'dark'
+          ? 'mapbox://styles/mapbox/dark-v10'
+          : 'mapbox://styles/mapbox/streets-v11'} // eslint-disable-line react/style-prop-object
         onStyleLoad={this.handleStyleLoad}
       >
         <Layer
