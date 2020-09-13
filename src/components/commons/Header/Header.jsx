@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     scale: '',
     objectFit: 'cover',
   },
+  flex: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 }));
 
 const getUserName = (userType) => {
@@ -47,21 +52,25 @@ const Header = ({ pageName = '' }) => {
 
   return (
     <AppBar position='static'>
-      <Toolbar>
-        <Link to='/'>
-          <Button className={classes.menuButton}>
-            <img
-              src={`${process.env.PUBLIC_URL}/one-track.png`}
-              className={classes.logo}
-              alt='onecargo-logo'
-            />
-          </Button>
-        </Link>
-        <Typography variant='h6' className={classes.title}>
-          {pageName}
-        </Typography>
+      <Toolbar className={classes.flex}>
+        <div className={classes.flex}>
+          <Link to='/'>
+            <Button className={classes.menuButton}>
+              <img
+                src={`${process.env.PUBLIC_URL}/one-track.png`}
+                className={classes.logo}
+                alt='onecargo-logo'
+              />
+            </Button>
+          </Link>
+          <Typography variant='h6' className={classes.title}>
+            {pageName}
+          </Typography>
+        </div>
 
-        <Button onClick={onReplay}>Replay</Button>
+        <Button onClick={onReplay} variant='contained' color='secondary'>
+          Replay
+        </Button>
 
         <Button
           aria-label='account of current user'
