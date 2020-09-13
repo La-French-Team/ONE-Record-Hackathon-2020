@@ -60,7 +60,7 @@ class ShipmentStore {
 
   increaseStepNumber() {
     if (this.stepNumber === this.airWayBill.length - 1) {
-      console.warn('Calling increase but already at max');
+      // console.warn('Calling increase but already at max');
       return;
     }
     this.stepNumber++;
@@ -78,7 +78,7 @@ class ShipmentStore {
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
       this.increaseStepNumber();
-      console.log('Arrived !');
+      // console.log('Arrived !');
       return 'arrived';
     }
 

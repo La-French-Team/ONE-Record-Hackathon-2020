@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 // Hook
 
 const useAsync = (asyncFunction, immediate = true) => {
-  console.log('useAsync called');
+  // console.log('useAsync called');
   const [status, setStatus] = useState('idle');
 
   const [value, setValue] = useState(null);

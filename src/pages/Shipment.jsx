@@ -81,7 +81,7 @@ export default () => {
 
   const onEventClick = useCallback(
     (timestamp) => {
-      console.log(timestamp);
+      // console.log(timestamp);
       if (timestamp === highlightEventAt) {
         setHighlightEventAt(null);
       } else {
