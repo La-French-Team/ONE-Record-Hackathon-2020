@@ -125,7 +125,7 @@ function ShipmentStatus({ airWayBill }) {
   return (
     <div className={classes.root}>
       <Stepper activeStep={shipmentStore.stepNumber}>
-        {steps.map(({ label, stepIndex }, index) => {
+        {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
           return (
