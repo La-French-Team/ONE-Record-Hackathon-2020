@@ -8,13 +8,12 @@ import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 // Assets
 import { AirportIcon, PlaneIcon, StartEndIcon, WarehouseIcon } from 'assets';
-import { Place } from '@material-ui/icons';
 import shipmentStore from 'stores/shipmentStore';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 const MapboxGL = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
+  accessToken:
+    'pk.eyJ1IjoiZm1hdW5la28iLCJhIjoiY2tlc3lwMHZ2MTBmejJwbjA1MmpxZ2ltbSJ9.-cIjrVFjJrN9w-kOs-UPKA',
 });
 
 const lineLayout = {
@@ -35,8 +34,24 @@ const routeLinePaint = {
 class Map extends Component {
   buildingsLayerPaint = {
     'fill-extrusion-color': '#aaa',
-    'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
-    'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
+    'fill-extrusion-height': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'height'],
+    ],
+    'fill-extrusion-base': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      15,
+      0,
+      15.05,
+      ['get', 'min_height'],
+    ],
     'fill-extrusion-opacity': 0.6,
   };
 
@@ -49,16 +64,6 @@ class Map extends Component {
       })) || [],
   }));
   routes = this.props.routes || [];
-<<<<<<< HEAD
-
-  computeBoundingBox = () => {
-    const lnglats = [
-      ...this.routes.reduce((acc, { coordinates }) => [...acc, ...coordinates], []),
-      ...this.flights.reduce((acc, { points }) => [...acc, ...points.map((p) => p.pos)], []),
-    ];
-
-    const bounds = lnglats.reduce((bounds, coords) => bounds.extend(coords), new LngLatBounds(lnglats[0], lnglats[0]));
-=======
 
   computeBoundingBox = () => {
     if (this.interests.length < 1) {
@@ -76,13 +81,14 @@ class Map extends Component {
       (bounds, coords) => bounds.extend(coords),
       new LngLatBounds(lnglatInterests[0], lnglatInterests[0]),
     );
->>>>>>> Add temperature data & sync alerts with charts
 
     return bounds.toArray();
   };
 
   handleStyleLoad = (map) => {
-    map.addControl(new NavigationControl()).addControl(new ScaleControl(), 'bottom-right');
+    map
+      .addControl(new NavigationControl())
+      .addControl(new ScaleControl(), 'bottom-right');
   };
 
   render() {
@@ -203,7 +209,12 @@ const PointsOfInterest = ({ interests }) => {
           }}
           type='symbol'
         >
-          <Feature coordinates={[interest.location.longitude, interest.location.latitude]} />
+          <Feature
+            coordinates={[
+              interest.location.longitude,
+              interest.location.latitude,
+            ]}
+          />
         </Layer>
       );
     });
