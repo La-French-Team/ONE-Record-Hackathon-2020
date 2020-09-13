@@ -5,6 +5,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { observer } from 'mobx-react';
 import shipmentStore from 'stores/shipmentStore';
+import { StepIcon } from '@material-ui/core';
+import plane from 'assets/plane.svg';
+import truck from 'assets/truck.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +23,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps(airWayBill) {
-  return airWayBill?.filter((step) => step.location.type !== 'Truck').map((step) => step.point) || [];
+  const playback = [[], null, [], [], [], null, [], [], [], [], null, [], null, [], null, []];
+  // return airWayBill?.map((step) => step.point) || [];
+  return [
+    'Departure',
+    'Truck',
+    'CDG',
+    '',
+    '',
+    'Truck',
+    'AMS',
+    '',
+    '',
+    '',
+    'Plane',
+    'JFK',
+    'Truck',
+    'Agent',
+    'Truck',
+    'Arrived',
+  ];
 }
 
 function ShipmentStatus({ airWayBill }) {
@@ -35,7 +57,9 @@ function ShipmentStatus({ airWayBill }) {
           const labelProps = {};
           return (
             <Step key={`${label}-${index}`} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+              {label === 'Plane' && <StepIcon icon={<img src={plane} alt='Plane' height={30} />} />}
+              {label === 'Truck' && <StepIcon icon={<img src={truck} alt='Truck' height={30} />} />}
+              {label !== '' && label !== 'Plane' && label !== 'Truck' && <StepLabel {...labelProps}>{label}</StepLabel>}
             </Step>
           );
         })}
