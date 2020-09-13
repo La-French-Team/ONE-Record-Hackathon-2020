@@ -4,6 +4,7 @@ import QrCodeIcon from "components/icons/QrCode";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import Link from "@material-ui/core/Link";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
@@ -102,9 +103,9 @@ const LoInfoButton = ({ loUri, loType }) => {
           <div style={{ marginBottom: "5px", textAlign: "center" }}>
             <QRCode value={loUri} />
           </div>
-          <a href={loUri} target="_blank">
+          <Link href={loUri} target="_blank">
             {loUri}
-          </a>
+          </Link>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
