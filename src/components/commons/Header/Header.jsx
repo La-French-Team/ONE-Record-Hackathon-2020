@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { IconButton, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   logo: {
-    height: '30px',
+    height: '40px',
     width: 'auto',
     scale: '',
     objectFit: 'cover',
@@ -43,13 +43,13 @@ const Header = ({ pageName = '' }) => {
     <AppBar position='static'>
       <Toolbar>
         <Link to='/'>
-          <IconButton edge='start' className={classes.menuButton}>
+          <Button className={classes.menuButton}>
             <img
               src={`${process.env.PUBLIC_URL}/one-track.png`}
               className={classes.logo}
               alt='onecargo-logo'
             />
-          </IconButton>
+          </Button>
         </Link>
         <Typography variant='h6' className={classes.title}>
           {pageName}
