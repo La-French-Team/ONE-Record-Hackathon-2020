@@ -10,7 +10,7 @@ import {
   Typography,
   FormGroup,
   FormControlLabel,
-  Checkbox
+  Checkbox,
 } from '@material-ui/core';
 import ShipmentStatus from 'components/shipment/ShipmentStatus';
 import LineChart from 'components/stats/LineChart/LineChart';
@@ -49,7 +49,7 @@ const useStyle = makeStyles((theme) => ({
     marginBottom: '1rem',
   },
   popoverContent: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
 }));
 
@@ -77,7 +77,10 @@ export default () => {
   });
 
   const handleCheckboxChange = (event) => {
-    setCheckboxState({ ...checkboxState, [event.target.name]: event.target.checked });
+    setCheckboxState({
+      ...checkboxState,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const shipmentId = match.params.id;
@@ -94,7 +97,6 @@ export default () => {
       try {
         shipmentStore.nextStep();
       } catch (e) {
-        console.error(e);
         clearInterval(loop);
       }
     }, 5);
@@ -108,7 +110,6 @@ export default () => {
 
   const onEventClick = useCallback(
     (timestamp) => {
-      // console.log(timestamp);
       if (timestamp === highlightEventAt) {
         setHighlightEventAt(null);
       } else {
@@ -162,21 +163,49 @@ export default () => {
                 horizontal: 'center',
               }}
             >
-              <Grid container direction='column' className={classes.popoverContent}>
+              <Grid
+                container
+                direction='column'
+                className={classes.popoverContent}
+              >
                 <FormGroup column>
                   <FormControlLabel
-                    control={<Checkbox checked={checkboxState.checkedMail} onChange={handleCheckboxChange} name="checkedMail" />}
-                    label="Mail"
+                    control={
+                      <Checkbox
+                        checked={checkboxState.checkedMail}
+                        onChange={handleCheckboxChange}
+                        name='checkedMail'
+                      />
+                    }
+                    label='Mail'
                   />
                   <FormControlLabel
-                    control={<Checkbox checked={checkboxState.checkedSMS} onChange={handleCheckboxChange} name="checkedSMS" />}
-                    label="SMS"
+                    control={
+                      <Checkbox
+                        checked={checkboxState.checkedSMS}
+                        onChange={handleCheckboxChange}
+                        name='checkedSMS'
+                      />
+                    }
+                    label='SMS'
                   />
                   <FormControlLabel
-                    control={<Checkbox checked={checkboxState.checkedWhatsApp} onChange={handleCheckboxChange} name="checkedWhatsApp" />}
-                    label="WhatsApp"
+                    control={
+                      <Checkbox
+                        checked={checkboxState.checkedWhatsApp}
+                        onChange={handleCheckboxChange}
+                        name='checkedWhatsApp'
+                      />
+                    }
+                    label='WhatsApp'
                   />
-                  <Button variant='contained' color='primary' onClick={handlePopoverClose}>Save</Button>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handlePopoverClose}
+                  >
+                    Save
+                  </Button>
                 </FormGroup>
               </Grid>
             </Popover>
@@ -239,7 +268,7 @@ const EventList = observer(
     const classes = useStyle();
     const events = shipment
       .filter(({ eta }) =>
-        moment(eta).isBefore(moment(shipmentStore.currentTime)),
+        moment(eta).isSameOrBefore(shipmentStore.currentTime),
       )
       .map((step) => {
         if (step.startTemperature > 8) {
@@ -278,6 +307,7 @@ const EventList = observer(
           };
         }
       });
+    console.log(events.length);
 
     return (
       <ResponsiveList>

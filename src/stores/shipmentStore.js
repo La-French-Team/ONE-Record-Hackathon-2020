@@ -1,7 +1,7 @@
 import { flights, routes } from 'assets';
 import moment from 'moment';
 
-const { decorate, observable, action, toJS } = require('mobx');
+const { decorate, observable, action } = require('mobx');
 
 class ShipmentStore {
   airWayBill;
@@ -26,7 +26,7 @@ class ShipmentStore {
       route.coordinates.map((coordinate) => ({ pos: coordinate, hdg: null }));
 
     this.airWayBill = airWayBill;
-    this.currentTime = this.airWayBill[0]?.timestamp;
+    this.currentTime = this.airWayBill[this.airWayBill.length - 1]?.eta;
 
     // Retrieve flight playbacks by ID (e.g. KL643)
     this.#playbacks = [
@@ -82,7 +82,6 @@ class ShipmentStore {
 
     if (this.#playbackIndex > this.#playbacks.length - 1) {
       this.increaseStepNumber();
-      // console.log('Arrived !');
       return 'arrived';
     }
 
@@ -103,7 +102,7 @@ class ShipmentStore {
       this.#currentPointIndex++
     ];
     this.currentTime = moment(
-      this.airWayBill[this.#playbackIndex]?.eta || this.currentTime,
+      this.airWayBill[this.currentPointIndex]?.eta || this.currentTime,
     );
   }
 
