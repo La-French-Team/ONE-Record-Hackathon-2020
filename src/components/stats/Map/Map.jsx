@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 // Packages
 import { LngLatBounds, NavigationControl, ScaleControl } from 'mapbox-gl';
 import { withTheme } from '@material-ui/core';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, MapContext } from 'react-mapbox-gl';
 
 // Assets
 import { AirportIcon, PlaneIcon, StartEndIcon, TruckIcon, WarehouseIcon } from 'assets';
@@ -130,19 +130,23 @@ const CurrentVehicle = observer(() => {
   // const isPlane = true;
 
   return isPlane ? (
-    <Layer
-      id='plane'
-      images={['plane-marker', PlaneIcon]}
-      layout={{
-        'icon-allow-overlap': true,
-        'icon-anchor': 'bottom',
-        'icon-image': 'plane-marker',
-      }}
-      type='symbol'
-      bearing={shipmentStore.currentGeoLoc?.hdg}
-    >
-      <Feature coordinates={shipmentStore.currentGeoLoc?.pos} />
-    </Layer>
+    <MapContext.Consumer>
+      {map => (
+        <Layer
+          id='plane'
+          images={['plane-marker', PlaneIcon]}
+          layout={{
+            'icon-allow-overlap': true,
+            'icon-anchor': 'center',
+            'icon-image': 'plane-marker',
+            'icon-rotate': shipmentStore.currentGeoLoc?.hdg - 45 - map.getBearing(),
+          }}
+          type='symbol'
+        >
+          <Feature coordinates={shipmentStore.currentGeoLoc?.pos} />
+        </Layer>
+      )}
+    </MapContext.Consumer>
   ) : (
     <Layer
       id='truck'
