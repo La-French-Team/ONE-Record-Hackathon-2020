@@ -43,8 +43,8 @@ export default () => {
           waybillNumber: waybillNumber,
           loUri:
             waybillNumber === '057-35635677'
-              ? 'http://onerecord.fr:8082/companies/bollore/los/Waybill_266895'
-              : 'http://onerecord.fr:8082/companies/dbschenker/los/Waybill_124259',
+              ? 'https://onerecord.fr:8082/companies/bollore/los/Waybill_266895'
+              : 'https://onerecord.fr:8082/companies/dbschenker/los/Waybill_124259',
         };
       })
     );

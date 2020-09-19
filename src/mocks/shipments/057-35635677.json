@@ -3,7 +3,7 @@
     "point": "Le trait",
     "actorType": "Shipper",
     "actorName": "Sanofi",
-    "actorURI": "http://onerecord.fr:8081/companies/sanofi",
+    "actorURI": "https://onerecord.fr:8081/companies/sanofi",
     "location": {
       "type": "Warehouse",
       "address": "1051 Boulevard industriel, 76580",
@@ -22,7 +22,7 @@
     "point": "le trait - CDG",
     "actorType": "Agent",
     "actorName": "Bollore Logistics",
-    "actorURI": "http://onerecord.fr:8082/companies/bollore",
+    "actorURI": "https://onerecord.fr:8082/companies/bollore",
     "location": {
       "type": "Truck",
       "address": "Route",
@@ -41,7 +41,7 @@
     "point": "CDG",
     "actorType": "Airline",
     "actorName": "Air France",
-    "actorURI": "http://onerecord.fr:8083/companies/airfrance",
+    "actorURI": "https://onerecord.fr:8083/companies/airfrance",
     "location": {
       "type": "Warehouse",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -60,7 +60,7 @@
     "point": "CDG",
     "actorType": "Airline",
     "actorName": "Air France",
-    "actorURI": "http://onerecord.fr:8083/companies/airfrance",
+    "actorURI": "https://onerecord.fr:8083/companies/airfrance",
     "location": {
       "type": "Cooled storage",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -79,7 +79,7 @@
     "point": "CDG",
     "actorType": "Airline",
     "actorName": "Air France",
-    "actorURI": "http://onerecord.fr:8083/companies/airfrance",
+    "actorURI": "https://onerecord.fr:8083/companies/airfrance",
     "location": {
       "type": "out of cooled storage",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -98,7 +98,7 @@
     "point": "CDG-AMS",
     "actorType": "Airline",
     "actorName": "Air France",
-    "actorURI": "http://onerecord.fr:8083/companies/airfrance",
+    "actorURI": "https://onerecord.fr:8083/companies/airfrance",
     "location": {
       "type": "Truck",
       "address": "Route",
@@ -117,7 +117,7 @@
     "point": "AMS",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "Warehouse",
       "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
@@ -136,7 +136,7 @@
     "point": "AMS",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "Warehouse",
       "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
@@ -155,7 +155,7 @@
     "point": "AMS",
     "actorType": "Airline ",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "Warehouse",
       "address": "Handelskade 1-3, 1117 EE Schiphol, Pays-Bas",
@@ -174,7 +174,7 @@
     "point": "AMS",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "truck",
       "address": "Tarmac",
@@ -193,7 +193,7 @@
     "point": "AMS-JFK",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "KL643",
       "address": "Route",
@@ -212,7 +212,7 @@
     "point": "JFK",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "Warehouse",
       "address": "Building JFK, 78B N Boundary Rd, Jamaica, NY 11430, États-Unis",
@@ -231,7 +231,7 @@
     "point": "JFK",
     "actorType": "Airline",
     "actorName": "KLM",
-    "actorURI": "http://onerecord.fr:8083/companies/klm",
+    "actorURI": "https://onerecord.fr:8083/companies/klm",
     "location": {
       "type": "Truck",
       "address": "Route",
@@ -250,7 +250,7 @@
     "point": "JFK",
     "actorType": "Agent",
     "actorName": "Bollore",
-    "actorURI": "http://onerecord.fr:8082/companies/bollore",
+    "actorURI": "https://onerecord.fr:8082/companies/bollore",
     "location": {
       "type": "Warehouse",
       "address": "151-6 132nd Ave, Jamaica, NY 11434, États-Unis",
@@ -269,7 +269,7 @@
     "point": "JFK-New York",
     "actorType": "Agent",
     "actorName": "Bollore",
-    "actorURI": "http://onerecord.fr:8082/companies/bollore",
+    "actorURI": "https://onerecord.fr:8082/companies/bollore",
     "location": {
       "type": "Truck",
       "address": "Route",
@@ -288,7 +288,7 @@
     "point": "New York",
     "actorType": "Consignee",
     "actorName": "CVS Pharmacy",
-    "actorURI": "http://onerecord.fr:8081/companies/cvspharmacy",
+    "actorURI": "https://onerecord.fr:8081/companies/cvspharmacy",
     "location": {
       "type": "Warehouse",
       "address": "1 CVS Dr, Chemung, NY 14825, États-Unis",

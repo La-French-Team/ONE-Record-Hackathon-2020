@@ -6,7 +6,7 @@ function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color='inherit' href='http://onerecord.fr/'>
+      <Link color='inherit' href='https://onerecord.fr/'>
         The French Team
       </Link>{' '}
       {new Date().getFullYear()}

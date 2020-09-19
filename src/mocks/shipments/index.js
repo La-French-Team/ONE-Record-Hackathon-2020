@@ -39,7 +39,7 @@ const mockedData = {
       { label: 'Truck', stepIndex: 14 },
       { label: 'Arrival', stepIndex: 15 },
     ],
-    ulds: ['http://onerecord.fr:8083/companies/airfrance/los/Uld_195302'],
+    ulds: ['https://onerecord.fr:8083/companies/airfrance/los/Uld_195302'],
   },
   '220-58358322': {
     data: chickens,
@@ -63,7 +63,7 @@ const mockedData = {
       { label: 'Truck', stepIndex: 8 },
       { label: 'Arrival', stepIndex: 9 },
     ],
-    ulds: ['http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951'],
+    ulds: ['https://onerecord.fr:8083/companies/lufthansa/los/Uld_834951'],
   },
 };
 

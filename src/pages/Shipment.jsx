@@ -252,11 +252,11 @@ const ULDList = ({ ulds }) => {
           {
             // Hardcoded empty ULD
             ulds[0] ===
-              'http://onerecord.fr:8083/companies/lufthansa/los/Uld_834951' && (
+              'https://onerecord.fr:8083/companies/lufthansa/los/Uld_834951' && (
               <Uld
                 uld={{
                   '@id':
-                    'http://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
+                    'https://onerecord.fr:8083/companies/airfrance/los/Uld_195302',
                   'https://onerecord.iata.org/ULD#ownerCode': 'AF',
                   'https://onerecord.iata.org/ULD#serialNumber': '1335',
                   'https://onerecord.iata.org/ULD#uldType': 'AKE',

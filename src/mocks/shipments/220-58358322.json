@@ -3,7 +3,7 @@
     "point": "AC Babberich",
     "actorType": "Shipper",
     "actorName": "ter Heerdt N.V.",
-    "actorURI": "http://onerecord.fr:8081/companies/terheerdt",
+    "actorURI": "https://onerecord.fr:8081/companies/terheerdt",
     "location": {
       "type": "Warehouse",
       "address": "Babberichseweg 89, 6909 AC Babberich, Pays-Bas",
@@ -22,7 +22,7 @@
     "point": "Babberich - FRA",
     "actorType": "Agent",
     "actorName": "DB Schenker",
-    "actorURI": "http://onerecord.fr:8082/companies/dbschenker",
+    "actorURI": "https://onerecord.fr:8082/companies/dbschenker",
     "location": {
       "type": "Truck",
       "address": "Route",
@@ -41,7 +41,7 @@
     "point": "FRA",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "Warehouse - acceptance area",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -60,7 +60,7 @@
     "point": "FRA",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "Warehouse - monitored storage",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -79,7 +79,7 @@
     "point": "FRA",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "Warehouse - out of monitored storage",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -98,7 +98,7 @@
     "point": "FRA",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "Warehouse - Parking Stand",
       "address": "12 Rue du Tarteret, 95700 Roissy-en-France",
@@ -117,7 +117,7 @@
     "point": "FRA-CAI",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "LH8290",
       "address": "Flight",
@@ -136,7 +136,7 @@
     "point": "FRA-CAI",
     "actorType": "Airline",
     "actorName": "Lufthansa",
-    "actorURI": "http://onerecord.fr:8083/companies/lufthansa",
+    "actorURI": "https://onerecord.fr:8083/companies/lufthansa",
     "location": {
       "type": "LH8290",
       "address": "Truck",
@@ -155,7 +155,7 @@
     "point": "CAI",
     "actorType": "GHA",
     "actorName": "CACC Cargolinx",
-    "actorURI": "http://onerecord.fr:8083/companies/cacccargolinx",
+    "actorURI": "https://onerecord.fr:8083/companies/cacccargolinx",
     "location": {
       "type": "Warehouse",
       "address": "Cairo Airport",
@@ -174,7 +174,7 @@
     "point": "CAI",
     "actorType": "Consignee",
     "actorName": "Lotus Poultry Egypt Farm",
-    "actorURI": "http://onerecord.fr:8081/companies/lotuspoultry",
+    "actorURI": "https://onerecord.fr:8081/companies/lotuspoultry",
     "location": {
       "type": "Farm",
       "address": "Wadi Al Netroun - Al Deblomasein Rd, El Beheira Desert, El Beheira Governorate, Égypte",
